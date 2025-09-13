@@ -1,5 +1,7 @@
 import CartIcon from "./CartIcon";
 import { Link, useLocation } from "react-router-dom";
+import { User } from "lucide-react";
+import { Button } from "./ui/button";
 
 const Header = () => {
   const location = useLocation();
@@ -24,7 +26,14 @@ const Header = () => {
             <Logo />
           </Link>
         )}
-        <CartIcon />
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="icon" asChild>
+            <Link to="/profile">
+              <User className="h-5 w-5" />
+            </Link>
+          </Button>
+          <CartIcon />
+        </div>
       </div>
     </header>
   );

@@ -1,7 +1,17 @@
-import type { Seller, Product } from "@/types";
+import type { Seller, Product, Customer } from "@/types";
 import { addDays } from "date-fns";
 
 const now = new Date();
+
+export const mockCustomer: Customer = {
+  id: "customer-1",
+  firstName: "Maria",
+  lastName: "Schmidt",
+  email: "maria.schmidt@example.com",
+  phone: "+49 123 4567890",
+  address: "Musterstraße 1, 12345 Berlin",
+  avatarUrl: "/images/avatar.jpg",
+};
 
 export const mockSellers: Seller[] = [
   {

@@ -53,3 +53,13 @@ export type CartItem = Omit<Product, "batches" | "status" | "createdAt"> & {
   batch: Batch;
   quantity: number;
 };
+
+export interface Customer {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  avatarUrl: string;
+}
