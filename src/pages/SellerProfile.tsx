@@ -20,19 +20,7 @@ import { format } from "date-fns";
 import { AppBreadcrumb } from "@/components/AppBreadcrumb";
 import BackButton from "@/components/BackButton";
 import { Footer } from "@/components/Footer";
-
-const StarRating = ({ rating, className }: { rating: number, className?: string }) => (
-  <div className={`flex items-center gap-1 ${className}`}>
-    {[...Array(5)].map((_, i) => (
-      <Star
-        key={i}
-        className={`h-5 w-5 ${
-          i < Math.round(rating) ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-        }`}
-      />
-    ))}
-  </div>
-);
+import StarRating from "@/components/StarRating";
 
 const ReviewCard = ({ review }: { review: Review }) => (
   <Card>

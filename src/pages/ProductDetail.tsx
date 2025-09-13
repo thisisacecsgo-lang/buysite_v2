@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,7 @@ import ProductCard from "@/components/ProductCard";
 import CategoryIcon from "@/components/CategoryIcon";
 import BatchesTable from "@/components/BatchesTable";
 import { formatPrice } from "@/lib/utils";
+import StarRating from "@/components/StarRating";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,6 +31,14 @@ const ProductDetail = () => {
   const seller = product
     ? mockSellers.find((s) => s.id === product.sellerId)
     : undefined;
+
+  const averageRating = useMemo(() => {
+    if (!seller || seller.reviews.length === 0) {
+      return 0;
+    }
+    const totalRating = seller.reviews.reduce((acc, r) => acc + r.rating, 0);
+    return totalRating / seller.reviews.length;
+  }, [seller]);
 
   const relatedProducts = product
     ? mockProducts.filter(
@@ -136,6 +146,14 @@ const ProductDetail = () => {
                       >
                         {seller.name}
                       </Link>
+                      {seller.reviews.length > 0 && (
+                        <div className="flex items-center gap-2 mt-1">
+                          <StarRating rating={averageRating} />
+                          <span className="text-xs text-muted-foreground">
+                            ({seller.reviews.length} reviews)
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <Button variant="secondary" asChild>
                       <Link to={`/seller/${seller.id}`}>View Profile</Link>
