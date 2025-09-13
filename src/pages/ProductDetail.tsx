@@ -23,6 +23,7 @@ import CategoryIcon from "@/components/CategoryIcon";
 import BatchesTable from "@/components/BatchesTable";
 import { formatPrice } from "@/lib/utils";
 import StarRating from "@/components/StarRating";
+import CopyableBadge from "@/components/CopyableBadge";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -92,11 +93,14 @@ const ProductDetail = () => {
               <CategoryIcon category={product.category} className="h-8 w-8 text-muted-foreground" />
               <h1 className="text-4xl font-bold">{product.name}</h1>
             </div>
-            <div className="flex items-center gap-2">
-              <Tag className="h-6 w-6 text-primary" />
-              <p className="text-3xl font-semibold text-primary">
-                {formatPrice(product)}
-              </p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Tag className="h-6 w-6 text-primary" />
+                <p className="text-3xl font-semibold text-primary">
+                  {formatPrice(product)}
+                </p>
+              </div>
+              <CopyableBadge textToCopy={product.sku} />
             </div>
             <div className="space-y-4 text-lg">
               <div className="flex items-center gap-3">

@@ -31,6 +31,7 @@ export interface Batch {
 
 export interface Product {
   id:string;
+  sku: string;
   sellerId: string;
   name: string;
   category: string;

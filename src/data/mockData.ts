@@ -128,6 +128,7 @@ export const mockProducts: Product[] = [
   // Seller 1: Green Valley Farms (4 products)
   {
     id: "1",
+    sku: "50001",
     sellerId: "seller-1",
     name: "Apples",
     category: "Fruits and berries",
@@ -151,6 +152,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "4",
+    sku: "50002",
     sellerId: "seller-1",
     name: "Eggs",
     category: "Animal products",
@@ -172,6 +174,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "10",
+    sku: "50003",
     sellerId: "seller-1",
     name: "Chicken Thighs",
     category: "Meat and poultry",
@@ -192,6 +195,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "13",
+    sku: "50004",
     sellerId: "seller-1",
     name: "Carrots",
     category: "Vegetables",
@@ -213,6 +217,7 @@ export const mockProducts: Product[] = [
   // Seller 2: Coastal Gardens (4 products)
   {
     id: "9",
+    sku: "50005",
     sellerId: "seller-2",
     name: "Goat Cheese",
     category: "Dairy products",
@@ -233,6 +238,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "12",
+    sku: "50006",
     sellerId: "seller-2",
     name: "Sourdough Bread",
     category: "Bakery",
@@ -253,6 +259,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "19",
+    sku: "50007",
     sellerId: "seller-2",
     name: "Raw Cow's Milk",
     category: "Dairy products",
@@ -273,6 +280,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "20",
+    sku: "50008",
     sellerId: "seller-2",
     name: "raw Salmon Fillet",
     category: "Seafood",
@@ -294,6 +302,7 @@ export const mockProducts: Product[] = [
   // Seller 3: Berry Patch (4 products)
   {
     id: "3",
+    sku: "50009",
     sellerId: "seller-3",
     name: "Homemade Strawberry Jam",
     category: "Fruits and berries",
@@ -315,6 +324,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "11",
+    sku: "50010",
     sellerId: "seller-3",
     name: "Wildflower Honey",
     category: "Animal products",
@@ -335,6 +345,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "14",
+    sku: "50011",
     sellerId: "seller-3",
     name: "Frozen Blueberries",
     category: "Fruits and berries",
@@ -355,6 +366,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "17",
+    sku: "50012",
     sellerId: "seller-3",
     name: "Fresh Raspberries",
     category: "Fruits and berries",
@@ -376,6 +388,7 @@ export const mockProducts: Product[] = [
   // Seller 4: Mountain View Organics (4 products)
   {
     id: "26",
+    sku: "50013",
     sellerId: "seller-4",
     name: "Organic Quinoa",
     category: "Bakery",
@@ -398,6 +411,7 @@ export const mockProducts: Product[] = [
   // Seller 5: Riverbend Fishery (4 products)
   {
     id: "28",
+    sku: "50014",
     sellerId: "seller-5",
     name: "Fresh Oysters",
     category: "Seafood",
@@ -418,6 +432,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "29",
+    sku: "50015",
     sellerId: "seller-5",
     name: "Smoked Salmon",
     category: "Seafood",
@@ -438,6 +453,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "30",
+    sku: "50016",
     sellerId: "seller-5",
     name: "Dungeness Crab",
     category: "Seafood",
@@ -458,6 +474,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: "31",
+    sku: "50017",
     sellerId: "seller-5",
     name: "Canned Albacore Tuna",
     category: "Seafood",
