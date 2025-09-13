@@ -109,7 +109,7 @@ const ProductDetail = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Truck className="h-5 w-5 text-muted-foreground" />
-                <span>Delivery: {product.deliveryTimeInDays} day(s)</span>
+                <span>Ready to ship: {product.deliveryTimeInDays} day(s)</span>
               </div>
               {product.description && (
                 <div className="flex items-start gap-3">

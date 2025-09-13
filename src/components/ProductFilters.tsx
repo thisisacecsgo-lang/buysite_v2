@@ -60,7 +60,7 @@ const ProductFilters = ({
         </div>
         <Separator />
         <div className="space-y-4">
-          <Label>Delivery Speed</Label>
+          <Label>Ready to ship</Label>
           <RadioGroup value={deliverySpeed} onValueChange={onDeliverySpeedChange}>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="any" id="ds-any" />
