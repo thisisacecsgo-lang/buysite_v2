@@ -44,10 +44,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
   return (
     <Dialog open={isQuickViewOpen} onOpenChange={setIsQuickViewOpen}>
       <Card className={cn("w-full overflow-hidden flex flex-col group transition-all duration-300 hover:shadow-xl hover:-translate-y-1", className)}>
-        <CardHeader className="p-0 relative">
-          <Badge variant="secondary" className="absolute top-2 right-2 z-10 font-mono">
-            # {product.sku}
-          </Badge>
+        <CardHeader className="p-0">
           <DialogTrigger asChild>
             <div className="overflow-hidden relative cursor-pointer">
               <img
@@ -83,6 +80,11 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
             <Truck className="h-4 w-4" />
             <span>Ready to ship: {product.deliveryTimeInDays} day(s)</span>
+          </div>
+          <div className="mb-2">
+            <Badge variant="secondary" className="font-mono">
+              # {product.sku}
+            </Badge>
           </div>
           {isAvailableInFuture && (
             <div className="flex items-center gap-2 text-sm text-primary font-medium mb-2">

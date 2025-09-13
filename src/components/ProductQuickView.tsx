@@ -24,7 +24,6 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
             <CategoryIcon category={product.category} className="h-6 w-6 text-muted-foreground" />
             <DialogTitle className="text-2xl">{product.name}</DialogTitle>
           </div>
-          <Badge variant="secondary" className="font-mono text-sm py-1 px-2.5"># {product.sku}</Badge>
         </div>
         <DialogDescription>
           <div className="flex items-center gap-2 text-sm text-muted-foreground pl-9">
@@ -51,6 +50,9 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
           <div className="flex items-start gap-3 text-sm">
             <Truck className="h-4 w-4 text-muted-foreground mt-1 flex-shrink-0" />
             <p className="text-muted-foreground">Ready to ship: {product.deliveryTimeInDays} day(s)</p>
+          </div>
+          <div>
+            <Badge variant="secondary" className="font-mono"># {product.sku}</Badge>
           </div>
           {product.description && (
             <div className="flex items-start gap-3 text-sm">
