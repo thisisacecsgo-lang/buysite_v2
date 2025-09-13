@@ -16,12 +16,12 @@ export function formatPrice(product: Pick<Product | CartItem, 'price' | 'name' |
   const category = product.category;
 
   if (category === "Animal products" && lowerCaseName.includes('egg')) {
-    return `${priceString} per 1 piece`;
+    return `${priceString} / 1 piece`;
   }
 
   if (category === "Dairy products" && lowerCaseName.includes('milk')) {
-    return `${priceString} per 1 liter`;
+    return `${priceString} / 1 liter`;
   }
 
-  return `${priceString} per 1 kg`;
+  return `${priceString} / 1 kg`;
 }
