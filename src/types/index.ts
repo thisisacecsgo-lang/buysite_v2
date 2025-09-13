@@ -22,38 +22,27 @@ export interface Seller {
   };
 }
 
-export interface Batch {
-  id: string;
-  productionDate: string; // ISO date string
-  expiryDate: string; // ISO date string
-  quantity: string; // e.g., "1kg", "500g"
+export interface Product {
+  id:string;
+  sellerId: string;
+  name: string;
+  category: string;
+  quantity: string;
   price: number | "free";
+  region: string;
+  imageUrls: string[];
+  description?: string;
   status: "available" | "sold";
+  createdAt: string; // ISO date string
+  productionDate?: string; // ISO date string
+  expiryDate?: string; // ISO date string
+  isVegan: boolean;
+  isVegetarian: boolean;
+  harvestOnDemand: boolean;
   deliveryTimeInDays: number;
   freshness: "fresh" | "frozen" | "canned";
 }
 
-export interface Product {
-  id: string;
-  sellerId: string;
-  name: string;
-  category: string;
-  region: string;
-  imageUrls: string[];
-  description?: string;
-  createdAt: string; // ISO date string
-  isVegan: boolean;
-  isVegetarian: boolean;
-  harvestOnDemand: boolean;
-  batches: Batch[]; // Product now has an array of batches
-}
-
-export type CartItem = Omit<Product, "batches"> & {
-  batchId: string; // ID of the selected batch
-  quantity: number; // Quantity of the selected batch (from the batch itself)
-  price: number | "free"; // Price of the selected batch
-  productionDate: string; // Production date of the selected batch
-  expiryDate: string; // Expiry date of the selected batch
-  deliveryTimeInDays: number; // Delivery time of the selected batch
-  freshness: "fresh" | "frozen" | "canned"; // Freshness of the selected batch
+export type CartItem = Omit<Product, "quantity"> & {
+  quantity: number;
 };
