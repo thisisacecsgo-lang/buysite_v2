@@ -1,4 +1,4 @@
-import { Leaf, Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Footer = () => {
@@ -10,12 +10,9 @@ export const Footer = () => {
             <Link to="/" className="flex items-center gap-2">
               <img
                   src="/images/logo2.png"
-                  alt="Мой логотип"
-                  className="h-13 w-16"
+                  alt="Hiesige Höfe Logo"
+                  className="h-10 w-12"
               />
-              <span className="text-xl font-bold text-foreground">
-                Hiesige Höfe
-              </span>
             </Link>
             <p className="text-muted-foreground text-sm">
               Connecting local growers with their communities to reduce food waste.

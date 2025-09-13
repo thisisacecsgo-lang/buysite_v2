@@ -1,4 +1,3 @@
-import { Leaf } from "lucide-react";
 import CartIcon from "./CartIcon";
 import { Link, useLocation } from "react-router-dom";
 
@@ -8,10 +7,7 @@ const Header = () => {
 
   const Logo = () => (
       <div className="flex items-center gap-2">
-          <img src="/images/logo2.png" alt="MySite Logo" className="h-15 w-16"/>
-          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground whitespace-nowrap">
-              Hiesige Höfe
-          </h1>
+          <img src="/images/logo2.png" alt="Hiesige Höfe Logo" className="h-10 w-12"/>
       </div>
   );
 
