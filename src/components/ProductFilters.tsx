@@ -17,8 +17,8 @@ interface ProductFiltersProps {
   onShowHarvestOnDemandChange: (checked: boolean) => void;
   deliverySpeed: string;
   onDeliverySpeedChange: (value: string) => void;
-  showAvailableFrom: boolean;
-  onShowAvailableFromChange: (checked: boolean) => void;
+  showPreorder: boolean;
+  onShowPreorderChange: (checked: boolean) => void;
 }
 
 const ProductFilters = ({
@@ -33,8 +33,8 @@ const ProductFilters = ({
   onShowHarvestOnDemandChange,
   deliverySpeed,
   onDeliverySpeedChange,
-  showAvailableFrom,
-  onShowAvailableFromChange,
+  showPreorder,
+  onShowPreorderChange,
 }: ProductFiltersProps) => {
   return (
     <Card>
@@ -122,13 +122,13 @@ const ProductFilters = ({
             />
           </div>
           <div className="flex items-center justify-between">
-            <Label htmlFor="available-from" className="font-normal">
-              Available from
+            <Label htmlFor="preorder" className="font-normal">
+              Preorder
             </Label>
             <Switch
-              id="available-from"
-              checked={showAvailableFrom}
-              onCheckedChange={onShowAvailableFromChange}
+              id="preorder"
+              checked={showPreorder}
+              onCheckedChange={onShowPreorderChange}
             />
           </div>
         </div>

@@ -33,7 +33,7 @@ const Index = () => {
   const [showVegetarian, setShowVegetarian] = useState(false);
   const [showHarvestOnDemand, setShowHarvestOnDemand] = useState(false);
   const [deliverySpeed, setDeliverySpeed] = useState("any");
-  const [showAvailableFrom, setShowAvailableFrom] = useState(false);
+  const [showPreorder, setShowPreorder] = useState(false);
 
   const maxPrice = useMemo(
     () =>
@@ -81,7 +81,7 @@ const Index = () => {
       })();
 
       const isFutureProduct = product.productionDate ? isAfter(new Date(product.productionDate), new Date()) : false;
-      const availableFromMatch = showAvailableFrom ? isFutureProduct : !isFutureProduct;
+      const preorderMatch = showPreorder ? isFutureProduct : !isFutureProduct;
 
       return (
         searchMatch &&
@@ -91,7 +91,7 @@ const Index = () => {
         vegetarianMatch &&
         harvestOnDemandMatch &&
         deliveryMatch &&
-        availableFromMatch
+        preorderMatch
       );
     });
 
@@ -125,7 +125,7 @@ const Index = () => {
     showVegetarian,
     showHarvestOnDemand,
     deliverySpeed,
-    showAvailableFrom,
+    showPreorder,
   ]);
 
   const sidebarProps = {
@@ -144,8 +144,8 @@ const Index = () => {
     onShowHarvestOnDemandChange: setShowHarvestOnDemand,
     deliverySpeed,
     onDeliverySpeedChange: setDeliverySpeed,
-    showAvailableFrom,
-    onShowAvailableFromChange: setShowAvailableFrom,
+    showPreorder,
+    onShowPreorderChange: setShowPreorder,
   };
 
   return (

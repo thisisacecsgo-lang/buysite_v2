@@ -18,8 +18,8 @@ interface ProductSidebarProps {
   onShowHarvestOnDemandChange: (checked: boolean) => void;
   deliverySpeed: string;
   onDeliverySpeedChange: (value: string) => void;
-  showAvailableFrom: boolean;
-  onShowAvailableFromChange: (checked: boolean) => void;
+  showPreorder: boolean;
+  onShowPreorderChange: (checked: boolean) => void;
 }
 
 const ProductSidebar = ({
