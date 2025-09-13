@@ -2,7 +2,7 @@ import { Link, useLocation, Navigate } from "react-router-dom";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle2, Gift, Truck } from "lucide-react";
+import { CheckCircle2, Truck } from "lucide-react";
 import { format } from "date-fns";
 import BackButton from "@/components/BackButton";
 import { AppBreadcrumb } from "@/components/AppBreadcrumb";
@@ -19,7 +19,6 @@ const OrderConfirmation = () => {
     date,
     items,
     deliveryFee,
-    isPensioner,
     subtotal,
   } = (location.state as {
     orderId: string;
@@ -27,7 +26,6 @@ const OrderConfirmation = () => {
     date: string;
     items: CartItem[];
     deliveryFee: number;
-    isPensioner: boolean;
     subtotal: number;
   }) || {};
 
@@ -35,8 +33,6 @@ const OrderConfirmation = () => {
     // Redirect to home if state is not available (e.g., direct navigation)
     return <Navigate to="/" replace />;
   }
-
-  const pensionerDiscount = 2.0; // Standard €2.00 discount for pensioners
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -76,21 +72,12 @@ const OrderConfirmation = () => {
                     </div>
                     <span className="font-medium">€{deliveryFee.toFixed(2)}</span>
                   </div>
-                  {isPensioner && (
-                    <div className="flex justify-between items-center text-primary">
-                       <div className="flex items-center gap-2">
-                        <Gift className="h-4 w-4" />
-                        <span>Pensioner Discount</span>
-                      </div>
-                      <span className="font-medium">-€{pensionerDiscount.toFixed(2)}</span>
-                    </div>
-                  )}
                 </div>
                 <Separator />
                 <div className="space-y-2">
                   <div className="flex justify-between font-semibold text-base">
                     <span>Total Amount:</span>
-                    <span>€{(totalAmount - (isPensioner ? pensionerDiscount : 0)).toFixed(2)}</span>
+                    <span>€{totalAmount.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-xs text-muted-foreground">
                     <span>Order Number:</span>

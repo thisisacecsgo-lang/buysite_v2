@@ -19,13 +19,10 @@ import {
   CardHeader,
   CardTitle,
   CardFooter,
-  CardDescription,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import BackButton from "@/components/BackButton";
@@ -37,8 +34,7 @@ const formSchema = z.object({
   address: z.string().min(5, "Address is required."),
   city: z.string().min(2, "City is required."),
   zip: z.string().min(4, "A valid ZIP code is required."),
-  isPensioner: z.boolean().default(false),
-  paymentMethod: z.enum(["card", "paypal", "cash"], {
+  paymentMethod: z.enum(["card", "paypal", "bank"], {
     required_error: "You need to select a payment method.",
   }),
   coupon: z.string().optional(),
@@ -48,9 +44,8 @@ const formSchema = z.object({
 const Checkout = () => {
   const { cartItems, cartTotal, clearCart } = useCart();
   const navigate = useNavigate();
-  const [isPensioner, setIsPensioner] = useState(false);
 
-  const deliveryFee = isPensioner ? 1.5 : 3.5;
+  const deliveryFee = 3.5;
   const totalAmount = cartTotal + deliveryFee;
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -60,7 +55,6 @@ const Checkout = () => {
       address: "",
       city: "",
       zip: "",
-      isPensioner: false,
       paymentMethod: "card",
       coupon: "",
       comments: "",
@@ -73,7 +67,6 @@ const Checkout = () => {
     
     toast.success("Order placed successfully!");
     
-    // Pass order details to confirmation page
     navigate("/order-confirmation", {
       state: {
         orderId,
@@ -81,7 +74,6 @@ const Checkout = () => {
         date: new Date().toISOString(),
         items: cartItems,
         deliveryFee,
-        isPensioner: values.isPensioner,
         subtotal: cartTotal,
       },
     });
@@ -204,9 +196,9 @@ const Checkout = () => {
                             </FormItem>
                             <FormItem className="flex items-center space-x-3 space-y-0">
                               <FormControl>
-                                <RadioGroupItem value="cash" />
+                                <RadioGroupItem value="bank" />
                               </FormControl>
-                              <FormLabel className="font-normal">Cash on Delivery</FormLabel>
+                              <FormLabel className="font-normal">Bank Deduction</FormLabel>
                             </FormItem>
                           </RadioGroup>
                         </FormControl>
@@ -267,26 +259,6 @@ const Checkout = () => {
                     <span>Total</span>
                     <span>€{totalAmount.toFixed(2)}</span>
                   </div>
-                  <FormField
-                    control={form.control}
-                    name="isPensioner"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={(checked) => {
-                              field.onChange(checked);
-                              setIsPensioner(!!checked);
-                            }}
-                          />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                          <FormLabel>I am a pensioner (discounted delivery)</FormLabel>
-                        </div>
-                      </FormItem>
-                    )}
-                  />
                   <FormField
                     control={form.control}
                     name="coupon"
