@@ -16,14 +16,14 @@ export function formatPrice(product: Pick<Product | CartItem, 'price' | 'name' |
   const category = product.category;
 
   if (category === "Animal products" && lowerCaseName.includes('egg')) {
-    return `${priceString} / 1 piece`;
+    return `${priceString} / piece`;
   }
 
   if (category === "Dairy products" && lowerCaseName.includes('milk')) {
-    return `${priceString} / 1 liter`;
+    return `${priceString} / liter`;
   }
 
-  return `${priceString} / 1 kg`;
+  return `${priceString} / kg`;
 }
 
 export function formatBatchQuantity(product: Pick<Product, 'name' | 'category'>, batch: Batch): string {
