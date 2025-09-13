@@ -20,6 +20,11 @@ export interface Seller {
     lat: number;
     lon: number;
   };
+  age?: number;
+  production?: string;
+  motivation?: string;
+  values?: string;
+  background?: string;
 }
 
 export interface Batch {

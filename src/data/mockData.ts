@@ -21,6 +21,11 @@ export const mockSellers: Seller[] = [
     logoUrl: "/images/fa.jpg",
     verified: true,
     location: { lat: 37.3688, lon: -122.0363 },
+    age: 58,
+    production: "Organic fruits, vegetables, and free-range animal products.",
+    motivation: "To provide the community with healthy, sustainably grown food and reduce food miles.",
+    values: "Sustainability, animal welfare, and organic practices.",
+    background: "Third-generation farmer continuing the family tradition.",
     reviews: [
       {
         id: "review-1",
@@ -49,6 +54,11 @@ export const mockSellers: Seller[] = [
     logoUrl: "/images/ava.jpg",
     verified: false,
     location: { lat: 44.7793, lon: -123.1457 },
+    age: 34,
+    production: "Artisanal sourdough bread, goat cheese, and fresh dairy products.",
+    motivation: "Sharing the joy of handcrafted foods made with traditional methods.",
+    values: "Quality ingredients, craftsmanship, and local sourcing.",
+    background: "Former chef who turned his passion for baking and cheese-making into a small business.",
     reviews: [
       {
         id: "review-3",
@@ -70,6 +80,11 @@ export const mockSellers: Seller[] = [
     logoUrl: "/images/avat.jpg",
     verified: true,
     location: { lat: 48.8584, lon: -122.4331 },
+    age: 47,
+    production: "Small-scale honey from his own beehives and homemade fruit jams.",
+    motivation: "Shares surplus honey with the community to support nature and biodiversity.",
+    values: "Purity, tradition, ecological balance.",
+    background: "Engineer by profession, beekeeping is a passion project.",
     reviews: [],
     totalAds: 20,
     totalSold: 18,
@@ -82,6 +97,11 @@ export const mockSellers: Seller[] = [
     logoUrl: "/images/avatar.jpg",
     verified: true,
     location: { lat: 40.0150, lon: -105.2705 },
+    age: 42,
+    production: "Organic ancient grains like quinoa and spelt.",
+    motivation: "To reintroduce nutritious and sustainable grains into the local diet.",
+    values: "Organic farming, biodiversity, and healthy eating.",
+    background: "Agronomist focused on sustainable and alternative crops.",
     reviews: [
       {
         id: "review-4",
@@ -102,6 +122,11 @@ export const mockSellers: Seller[] = [
     logoUrl: "/images/avata.jpg",
     verified: false,
     location: { lat: 46.1879, lon: -123.8313 },
+    age: 63,
+    production: "Freshly caught and smoked seafood from the local coast.",
+    motivation: "To provide the freshest possible seafood directly from the source.",
+    values: "Sustainability, freshness, and respect for the ocean.",
+    background: "Lifelong fisherman with decades of experience on the water.",
     reviews: [
         {
             id: "review-5",

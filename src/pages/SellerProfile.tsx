@@ -99,6 +99,15 @@ const SellerProfile = () => {
     );
   }
 
+  const descriptionParts = [
+    seller.age && `Age: ${seller.age}`,
+    seller.production && `Production: ${seller.production}`,
+    seller.motivation && `Motivation: ${seller.motivation}`,
+    seller.values && `Values: ${seller.values}`,
+    seller.background && `Background: ${seller.background}`,
+  ].filter(Boolean);
+  const description = descriptionParts.join(" • ");
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -111,15 +120,18 @@ const SellerProfile = () => {
               <AvatarImage src={seller.logoUrl} alt={seller.name} />
               <AvatarFallback>{seller.name.charAt(0)}</AvatarFallback>
             </Avatar>
-            <div className="flex-grow">
+            <div className="flex-grow space-y-2">
               <h1 className="text-3xl font-bold">{seller.name}</h1>
-              <div className="flex items-center gap-2 text-muted-foreground mt-1">
+              <div className="flex items-center gap-2 text-muted-foreground">
                 <MapPin className="h-4 w-4" />
                 <span>{seller.region}</span>
               </div>
-              <div className="flex items-center gap-2 mt-2">
+              {description && (
+                <p className="text-sm text-muted-foreground pt-1">{description}</p>
+              )}
+              <div className="flex items-center gap-2 pt-1">
                 <StarRating rating={averageRating} />
-                <span className="text-muted-foreground">
+                <span className="text-sm text-muted-foreground">
                   ({averageRating.toFixed(1)} from {seller.reviews.length} reviews)
                 </span>
               </div>
