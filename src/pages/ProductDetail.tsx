@@ -59,8 +59,8 @@ const ProductDetail = () => {
       <main className="flex-grow container mx-auto p-4 md:p-8">
         <BackButton />
         <AppBreadcrumb />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-          <div className="lg:col-span-2">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <div>
             <Carousel className="w-full">
               <CarouselContent>
                 {product.imageUrls.map((img, index) => (
@@ -68,7 +68,7 @@ const ProductDetail = () => {
                     <img
                       src={img}
                       alt={`${product.name} image ${index + 1}`}
-                      className="w-full h-auto aspect-square object-cover rounded-lg border"
+                      className="w-full h-auto aspect-[4/3] object-cover rounded-lg border"
                     />
                   </CarouselItem>
                 ))}
