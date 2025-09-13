@@ -6,6 +6,7 @@ import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/di
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CategoryIcon from "./CategoryIcon";
 import { formatPrice } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 interface ProductQuickViewProps {
   product: Product;
@@ -18,9 +19,12 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
   return (
     <>
       <DialogHeader>
-        <div className="flex items-center gap-3">
-          <CategoryIcon category={product.category} className="h-6 w-6 text-muted-foreground" />
-          <DialogTitle className="text-2xl">{product.name}</DialogTitle>
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-3">
+            <CategoryIcon category={product.category} className="h-6 w-6 text-muted-foreground" />
+            <DialogTitle className="text-2xl">{product.name}</DialogTitle>
+          </div>
+          <Badge variant="secondary" className="font-mono text-sm py-1 px-2.5"># {product.sku}</Badge>
         </div>
         <DialogDescription>
           <div className="flex items-center gap-2 text-sm text-muted-foreground pl-9">

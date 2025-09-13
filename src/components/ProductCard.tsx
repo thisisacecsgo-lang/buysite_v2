@@ -16,6 +16,7 @@ import { ProductQuickView } from "./ProductQuickView";
 import { cn, formatPrice } from "@/lib/utils";
 import CategoryIcon from "./CategoryIcon";
 import { format, formatDistanceToNowStrict } from "date-fns";
+import { Badge } from "@/components/ui/badge";
 
 interface ProductCardProps {
   product: Product;
@@ -44,6 +45,9 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
     <Dialog open={isQuickViewOpen} onOpenChange={setIsQuickViewOpen}>
       <Card className={cn("w-full overflow-hidden flex flex-col group transition-all duration-300 hover:shadow-xl hover:-translate-y-1", className)}>
         <CardHeader className="p-0 relative">
+          <Badge variant="secondary" className="absolute top-2 right-2 z-10 font-mono">
+            # {product.sku}
+          </Badge>
           <DialogTrigger asChild>
             <div className="overflow-hidden relative cursor-pointer">
               <img
