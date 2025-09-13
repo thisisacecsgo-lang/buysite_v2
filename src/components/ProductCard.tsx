@@ -8,9 +8,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/types";
-import { Tag, ShoppingCart, MapPin, Eye, User, Calendar } from "lucide-react";
+import { Tag, MapPin, Eye, User, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useCart } from "@/context/CartContext";
 import { mockSellers } from "@/data/mockData";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ProductQuickView } from "./ProductQuickView";
@@ -24,17 +23,19 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, className }: ProductCardProps) => {
-  const { addToCart } = useCart();
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   const seller = mockSellers.find((s) => s.id === product.sellerId);
   const imageUrl = product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls[0] : "/placeholder.svg";
+  
+  const firstBatch = product.batches?.[0];
+  const productionDate = firstBatch?.productionDate;
 
-  const isAvailableInFuture = product.productionDate && new Date(product.productionDate) > new Date();
+  const isAvailableInFuture = productionDate && new Date(productionDate) > new Date();
 
   const availabilityText = () => {
-    if (!isAvailableInFuture || !product.productionDate) return null;
-    const date = new Date(product.productionDate);
+    if (!isAvailableInFuture || !productionDate) return null;
+    const date = new Date(productionDate);
     const distance = formatDistanceToNowStrict(date, { addSuffix: true });
     return `Available ${distance} (${format(date, "MMM d")})`;
   };
@@ -91,13 +92,11 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
           </div>
         </CardContent>
         <CardFooter className="p-4 pt-0">
-          <Button
-            className="w-full"
-            onClick={() => addToCart(product)}
-            disabled={isAvailableInFuture}
-          >
-            <ShoppingCart className="mr-2 h-4 w-4" />
-            {isAvailableInFuture ? "Pre-order" : "Add to Cart"}
+          <Button asChild className="w-full">
+            <Link to={`/product/${product.id}`}>
+              <Eye className="mr-2 h-4 w-4" />
+              View Options
+            </Link>
           </Button>
         </CardFooter>
       </Card>

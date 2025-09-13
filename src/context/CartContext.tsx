@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import type { Product, CartItem } from "@/types";
+import type { Product, CartItem, Batch } from "@/types";
 import { toast } from "sonner";
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (product: Product) => void;
-  removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
+  addToCart: (product: Product, batch: Batch) => void;
+  removeFromCart: (cartItemId: string) => void;
+  updateQuantity: (cartItemId: string, quantity: number) => void;
   clearCart: () => void;
   cartTotal: number;
   itemCount: number;
@@ -21,8 +21,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       if (localData) {
         const parsedData = JSON.parse(localData);
         if (Array.isArray(parsedData)) {
-          // Ensure every item in the cart is a valid object with an ID before setting state
-          // This prevents crashes from corrupted or old data in localStorage
           return parsedData.filter(item => item && typeof item === 'object' && item.id);
         }
       }
@@ -41,36 +39,45 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [cartItems]);
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Product, batch: Batch) => {
+    const cartItemId = `${product.id}-${batch.id}`;
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === product.id);
+      const existingItem = prevItems.find((item) => item.id === cartItemId);
       if (existingItem) {
         return prevItems.map((item) =>
-          item.id === product.id
+          item.id === cartItemId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
-      return [...prevItems, { ...product, quantity: 1 }];
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { batches, status, createdAt, ...productData } = product;
+      const newItem: CartItem = {
+        ...productData,
+        id: cartItemId,
+        batch: batch,
+        quantity: 1,
+      };
+      return [...prevItems, newItem];
     });
     toast.success(`${product.name} added to cart!`);
   };
 
-  const removeFromCart = (productId: string) => {
+  const removeFromCart = (cartItemId: string) => {
     setCartItems((prevItems) =>
-      prevItems.filter((item) => item.id !== productId)
+      prevItems.filter((item) => item.id !== cartItemId)
     );
     toast.error("Item removed from cart.");
   };
 
-  const updateQuantity = (productId: string, quantity: number) => {
+  const updateQuantity = (cartItemId: string, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      removeFromCart(cartItemId);
       return;
     }
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
+        item.id === cartItemId ? { ...item, quantity } : item
       )
     );
   };

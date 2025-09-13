@@ -4,13 +4,8 @@ import { Button } from "@/components/ui/button";
 import {
   Tag,
   MapPin,
-  Package,
   Info,
   User,
-  ShoppingCart,
-  Calendar,
-  Clock,
-  Wrench,
   Vegan,
   Leaf,
   Truck,
@@ -19,17 +14,15 @@ import { mockProducts, mockSellers } from "@/data/mockData";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AppBreadcrumb } from "@/components/AppBreadcrumb";
-import { format, isAfter, formatDistanceToNowStrict } from "date-fns";
-import { useCart } from "@/context/CartContext";
 import BackButton from "@/components/BackButton";
 import { Footer } from "@/components/Footer";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import ProductCard from "@/components/ProductCard";
 import CategoryIcon from "@/components/CategoryIcon";
+import BatchesTable from "@/components/BatchesTable";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const { addToCart } = useCart();
 
   const product = mockProducts.find((p) => p.id === id);
   const seller = product
@@ -41,15 +34,6 @@ const ProductDetail = () => {
         (p) => p.sellerId === product.sellerId && p.id !== product.id && p.status === 'available'
       )
     : [];
-
-  const isAvailableInFuture = product?.productionDate && isAfter(new Date(product.productionDate), new Date());
-
-  const availabilityText = () => {
-    if (!isAvailableInFuture || !product?.productionDate) return null;
-    const date = new Date(product.productionDate);
-    const distance = formatDistanceToNowStrict(date, { addSuffix: true });
-    return `Available ${distance} (${format(date, "PPP")})`;
-  };
 
   if (!product || !seller) {
     return (
@@ -67,10 +51,6 @@ const ProductDetail = () => {
       </div>
     );
   }
-
-  const handleAddToCart = () => {
-    addToCart(product);
-  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -115,47 +95,15 @@ const ProductDetail = () => {
                 <span>{product.region}</span>
               </div>
               <div className="flex items-center gap-3">
-                <Package className="h-5 w-5 text-muted-foreground" />
-                <span>Quantity: {product.quantity}</span>
-              </div>
-              <div className="flex items-center gap-3">
                 <Truck className="h-5 w-5 text-muted-foreground" />
                 <span>Delivery: {product.deliveryTimeInDays} day(s)</span>
               </div>
-              {isAvailableInFuture && (
-                <div className="flex items-start gap-3 text-primary font-medium">
-                  <Calendar className="h-5 w-5 text-muted-foreground mt-1" />
-                  <span className="text-base">{availabilityText()}</span>
-                </div>
-              )}
               {product.description && (
                 <div className="flex items-start gap-3">
                   <Info className="h-5 w-5 text-muted-foreground mt-1" />
                   <p className="text-muted-foreground text-base">
                     {product.description}
                   </p>
-                </div>
-              )}
-              {product.productionDate && !isAvailableInFuture && (
-                <div className="flex items-start gap-3">
-                  <Calendar className="h-5 w-5 text-muted-foreground mt-1" />
-                  <span className="text-base">
-                    Produced: {format(new Date(product.productionDate), "PPP")}
-                  </span>
-                </div>
-              )}
-              {product.expiryDate && (
-                <div className="flex items-start gap-3">
-                  <Clock className="h-5 w-5 text-muted-foreground mt-1" />
-                  <span className="text-base">
-                    Expires: {format(new Date(product.expiryDate), "PPP")}
-                  </span>
-                </div>
-              )}
-              {product.harvestOnDemand && (
-                <div className="flex items-start gap-3">
-                  <Wrench className="h-5 w-5 text-muted-foreground mt-1" />
-                  <span className="text-base">Harvest on Demand</span>
                 </div>
               )}
               {product.isVegan && (
@@ -197,19 +145,17 @@ const ProductDetail = () => {
                 </CardContent>
               </Card>
             )}
-            <div className="space-y-2">
-              <Button
-                size="lg"
-                className="w-full"
-                onClick={handleAddToCart}
-                disabled={isAvailableInFuture}
-              >
-                <ShoppingCart className="mr-2 h-4 w-4" />
-                {isAvailableInFuture ? "Pre-order" : "Add to Cart"}
-              </Button>
-            </div>
           </div>
         </div>
+
+        {product.batches && product.batches.length > 0 ? (
+          <BatchesTable product={product} />
+        ) : (
+          <p className="mt-8 text-center text-muted-foreground">
+            No available batches for this product.
+          </p>
+        )}
+
         {relatedProducts.length > 0 && (
           <section className="mt-16">
             <h2 className="text-3xl font-bold mb-6">More from {seller.name}</h2>

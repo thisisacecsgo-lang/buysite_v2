@@ -22,27 +22,34 @@ export interface Seller {
   };
 }
 
+export interface Batch {
+  id: string;
+  productionDate: string;
+  expiryDate: string;
+  quantity: string;
+}
+
 export interface Product {
   id:string;
   sellerId: string;
   name: string;
   category: string;
-  quantity: string;
   price: number | "free";
   region: string;
   imageUrls: string[];
   description?: string;
   status: "available" | "sold";
   createdAt: string; // ISO date string
-  productionDate?: string; // ISO date string
-  expiryDate?: string; // ISO date string
   isVegan: boolean;
   isVegetarian: boolean;
   harvestOnDemand: boolean;
   deliveryTimeInDays: number;
   freshness: "fresh" | "frozen" | "canned";
+  batches: Batch[];
 }
 
-export type CartItem = Omit<Product, "quantity"> & {
+export type CartItem = Omit<Product, "batches" | "status" | "createdAt"> & {
+  id: string; // composite key
+  batch: Batch;
   quantity: number;
 };

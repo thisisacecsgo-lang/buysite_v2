@@ -1,8 +1,7 @@
 import type { Product, Seller } from "@/types";
 import { Button } from "@/components/ui/button";
-import { Tag, ShoppingCart, MapPin, User, Info } from "lucide-react";
+import { Tag, MapPin, User, Info } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useCart } from "@/context/CartContext";
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CategoryIcon from "./CategoryIcon";
@@ -13,7 +12,6 @@ interface ProductQuickViewProps {
 }
 
 export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => {
-  const { addToCart } = useCart();
   const imageUrl = product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls[0] : "/placeholder.svg";
 
   return (
@@ -66,11 +64,7 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
             </div>
           )}
           <div className="space-y-2 pt-4">
-            <Button size="lg" className="w-full" onClick={() => addToCart(product)}>
-              <ShoppingCart className="mr-2 h-4 w-4" />
-              Add to Cart
-            </Button>
-            <Button size="lg" variant="outline" className="w-full" asChild>
+            <Button size="lg" className="w-full" asChild>
               <Link to={`/product/${product.id}`}>View Full Details</Link>
             </Button>
           </div>
