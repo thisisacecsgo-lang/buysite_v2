@@ -28,6 +28,9 @@ import { toast } from "sonner";
 import BackButton from "@/components/BackButton";
 import { AppBreadcrumb } from "@/components/AppBreadcrumb";
 import { Footer } from "@/components/Footer";
+import { useState } from "react";
+import { Upload, File } from "lucide-react";
+import { Label } from "@/components/ui/label";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -39,11 +42,13 @@ const formSchema = z.object({
   }),
   coupon: z.string().optional(),
   comments: z.string().optional(),
+  photo: z.any().optional(),
 });
 
 const Checkout = () => {
   const { cartItems, cartTotal, clearCart } = useCart();
   const navigate = useNavigate();
+  const [photoName, setPhotoName] = useState<string | null>(null);
 
   const deliveryFee = 3.5;
   const totalAmount = cartTotal + deliveryFee;
@@ -58,6 +63,7 @@ const Checkout = () => {
       paymentMethod: "card",
       coupon: "",
       comments: "",
+      photo: undefined,
     },
   });
 
@@ -212,7 +218,7 @@ const Checkout = () => {
                 <CardHeader>
                   <CardTitle>Additional Information</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
                    <FormField
                     control={form.control}
                     name="comments"
@@ -222,6 +228,48 @@ const Checkout = () => {
                         <FormControl>
                           <Textarea placeholder="Any special instructions for your order?" {...field} />
                         </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="photo"
+                    render={({ field: { onChange, value, ...rest } }) => (
+                      <FormItem>
+                        <FormLabel>Delivery Location Photo</FormLabel>
+                        <FormControl>
+                          <div>
+                            <Input
+                              id="photo"
+                              type="file"
+                              className="hidden"
+                              accept="image/*"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  setPhotoName(file.name);
+                                  onChange(file);
+                                  toast.success(`Photo "${file.name}" selected.`);
+                                }
+                              }}
+                              {...rest}
+                            />
+                            <Label
+                              htmlFor="photo"
+                              className="cursor-pointer inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+                            >
+                              <Upload className="mr-2 h-4 w-4" />
+                              Choose Photo
+                            </Label>
+                          </div>
+                        </FormControl>
+                        {photoName && (
+                          <div className="text-sm text-muted-foreground mt-2 flex items-center gap-2">
+                            <File className="h-4 w-4" />
+                            <span className="truncate max-w-[200px]">{photoName}</span>
+                          </div>
+                        )}
                         <FormMessage />
                       </FormItem>
                     )}
