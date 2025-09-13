@@ -1,6 +1,6 @@
 import type { Product, Seller } from "@/types";
 import { Button } from "@/components/ui/button";
-import { Tag, MapPin, User, Info } from "lucide-react";
+import { Tag, MapPin, User, Info, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -43,6 +43,10 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
             <p className="text-2xl font-semibold text-primary">
               {formatPrice(product)}
             </p>
+          </div>
+          <div className="flex items-start gap-3 text-sm">
+            <Truck className="h-4 w-4 text-muted-foreground mt-1 flex-shrink-0" />
+            <p className="text-muted-foreground">Ready to ship: {product.deliveryTimeInDays} day(s)</p>
           </div>
           {product.description && (
             <div className="flex items-start gap-3 text-sm">

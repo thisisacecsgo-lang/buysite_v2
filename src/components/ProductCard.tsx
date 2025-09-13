@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/types";
-import { Tag, MapPin, Eye, User, Calendar } from "lucide-react";
+import { Tag, MapPin, Eye, User, Calendar, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { mockSellers } from "@/data/mockData";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -75,6 +75,10 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
             <MapPin className="h-4 w-4" />
             <span>{product.region}</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+            <Truck className="h-4 w-4" />
+            <span>Ready to ship: {product.deliveryTimeInDays} day(s)</span>
           </div>
           {isAvailableInFuture && (
             <div className="flex items-center gap-2 text-sm text-primary font-medium mb-2">
