@@ -36,7 +36,7 @@ const OrderConfirmation = () => {
     return <Navigate to="/" replace />;
   }
 
-  const pensionerDiscount = 2.0; // Standard $2.00 discount for pensioners
+  const pensionerDiscount = 2.0; // Standard €2.00 discount for pensioners
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -67,14 +67,14 @@ const OrderConfirmation = () => {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Products Total</span>
-                    <span className="font-medium">${subtotal.toFixed(2)}</span>
+                    <span className="font-medium">€{subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Truck className="h-4 w-4" />
                       <span>Delivery Fee</span>
                     </div>
-                    <span className="font-medium">${deliveryFee.toFixed(2)}</span>
+                    <span className="font-medium">€{deliveryFee.toFixed(2)}</span>
                   </div>
                   {isPensioner && (
                     <div className="flex justify-between items-center text-primary">
@@ -82,7 +82,7 @@ const OrderConfirmation = () => {
                         <Gift className="h-4 w-4" />
                         <span>Pensioner Discount</span>
                       </div>
-                      <span className="font-medium">-${pensionerDiscount.toFixed(2)}</span>
+                      <span className="font-medium">-€{pensionerDiscount.toFixed(2)}</span>
                     </div>
                   )}
                 </div>
@@ -90,7 +90,7 @@ const OrderConfirmation = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between font-semibold text-base">
                     <span>Total Amount:</span>
-                    <span>${(totalAmount - (isPensioner ? pensionerDiscount : 0)).toFixed(2)}</span>
+                    <span>€{(totalAmount - (isPensioner ? pensionerDiscount : 0)).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-xs text-muted-foreground">
                     <span>Order Number:</span>

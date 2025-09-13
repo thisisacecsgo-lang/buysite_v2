@@ -33,7 +33,7 @@ const OrderSummaryItem = ({ item }: OrderSummaryItemProps) => {
         </div>
       </div>
       <div className="text-right font-medium">
-        ${(price * quantity).toFixed(2)}
+        €{(price * quantity).toFixed(2)}
       </div>
     </div>
   );

@@ -249,23 +249,23 @@ const Checkout = () => {
                     return (
                       <div key={item.id} className="flex justify-between items-center text-sm">
                         <span>{item.name} x {quantity}</span>
-                        <span>${(price * quantity).toFixed(2)}</span>
+                        <span>€{(price * quantity).toFixed(2)}</span>
                       </div>
                     );
                   })}
                   <Separator />
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>${cartTotal.toFixed(2)}</span>
+                    <span>€{cartTotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Delivery</span>
-                    <span>${deliveryFee.toFixed(2)}</span>
+                    <span>€{deliveryFee.toFixed(2)}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span>${totalAmount.toFixed(2)}</span>
+                    <span>€{totalAmount.toFixed(2)}</span>
                   </div>
                   <FormField
                     control={form.control}

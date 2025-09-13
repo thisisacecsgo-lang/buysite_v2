@@ -20,6 +20,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import ProductCard from "@/components/ProductCard";
 import CategoryIcon from "@/components/CategoryIcon";
 import BatchesTable from "@/components/BatchesTable";
+import { formatPrice } from "@/lib/utils";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -84,9 +85,7 @@ const ProductDetail = () => {
             <div className="flex items-center gap-2">
               <Tag className="h-6 w-6 text-primary" />
               <p className="text-3xl font-semibold text-primary">
-                {typeof product.price === "number"
-                  ? `€${product.price.toFixed(2)}`
-                  : "Free"}
+                {formatPrice(product)}
               </p>
             </div>
             <div className="space-y-4 text-lg">

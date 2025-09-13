@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CategoryIcon from "./CategoryIcon";
+import { formatPrice } from "@/lib/utils";
 
 interface ProductQuickViewProps {
   product: Product;
@@ -40,9 +41,7 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
           <div className="flex items-center gap-2">
             <Tag className="h-5 w-5 text-primary" />
             <p className="text-2xl font-semibold text-primary">
-              {typeof product.price === "number"
-                ? `€${product.price.toFixed(2)}`
-                : "Free"}
+              {formatPrice(product)}
             </p>
           </div>
           {product.description && (

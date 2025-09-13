@@ -3,7 +3,7 @@ import type { CartItem as CartItemType } from "@/types";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { X, Plus, Minus } from "lucide-react";
-import CategoryIcon from "./CategoryIcon";
+import { formatPrice } from "@/lib/utils";
 
 interface CartItemProps {
   item: CartItemType;
@@ -42,7 +42,7 @@ const CartItem = ({ item }: CartItemProps) => {
             <X className="h-4 w-4" />
           </Button>
         </div>
-        <p className="text-sm text-muted-foreground">${price.toFixed(2)} per item</p>
+        <p className="text-sm text-muted-foreground">{formatPrice(item)}</p>
         <div className="flex items-center gap-2 mt-2">
           <Button
             variant="outline"
@@ -70,7 +70,7 @@ const CartItem = ({ item }: CartItemProps) => {
         </div>
       </div>
       <div className="text-right">
-        <p className="font-semibold text-lg">${(price * quantity).toFixed(2)}</p>
+        <p className="font-semibold text-lg">€{(price * quantity).toFixed(2)}</p>
       </div>
     </div>
   );

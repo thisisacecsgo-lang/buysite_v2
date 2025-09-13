@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { mockSellers } from "@/data/mockData";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ProductQuickView } from "./ProductQuickView";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import CategoryIcon from "./CategoryIcon";
 import { format, formatDistanceToNowStrict } from "date-fns";
 
@@ -85,9 +85,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
           <div className="flex items-center gap-2">
             <Tag className="h-4 w-4 text-primary" />
             <p className="text-lg font-semibold text-primary">
-              {typeof product.price === "number"
-                ? `€${product.price.toFixed(2)}`
-                : "Free"}
+              {formatPrice(product)}
             </p>
           </div>
         </CardContent>

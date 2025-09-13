@@ -46,7 +46,7 @@ const ProductFilters = ({
           <div className="flex justify-between items-center">
             <Label htmlFor="price-range">Price Range</Label>
             <span className="text-sm text-muted-foreground">
-              ${priceRange[0]} - ${priceRange[1]}
+              €{priceRange[0]} - €{priceRange[1]}
             </span>
           </div>
           <Slider

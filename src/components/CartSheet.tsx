@@ -44,16 +44,16 @@ const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center text-sm text-muted-foreground">
                     <span>Subtotal</span>
-                    <span>${cartTotal.toFixed(2)}</span>
+                    <span>€{cartTotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center text-sm text-muted-foreground">
                     <span>Shipping</span>
-                    <span>${shippingFee.toFixed(2)}</span>
+                    <span>€{shippingFee.toFixed(2)}</span>
                   </div>
                   <Separator className="my-2" />
                   <div className="flex justify-between items-center text-lg font-bold">
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>€{total.toFixed(2)}</span>
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
