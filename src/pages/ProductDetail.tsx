@@ -1,0 +1,240 @@
+import { useParams, Link } from "react-router-dom";
+import Header from "@/components/Header";
+import { Button } from "@/components/ui/button";
+import {
+  Tag,
+  MapPin,
+  Package,
+  Info,
+  User,
+  ShoppingCart,
+  Calendar,
+  Clock,
+  Wrench,
+  Vegan,
+  Leaf,
+  Truck,
+} from "lucide-react";
+import { mockProducts, mockSellers } from "@/data/mockData";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { AppBreadcrumb } from "@/components/AppBreadcrumb";
+import { format, isAfter, formatDistanceToNowStrict } from "date-fns";
+import { useCart } from "@/context/CartContext";
+import BackButton from "@/components/BackButton";
+import { Footer } from "@/components/Footer";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import ProductCard from "@/components/ProductCard";
+import CategoryIcon from "@/components/CategoryIcon";
+
+const ProductDetail = () => {
+  const { id } = useParams<{ id: string }>();
+  const { addToCart } = useCart();
+
+  const product = mockProducts.find((p) => p.id === id);
+  const seller = product
+    ? mockSellers.find((s) => s.id === product.sellerId)
+    : undefined;
+
+  const relatedProducts = product
+    ? mockProducts.filter(
+        (p) => p.sellerId === product.sellerId && p.id !== product.id && p.status === 'available'
+      )
+    : [];
+
+  const isAvailableInFuture = product?.productionDate && isAfter(new Date(product.productionDate), new Date());
+
+  const availabilityText = () => {
+    if (!isAvailableInFuture || !product?.productionDate) return null;
+    const date = new Date(product.productionDate);
+    const distance = formatDistanceToNowStrict(date, { addSuffix: true });
+    return `Available ${distance} (${format(date, "PPP")})`;
+  };
+
+  if (!product || !seller) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-grow container mx-auto p-4 md:p-6 flex items-center justify-center">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4">Product not found</h2>
+            <Button asChild>
+              <Link to="/">Go back to homepage</Link>
+            </Button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow container mx-auto p-4 md:p-8">
+        <BackButton />
+        <AppBreadcrumb />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+          <div className="lg:col-span-2">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {product.imageUrls.map((img, index) => (
+                  <CarouselItem key={index}>
+                    <img
+                      src={img}
+                      alt={`${product.name} image ${index + 1}`}
+                      className="w-full h-auto aspect-square object-cover rounded-lg border"
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="ml-16" />
+              <CarouselNext className="mr-16" />
+            </Carousel>
+          </div>
+          <div className="space-y-6">
+            <div className="flex items-center gap-3">
+              <CategoryIcon category={product.category} className="h-8 w-8 text-muted-foreground" />
+              <h1 className="text-4xl font-bold">{product.name}</h1>
+            </div>
+            <div className="flex items-center gap-2">
+              <Tag className="h-6 w-6 text-primary" />
+              <p className="text-3xl font-semibold text-primary">
+                {typeof product.price === "number"
+                  ? `€${product.price.toFixed(2)}`
+                  : "Free"}
+              </p>
+            </div>
+            <div className="space-y-4 text-lg">
+              <div className="flex items-center gap-3">
+                <MapPin className="h-5 w-5 text-muted-foreground" />
+                <span>{product.region}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Package className="h-5 w-5 text-muted-foreground" />
+                <span>Quantity: {product.quantity}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Truck className="h-5 w-5 text-muted-foreground" />
+                <span>Delivery: {product.deliveryTimeInDays} day(s)</span>
+              </div>
+              {isAvailableInFuture && (
+                <div className="flex items-start gap-3 text-primary font-medium">
+                  <Calendar className="h-5 w-5 text-muted-foreground mt-1" />
+                  <span className="text-base">{availabilityText()}</span>
+                </div>
+              )}
+              {product.description && (
+                <div className="flex items-start gap-3">
+                  <Info className="h-5 w-5 text-muted-foreground mt-1" />
+                  <p className="text-muted-foreground text-base">
+                    {product.description}
+                  </p>
+                </div>
+              )}
+              {product.productionDate && !isAvailableInFuture && (
+                <div className="flex items-start gap-3">
+                  <Calendar className="h-5 w-5 text-muted-foreground mt-1" />
+                  <span className="text-base">
+                    Produced: {format(new Date(product.productionDate), "PPP")}
+                  </span>
+                </div>
+              )}
+              {product.expiryDate && (
+                <div className="flex items-start gap-3">
+                  <Clock className="h-5 w-5 text-muted-foreground mt-1" />
+                  <span className="text-base">
+                    Expires: {format(new Date(product.expiryDate), "PPP")}
+                  </span>
+                </div>
+              )}
+              {product.harvestOnDemand && (
+                <div className="flex items-start gap-3">
+                  <Wrench className="h-5 w-5 text-muted-foreground mt-1" />
+                  <span className="text-base">Harvest on Demand</span>
+                </div>
+              )}
+              {product.isVegan && (
+                 <div className="flex items-start gap-3">
+                  <Vegan className="h-5 w-5 text-muted-foreground mt-1" />
+                  <span className="text-base">Vegan</span>
+                </div>
+              )}
+              {product.isVegetarian && !product.isVegan && (
+                 <div className="flex items-start gap-3">
+                  <Leaf className="h-5 w-5 text-muted-foreground mt-1" />
+                  <span className="text-base">Vegetarian</span>
+                </div>
+              )}
+            </div>
+            {seller && (
+              <Card>
+                <CardContent className="p-4">
+                  <p className="text-sm text-muted-foreground mb-3">Sold by</p>
+                  <div className="flex items-center gap-4">
+                    <Avatar>
+                      <AvatarImage src={seller.logoUrl} />
+                      <AvatarFallback>
+                        <User />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-grow">
+                      <Link
+                        to={`/seller/${seller.id}`}
+                        className="font-semibold text-lg hover:underline"
+                      >
+                        {seller.name}
+                      </Link>
+                    </div>
+                    <Button variant="secondary" asChild>
+                      <Link to={`/seller/${seller.id}`}>View Profile</Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+            <div className="space-y-2">
+              <Button
+                size="lg"
+                className="w-full"
+                onClick={handleAddToCart}
+                disabled={isAvailableInFuture}
+              >
+                <ShoppingCart className="mr-2 h-4 w-4" />
+                {isAvailableInFuture ? "Pre-order" : "Add to Cart"}
+              </Button>
+            </div>
+          </div>
+        </div>
+        {relatedProducts.length > 0 && (
+          <section className="mt-16">
+            <h2 className="text-3xl font-bold mb-6">More from {seller.name}</h2>
+            <Carousel
+              opts={{
+                align: "start",
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {relatedProducts.map((p) => (
+                  <CarouselItem key={p.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <ProductCard product={p} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="ml-16" />
+              <CarouselNext className="mr-16" />
+            </Carousel>
+          </section>
+        )}
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default ProductDetail;
