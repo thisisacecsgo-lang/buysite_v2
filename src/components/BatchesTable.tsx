@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import type { Batch, Product } from "@/types";
 import { format, differenceInDays } from "date-fns";
 import { useCart } from "@/context/CartContext";
-import { cn } from "@/lib/utils";
+import { cn, formatBatchQuantity } from "@/lib/utils";
 
 interface BatchesTableProps {
   product: Product;
@@ -72,7 +72,7 @@ const BatchesTable = ({ product }: BatchesTableProps) => {
                       {daysLeft} days
                     </Badge>
                   </TableCell>
-                  <TableCell className="py-4">{batch.quantity}</TableCell>
+                  <TableCell className="py-4">{formatBatchQuantity(product, batch)}</TableCell>
                   <TableCell className="text-right py-2">
                     <Button onClick={() => handleAddToCart(batch)}>
                       Add to Cart
