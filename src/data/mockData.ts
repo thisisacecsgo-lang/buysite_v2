@@ -170,9 +170,10 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 1,
     freshness: "fresh",
     batches: [
-      { id: "batch-1-1", productionDate: "2025-08-14T00:00:00Z", expiryDate: "2026-08-14T00:00:00Z", quantity: "1kg" },
-      { id: "batch-1-2", productionDate: "2025-07-30T00:00:00Z", expiryDate: "2026-07-30T00:00:00Z", quantity: "5kg" },
-      { id: "batch-1-3", productionDate: "2025-07-15T00:00:00Z", expiryDate: "2026-07-15T00:00:00Z", quantity: "10kg" },
+      { id: "batch-1-1", productionDate: "2025-08-14T00:00:00Z", expiryDate: "2025-09-14T00:00:00Z", quantity: "1kg" },
+      { id: "batch-1-2", productionDate: "2025-08-10T00:00:00Z", expiryDate: "2025-09-10T00:00:00Z", quantity: "5kg" },
+      { id: "batch-1-3", productionDate: "2025-08-01T00:00:00Z", expiryDate: "2025-09-01T00:00:00Z", quantity: "10kg" },
+      { id: "batch-1-4", productionDate: "2025-07-25T00:00:00Z", expiryDate: "2025-08-25T00:00:00Z", quantity: "2kg" },
     ]
   },
   {
@@ -194,7 +195,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 1,
     freshness: "fresh",
     batches: [
-      { id: "batch-4-1", productionDate: "2025-03-24T00:00:00Z", expiryDate: "2025-11-15T00:00:00Z", quantity: "1 dozen" }
+      { id: "batch-4-1", productionDate: addDays(now, -2).toISOString(), expiryDate: addDays(now, 28).toISOString(), quantity: "1 dozen" },
+      { id: "batch-4-2", productionDate: addDays(now, -5).toISOString(), expiryDate: addDays(now, 25).toISOString(), quantity: "6 pieces" },
+      { id: "batch-4-3", productionDate: addDays(now, -10).toISOString(), expiryDate: addDays(now, 20).toISOString(), quantity: "2 dozen" },
     ]
   },
   {
@@ -215,7 +218,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 2,
     freshness: "frozen",
     batches: [
-      { id: "batch-10-1", productionDate: "2025-06-22T00:00:00Z", expiryDate: "2025-08-21T00:00:00Z", quantity: "500g" }
+      { id: "batch-10-1", productionDate: "2025-06-22T00:00:00Z", expiryDate: "2025-12-22T00:00:00Z", quantity: "500g" },
+      { id: "batch-10-2", productionDate: "2025-06-15T00:00:00Z", expiryDate: "2025-12-15T00:00:00Z", quantity: "1kg" },
+      { id: "batch-10-3", productionDate: "2025-05-30T00:00:00Z", expiryDate: "2025-11-30T00:00:00Z", quantity: "750g" },
     ]
   },
   {
@@ -236,7 +241,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 1,
     freshness: "fresh",
     batches: [
-      { id: "batch-13-1", productionDate: "2025-03-24T00:00:00Z", expiryDate: "2025-11-15T00:00:00Z", quantity: "1kg bunch" }
+      { id: "batch-13-1", productionDate: addDays(now, -1).toISOString(), expiryDate: addDays(now, 20).toISOString(), quantity: "1kg bunch" },
+      { id: "batch-13-2", productionDate: addDays(now, -3).toISOString(), expiryDate: addDays(now, 18).toISOString(), quantity: "500g bunch" },
+      { id: "batch-13-3", productionDate: addDays(now, -7).toISOString(), expiryDate: addDays(now, 14).toISOString(), quantity: "2kg bag" },
     ]
   },
   // Seller 2: Coastal Gardens (4 products)
@@ -258,7 +265,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 2,
     freshness: "fresh",
     batches: [
-      { id: "batch-9-1", productionDate: "2025-07-12T00:00:00Z", expiryDate: "2025-10-05T00:00:00Z", quantity: "200g" }
+      { id: "batch-9-1", productionDate: "2025-07-12T00:00:00Z", expiryDate: "2025-08-12T00:00:00Z", quantity: "200g" },
+      { id: "batch-9-2", productionDate: "2025-07-05T00:00:00Z", expiryDate: "2025-08-05T00:00:00Z", quantity: "150g" },
+      { id: "batch-9-3", productionDate: "2025-06-28T00:00:00Z", expiryDate: "2025-07-28T00:00:00Z", quantity: "250g" },
     ]
   },
   {
@@ -279,7 +288,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 1,
     freshness: "fresh",
     batches: [
-      { id: "batch-12-1", productionDate: "2025-05-20T00:00:00Z", expiryDate: "2025-09-27T00:00:00Z", quantity: "1 loaf" }
+      { id: "batch-12-1", productionDate: addDays(now, 0).toISOString(), expiryDate: addDays(now, 4).toISOString(), quantity: "1 loaf" },
+      { id: "batch-12-2", productionDate: addDays(now, -1).toISOString(), expiryDate: addDays(now, 3).toISOString(), quantity: "1 loaf" },
+      { id: "batch-12-3", productionDate: addDays(now, -2).toISOString(), expiryDate: addDays(now, 2).toISOString(), quantity: "2 loaves" },
     ]
   },
   {
@@ -300,7 +311,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 2,
     freshness: "fresh",
     batches: [
-      { id: "batch-19-1", productionDate: "2025-08-13T00:00:00Z", expiryDate: "2025-08-30T00:00:00Z", quantity: "1L" }
+      { id: "batch-19-1", productionDate: addDays(now, 0).toISOString(), expiryDate: addDays(now, 7).toISOString(), quantity: "1L" },
+      { id: "batch-19-2", productionDate: addDays(now, -1).toISOString(), expiryDate: addDays(now, 6).toISOString(), quantity: "2L" },
+      { id: "batch-19-3", productionDate: addDays(now, -2).toISOString(), expiryDate: addDays(now, 5).toISOString(), quantity: "500ml" },
     ]
   },
   {
@@ -321,7 +334,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 2,
     freshness: "fresh",
     batches: [
-      { id: "batch-20-1", productionDate: "2025-03-24T00:00:00Z", expiryDate: "2025-11-23T00:00:00Z", quantity: "1 fillet (approx. 200g)" }
+      { id: "batch-20-1", productionDate: addDays(now, -1).toISOString(), expiryDate: addDays(now, 4).toISOString(), quantity: "1 fillet (approx. 200g)" },
+      { id: "batch-20-2", productionDate: addDays(now, -2).toISOString(), expiryDate: addDays(now, 3).toISOString(), quantity: "2 fillets (approx. 400g)" },
+      { id: "batch-20-3", productionDate: addDays(now, -3).toISOString(), expiryDate: addDays(now, 2).toISOString(), quantity: "500g" },
     ]
   },
   // Seller 3: Berry Patch (4 products)
@@ -344,7 +359,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 3,
     freshness: "canned",
     batches: [
-      { id: "batch-3-1", productionDate: "2025-05-14T00:00:00Z", expiryDate: "2025-12-06T00:00:00Z", quantity: "250g jar" }
+      { id: "batch-3-1", productionDate: "2025-05-14T00:00:00Z", expiryDate: "2026-05-14T00:00:00Z", quantity: "250g jar" },
+      { id: "batch-3-2", productionDate: "2025-05-01T00:00:00Z", expiryDate: "2026-05-01T00:00:00Z", quantity: "500g jar" },
+      { id: "batch-3-3", productionDate: "2025-04-20T00:00:00Z", expiryDate: "2026-04-20T00:00:00Z", quantity: "250g jar" },
     ]
   },
   {
@@ -365,7 +382,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 4,
     freshness: "canned",
     batches: [
-      { id: "batch-11-1", productionDate: "2025-06-04T00:00:00Z", expiryDate: "2025-10-11T00:00:00Z", quantity: "300g jar" }
+      { id: "batch-11-1", productionDate: "2025-06-04T00:00:00Z", expiryDate: "2028-06-04T00:00:00Z", quantity: "300g jar" },
+      { id: "batch-11-2", productionDate: "2025-05-15T00:00:00Z", expiryDate: "2028-05-15T00:00:00Z", quantity: "500g jar" },
+      { id: "batch-11-3", productionDate: "2024-08-10T00:00:00Z", expiryDate: "2027-08-10T00:00:00Z", quantity: "1kg jar" },
     ]
   },
   {
@@ -386,7 +405,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 3,
     freshness: "frozen",
     batches: [
-      { id: "batch-14-1", productionDate: "2025-04-08T00:00:00Z", expiryDate: "2025-09-16T00:00:00Z", quantity: "500g bag" }
+      { id: "batch-14-1", productionDate: "2025-04-08T00:00:00Z", expiryDate: "2026-04-08T00:00:00Z", quantity: "500g bag" },
+      { id: "batch-14-2", productionDate: "2025-03-20T00:00:00Z", expiryDate: "2026-03-20T00:00:00Z", quantity: "1kg bag" },
+      { id: "batch-14-3", productionDate: "2025-03-01T00:00:00Z", expiryDate: "2026-03-01T00:00:00Z", quantity: "250g bag" },
     ]
   },
   {
@@ -407,7 +428,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 2,
     freshness: "fresh",
     batches: [
-      { id: "batch-17-1", productionDate: "2025-04-30T00:00:00Z", expiryDate: "2025-08-17T00:00:00Z", quantity: "1 pint" }
+      { id: "batch-17-1", productionDate: addDays(now, 0).toISOString(), expiryDate: addDays(now, 4).toISOString(), quantity: "1 pint" },
+      { id: "batch-17-2", productionDate: addDays(now, -1).toISOString(), expiryDate: addDays(now, 3).toISOString(), quantity: "2 pints" },
+      { id: "batch-17-3", productionDate: addDays(now, -2).toISOString(), expiryDate: addDays(now, 2).toISOString(), quantity: "1/2 pint" },
     ]
   },
   // Seller 4: Mountain View Organics (4 products)
@@ -429,7 +452,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 3,
     freshness: "canned",
     batches: [
-      { id: "batch-26-1", productionDate: addDays(now, -30).toISOString(), expiryDate: addDays(now, 335).toISOString(), quantity: "1kg bag" }
+      { id: "batch-26-1", productionDate: addDays(now, -30).toISOString(), expiryDate: addDays(now, 335).toISOString(), quantity: "1kg bag" },
+      { id: "batch-26-2", productionDate: addDays(now, -60).toISOString(), expiryDate: addDays(now, 305).toISOString(), quantity: "500g bag" },
+      { id: "batch-26-3", productionDate: addDays(now, -90).toISOString(), expiryDate: addDays(now, 275).toISOString(), quantity: "2kg bag" },
     ]
   },
 
@@ -452,7 +477,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 1,
     freshness: "fresh",
     batches: [
-      { id: "batch-28-1", productionDate: addDays(now, -1).toISOString(), expiryDate: addDays(now, 2).toISOString(), quantity: "1 dozen" }
+      { id: "batch-28-1", productionDate: addDays(now, -1).toISOString(), expiryDate: addDays(now, 2).toISOString(), quantity: "1 dozen" },
+      { id: "batch-28-2", productionDate: addDays(now, -2).toISOString(), expiryDate: addDays(now, 1).toISOString(), quantity: "6 pieces" },
+      { id: "batch-28-3", productionDate: addDays(now, 0).toISOString(), expiryDate: addDays(now, 3).toISOString(), quantity: "2 dozen" },
     ]
   },
   {
@@ -473,7 +500,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 3,
     freshness: "frozen",
     batches: [
-      { id: "batch-29-1", productionDate: addDays(now, -12).toISOString(), expiryDate: addDays(now, 20).toISOString(), quantity: "200g pack" }
+      { id: "batch-29-1", productionDate: addDays(now, -12).toISOString(), expiryDate: addDays(now, 168).toISOString(), quantity: "200g pack" },
+      { id: "batch-29-2", productionDate: addDays(now, -20).toISOString(), expiryDate: addDays(now, 160).toISOString(), quantity: "100g pack" },
+      { id: "batch-29-3", productionDate: addDays(now, -5).toISOString(), expiryDate: addDays(now, 175).toISOString(), quantity: "400g pack" },
     ]
   },
   {
@@ -515,7 +544,9 @@ export const mockProducts: Product[] = [
     deliveryTimeInDays: 4,
     freshness: "canned",
     batches: [
-      { id: "batch-31-1", productionDate: addDays(now, -50).toISOString(), expiryDate: addDays(now, 1045).toISOString(), quantity: "1 can" }
+      { id: "batch-31-1", productionDate: addDays(now, -50).toISOString(), expiryDate: addDays(now, 1045).toISOString(), quantity: "1 can" },
+      { id: "batch-31-2", productionDate: addDays(now, -100).toISOString(), expiryDate: addDays(now, 995).toISOString(), quantity: "6-pack cans" },
+      { id: "batch-31-3", productionDate: addDays(now, -20).toISOString(), expiryDate: addDays(now, 1075).toISOString(), quantity: "1 can" },
     ]
   },
 ];
