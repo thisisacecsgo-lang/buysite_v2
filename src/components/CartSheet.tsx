@@ -26,20 +26,20 @@ const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="flex flex-col sm:max-w-lg">
-        <SheetHeader className="px-6 pt-6">
+      <SheetContent className="flex flex-col sm:max-w-lg p-0">
+        <SheetHeader className="p-4 border-b">
           <SheetTitle>My Cart ({itemCount})</SheetTitle>
         </SheetHeader>
         {cartItems.length > 0 ? (
           <>
-            <ScrollArea className="flex-1 px-6">
+            <ScrollArea className="flex-1 p-4">
               <div className="divide-y divide-border -my-4 py-4">
                 {cartItems.map((item) => (
                   <CartItem key={item.id} item={item} />
                 ))}
               </div>
             </ScrollArea>
-            <SheetFooter className="border-t bg-background p-6">
+            <SheetFooter className="border-t bg-background p-4">
               {/* This single div wrapper prevents SheetFooter's flex-col-reverse from reordering the totals and buttons */}
               <div className="w-full space-y-4">
                 <div className="space-y-2">
@@ -77,7 +77,7 @@ const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
             </SheetFooter>
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center h-full text-center p-6">
+          <div className="flex flex-col items-center justify-center h-full text-center p-4">
             <ShoppingCart className="h-16 w-16 text-muted-foreground mb-4" />
             <h3 className="text-xl font-semibold">Your cart is empty</h3>
             <p className="text-muted-foreground">Add some products to get started.</p>
