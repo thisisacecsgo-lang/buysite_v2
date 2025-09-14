@@ -80,7 +80,8 @@ const Index = () => {
         return true;
       })();
 
-      const isFutureProduct = product.productionDate ? isAfter(new Date(product.productionDate), new Date()) : false;
+      const firstBatchProductionDate = product.batches?.[0]?.productionDate;
+      const isFutureProduct = firstBatchProductionDate ? isAfter(new Date(firstBatchProductionDate), new Date()) : false;
       const preorderMatch = showPreorder ? isFutureProduct : !isFutureProduct;
 
       return (
@@ -106,7 +107,7 @@ const Index = () => {
       sorted.sort((a, b) => {
         const priceA = a.price === "free" ? 0 : a.price || 0;
         const priceB = b.price === "free" ? 0 : b.price || 0;
-        return priceB - a.price;
+        return priceB - priceA;
       });
     } else {
       // newest is default
