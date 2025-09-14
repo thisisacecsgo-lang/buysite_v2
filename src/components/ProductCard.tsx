@@ -89,7 +89,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 <Truck className="h-4 w-4 flex-shrink-0" />
                 <span className="truncate">Ships in {product.deliveryTimeInDays} day(s)</span>
               </div>
-              <div className="flex flex-wrap gap-1 pt-1 min-h-[26px]">
+              <div className="flex flex-wrap content-start gap-1 pt-1 h-12">
                 {product.isVegan && (
                   <Badge variant="outline" className="text-xs font-normal">
                     <Vegan className="mr-1 h-3 w-3" /> Vegan
