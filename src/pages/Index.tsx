@@ -197,7 +197,11 @@ const Index = () => {
                       Filters
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="left" className="overflow-y-auto w-full max-w-sm custom-scrollbar">
+                  <SheetContent
+                    side="left"
+                    className="overflow-y-auto w-full max-w-sm custom-scrollbar"
+                    onOpenAutoFocus={(e) => e.preventDefault()}
+                  >
                     <SheetHeader>
                       <SheetTitle>Filters & Search</SheetTitle>
                     </SheetHeader>
