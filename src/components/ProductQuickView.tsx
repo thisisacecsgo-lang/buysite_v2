@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import type { Product, Seller } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Tag, MapPin, User, Info, Truck, Calendar, Vegan, Leaf, Sprout } from "lucide-react";
@@ -7,6 +8,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CategoryIcon from "./CategoryIcon";
 import { formatPrice } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { format } from "date-fns";
 
 interface ProductQuickViewProps {
   product: Product;
@@ -15,9 +23,23 @@ interface ProductQuickViewProps {
 
 export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => {
   const imageUrl = product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls[0] : "/placeholder.svg";
-  const firstBatch = product.batches?.[0];
-  const productionDate = firstBatch?.productionDate;
-  const isAvailableInFuture = productionDate && new Date(productionDate) > new Date();
+  
+  const earliestProductionDate = useMemo(() => {
+    if (!product || !product.batches || product.batches.length === 0) {
+      return null;
+    }
+    const futureBatches = product.batches
+      .map((b) => new Date(b.productionDate))
+      .filter((d) => d > new Date());
+
+    if (futureBatches.length === 0) {
+      return null;
+    }
+
+    return new Date(Math.min(...futureBatches.map((d) => d.getTime())));
+  }, [product]);
+
+  const isAvailableInFuture = !!earliestProductionDate;
 
   return (
     <>
@@ -53,9 +75,21 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> Ships in {product.deliveryTimeInDays} day(s)</Badge>
             {isAvailableInFuture && (
-              <Badge variant="outline" className="text-primary border-primary">
-                <Calendar className="mr-1.5 h-3 w-3" /> Preorder
-              </Badge>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Badge variant="outline" className="text-primary border-primary cursor-default">
+                      <Calendar className="mr-1.5 h-3 w-3" /> Preorder
+                    </Badge>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>This item is available for preorder.</p>
+                    {earliestProductionDate && (
+                      <p>Expected to be ready on: {format(earliestProductionDate, "PPP")}</p>
+                    )}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             )}
             {product.isVegan && (
               <Badge variant="outline">

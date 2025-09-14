@@ -27,6 +27,13 @@ import { formatPrice } from "@/lib/utils";
 import StarRating from "@/components/StarRating";
 import CopyableBadge from "@/components/CopyableBadge";
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { format } from "date-fns";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -36,9 +43,22 @@ const ProductDetail = () => {
     ? mockSellers.find((s) => s.id === product.sellerId)
     : undefined;
 
-  const firstBatch = product?.batches?.[0];
-  const productionDate = firstBatch?.productionDate;
-  const isAvailableInFuture = productionDate && new Date(productionDate) > new Date();
+  const earliestProductionDate = useMemo(() => {
+    if (!product || !product.batches || product.batches.length === 0) {
+      return null;
+    }
+    const futureBatches = product.batches
+      .map((b) => new Date(b.productionDate))
+      .filter((d) => d > new Date());
+
+    if (futureBatches.length === 0) {
+      return null;
+    }
+
+    return new Date(Math.min(...futureBatches.map((d) => d.getTime())));
+  }, [product]);
+
+  const isAvailableInFuture = !!earliestProductionDate;
 
   const averageRating = useMemo(() => {
     if (!seller || seller.reviews.length === 0) {
@@ -116,9 +136,21 @@ const ProductDetail = () => {
 
             <div className="flex flex-wrap items-center gap-2">
               {isAvailableInFuture && (
-                <Badge variant="outline" className="text-primary border-primary">
-                  <Calendar className="mr-1.5 h-3 w-3" /> Preorder
-                </Badge>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Badge variant="outline" className="text-primary border-primary cursor-default">
+                        <Calendar className="mr-1.5 h-3 w-3" /> Preorder
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>This item is available for preorder.</p>
+                      {earliestProductionDate && (
+                        <p>Expected to be ready on: {format(earliestProductionDate, "PPP")}</p>
+                      )}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
               {product.isVegan && (
                 <Badge variant="outline">
