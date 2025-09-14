@@ -20,7 +20,7 @@ export const mockSellers: Seller[] = [
     region: "Gettorf",
     logoUrl: "/images/fa.jpg",
     verified: true,
-    sellerType: "commercial",
+    sellerType: "commercial", // Commercial Seller
     location: { lat: 37.3688, lon: -122.0363 },
     age: 58,
     production: "Organic fruits, vegetables, and free-range animal products.",
@@ -54,7 +54,7 @@ export const mockSellers: Seller[] = [
     region: "Felde",
     logoUrl: "/images/ava.jpg",
     verified: false,
-    sellerType: "commercial",
+    sellerType: "private", // Private Seller
     location: { lat: 44.7793, lon: -123.1457 },
     age: 34,
     production: "Artisanal sourdough bread, goat cheese, and fresh dairy products.",
@@ -81,7 +81,7 @@ export const mockSellers: Seller[] = [
     region: "Gnutz",
     logoUrl: "/images/avat.jpg",
     verified: true,
-    sellerType: "private",
+    sellerType: "private", // Private Seller
     location: { lat: 48.8584, lon: -122.4331 },
     age: 47,
     production: "Small-scale honey from his own beehives and homemade fruit jams.",
@@ -99,7 +99,7 @@ export const mockSellers: Seller[] = [
     region: "Haale",
     logoUrl: "/images/avatar.jpg",
     verified: true,
-    sellerType: "commercial",
+    sellerType: "private", // Private Seller
     location: { lat: 40.0150, lon: -105.2705 },
     age: 42,
     production: "Organic ancient grains like quinoa and spelt.",
@@ -125,7 +125,7 @@ export const mockSellers: Seller[] = [
     region: "Aukrug",
     logoUrl: "/images/avata.jpg",
     verified: false,
-    sellerType: "commercial",
+    sellerType: "private", // Private Seller
     location: { lat: 46.1879, lon: -123.8313 },
     age: 63,
     production: "Freshly caught and smoked seafood from the local coast.",
@@ -172,7 +172,7 @@ export const mockProducts: Product[] = [
     isVegan: true,
     isVegetarian: true,
     harvestOnDemand: false,
-    deliveryTimeInDays: 1,
+    deliveryTimeInDays: 1, // Today
     freshness: "fresh",
     batches: [
       { id: "batch-1-1", productionDate: "2025-08-14T00:00:00Z", expiryDate: "2025-09-14T00:00:00Z", quantity: "1kg" },
@@ -197,7 +197,7 @@ export const mockProducts: Product[] = [
     isVegan: false,
     isVegetarian: true,
     harvestOnDemand: false,
-    deliveryTimeInDays: 1,
+    deliveryTimeInDays: 1, // Today
     freshness: "fresh",
     batches: [
       { id: "batch-4-1", productionDate: addDays(now, -2).toISOString(), expiryDate: addDays(now, 28).toISOString(), quantity: "1 dozen" },
@@ -220,7 +220,7 @@ export const mockProducts: Product[] = [
     isVegan: false,
     isVegetarian: false,
     harvestOnDemand: false,
-    deliveryTimeInDays: 2,
+    deliveryTimeInDays: 2, // Tomorrow
     freshness: "frozen",
     batches: [
       { id: "batch-10-1", productionDate: "2025-06-22T00:00:00Z", expiryDate: "2025-12-22T00:00:00Z", quantity: "500g" },
@@ -242,8 +242,8 @@ export const mockProducts: Product[] = [
     createdAt: "2025-04-25T13:00:00Z",
     isVegan: true,
     isVegetarian: true,
-    harvestOnDemand: true,
-    deliveryTimeInDays: 1,
+    harvestOnDemand: true, // Harvest on Demand
+    deliveryTimeInDays: 1, // Today
     freshness: "fresh",
     batches: [
       { id: "batch-13-1", productionDate: addDays(now, -1).toISOString(), expiryDate: addDays(now, 20).toISOString(), quantity: "1kg bunch" },
@@ -266,8 +266,8 @@ export const mockProducts: Product[] = [
     createdAt: "2025-04-25T13:00:00Z",
     isVegan: false,
     isVegetarian: true,
-    harvestOnDemand: true,
-    deliveryTimeInDays: 2,
+    harvestOnDemand: true, // Harvest on Demand
+    deliveryTimeInDays: 2, // Tomorrow
     freshness: "fresh",
     batches: [
       { id: "batch-9-1", productionDate: "2025-07-12T00:00:00Z", expiryDate: "2025-08-12T00:00:00Z", quantity: "200g" },
@@ -289,8 +289,8 @@ export const mockProducts: Product[] = [
     createdAt: "2025-04-25T13:00:00Z",
     isVegan: true,
     isVegetarian: true,
-    harvestOnDemand: false,
-    deliveryTimeInDays: 1,
+    harvestOnDemand: true, // Harvest on Demand
+    deliveryTimeInDays: 1, // Today
     freshness: "fresh",
     batches: [
       { id: "batch-12-1", productionDate: addDays(now, 0).toISOString(), expiryDate: addDays(now, 4).toISOString(), quantity: "1 loaf" },
@@ -313,7 +313,7 @@ export const mockProducts: Product[] = [
     isVegan: false,
     isVegetarian: true,
     harvestOnDemand: false,
-    deliveryTimeInDays: 2,
+    deliveryTimeInDays: 2, // Tomorrow
     freshness: "fresh",
     batches: [
       { id: "batch-19-1", productionDate: addDays(now, 0).toISOString(), expiryDate: addDays(now, 7).toISOString(), quantity: "1L" },
@@ -336,7 +336,7 @@ export const mockProducts: Product[] = [
     isVegan: false,
     isVegetarian: false,
     harvestOnDemand: false,
-    deliveryTimeInDays: 2,
+    deliveryTimeInDays: 2, // Tomorrow
     freshness: "fresh",
     batches: [
       { id: "batch-20-1", productionDate: addDays(now, -1).toISOString(), expiryDate: addDays(now, 4).toISOString(), quantity: "1 fillet (approx. 200g)" },
@@ -360,13 +360,12 @@ export const mockProducts: Product[] = [
     createdAt: "2025-04-25T13:00:00Z",
     isVegan: true,
     isVegetarian: true,
-    harvestOnDemand: true,
-    deliveryTimeInDays: 3,
+    harvestOnDemand: true, // Harvest on Demand
+    deliveryTimeInDays: 3, // 2-3 days
     freshness: "canned",
-    batches: [
-      { id: "batch-3-1", productionDate: "2025-05-14T00:00:00Z", expiryDate: "2026-05-14T00:00:00Z", quantity: "250g jar" },
-      { id: "batch-3-2", productionDate: "2025-05-01T00:00:00Z", expiryDate: "2026-05-01T00:00:00Z", quantity: "500g jar" },
-      { id: "batch-3-3", productionDate: "2025-04-20T00:00:00Z", expiryDate: "2026-04-20T00:00:00Z", quantity: "250g jar" },
+    batches: [ // Preorder
+      { id: "batch-3-1", productionDate: addDays(now, 10).toISOString(), expiryDate: addDays(now, 375).toISOString(), quantity: "250g jar" },
+      { id: "batch-3-2", productionDate: addDays(now, 12).toISOString(), expiryDate: addDays(now, 377).toISOString(), quantity: "500g jar" },
     ]
   },
   {
@@ -384,7 +383,7 @@ export const mockProducts: Product[] = [
     isVegan: false,
     isVegetarian: true,
     harvestOnDemand: false,
-    deliveryTimeInDays: 4,
+    deliveryTimeInDays: 4, // 3+ days
     freshness: "canned",
     batches: [
       { id: "batch-11-1", productionDate: "2025-06-04T00:00:00Z", expiryDate: "2028-06-04T00:00:00Z", quantity: "300g jar" },
@@ -407,7 +406,7 @@ export const mockProducts: Product[] = [
     isVegan: true,
     isVegetarian: true,
     harvestOnDemand: false,
-    deliveryTimeInDays: 3,
+    deliveryTimeInDays: 3, // 2-3 days
     freshness: "frozen",
     batches: [
       { id: "batch-14-1", productionDate: "2025-04-08T00:00:00Z", expiryDate: "2026-04-08T00:00:00Z", quantity: "500g bag" },
@@ -429,8 +428,8 @@ export const mockProducts: Product[] = [
     createdAt: "2025-04-25T13:00:00Z",
     isVegan: true,
     isVegetarian: true,
-    harvestOnDemand: true,
-    deliveryTimeInDays: 2,
+    harvestOnDemand: true, // Harvest on Demand
+    deliveryTimeInDays: 2, // Tomorrow
     freshness: "fresh",
     batches: [
       { id: "batch-17-1", productionDate: addDays(now, 0).toISOString(), expiryDate: addDays(now, 4).toISOString(), quantity: "1 pint" },
@@ -454,12 +453,11 @@ export const mockProducts: Product[] = [
     isVegan: true,
     isVegetarian: true,
     harvestOnDemand: false,
-    deliveryTimeInDays: 3,
+    deliveryTimeInDays: 3, // 2-3 days
     freshness: "canned",
-    batches: [
-      { id: "batch-26-1", productionDate: addDays(now, -30).toISOString(), expiryDate: addDays(now, 335).toISOString(), quantity: "1kg bag" },
-      { id: "batch-26-2", productionDate: addDays(now, -60).toISOString(), expiryDate: addDays(now, 305).toISOString(), quantity: "500g bag" },
-      { id: "batch-26-3", productionDate: addDays(now, -90).toISOString(), expiryDate: addDays(now, 275).toISOString(), quantity: "2kg bag" },
+    batches: [ // Preorder
+      { id: "batch-26-1", productionDate: addDays(now, 7).toISOString(), expiryDate: addDays(now, 372).toISOString(), quantity: "1kg bag" },
+      { id: "batch-26-2", productionDate: addDays(now, 14).toISOString(), expiryDate: addDays(now, 379).toISOString(), quantity: "500g bag" },
     ]
   },
 
@@ -478,8 +476,8 @@ export const mockProducts: Product[] = [
     createdAt: now.toISOString(),
     isVegan: false,
     isVegetarian: false,
-    harvestOnDemand: true,
-    deliveryTimeInDays: 1,
+    harvestOnDemand: true, // Harvest on Demand
+    deliveryTimeInDays: 1, // Today
     freshness: "fresh",
     batches: [
       { id: "batch-28-1", productionDate: addDays(now, -1).toISOString(), expiryDate: addDays(now, 2).toISOString(), quantity: "1 dozen" },
@@ -502,7 +500,7 @@ export const mockProducts: Product[] = [
     isVegan: false,
     isVegetarian: false,
     harvestOnDemand: false,
-    deliveryTimeInDays: 3,
+    deliveryTimeInDays: 3, // 2-3 days
     freshness: "frozen",
     batches: [
       { id: "batch-29-1", productionDate: addDays(now, -12).toISOString(), expiryDate: addDays(now, 168).toISOString(), quantity: "200g pack" },
@@ -546,7 +544,7 @@ export const mockProducts: Product[] = [
     isVegan: false,
     isVegetarian: false,
     harvestOnDemand: false,
-    deliveryTimeInDays: 4,
+    deliveryTimeInDays: 4, // 3+ days
     freshness: "canned",
     batches: [
       { id: "batch-31-1", productionDate: addDays(now, -50).toISOString(), expiryDate: addDays(now, 1045).toISOString(), quantity: "1 can" },
