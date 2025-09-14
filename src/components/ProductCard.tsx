@@ -145,7 +145,10 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
           </Button>
         </CardFooter>
       </Card>
-      <DialogContent className="sm:max-w-3xl">
+      <DialogContent
+        className="w-[95vw] max-w-lg rounded-lg sm:max-w-3xl"
+        onInteractOutside={(e) => e.preventDefault()}
+      >
         <ProductQuickView product={product} seller={seller} />
       </DialogContent>
     </Dialog>
