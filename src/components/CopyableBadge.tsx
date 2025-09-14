@@ -1,12 +1,7 @@
 import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { ResponsiveTooltip } from "./ResponsiveTooltip";
 
 interface CopyableBadgeProps {
   textToCopy: string;
@@ -20,25 +15,18 @@ const CopyableBadge = ({ textToCopy, className }: CopyableBadgeProps) => {
   };
 
   return (
-    <TooltipProvider delayDuration={100}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Badge
-            variant="secondary"
-            className={cn(
-              "cursor-pointer font-mono",
-              className
-            )}
-            onClick={handleCopy}
-          >
-            # {textToCopy}
-          </Badge>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Copy SKU</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <ResponsiveTooltip content={<p>Copy SKU</p>}>
+      <Badge
+        variant="secondary"
+        className={cn(
+          "cursor-pointer font-mono",
+          className
+        )}
+        onClick={handleCopy}
+      >
+        # {textToCopy}
+      </Badge>
+    </ResponsiveTooltip>
   );
 };
 
