@@ -89,20 +89,20 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 <Truck className="h-4 w-4 flex-shrink-0" />
                 <span className="truncate">Ships in {product.deliveryTimeInDays} day(s)</span>
               </div>
-              <div className="flex flex-wrap content-start gap-1 pt-1">
+              <div className="flex flex-wrap content-start gap-1 pt-1 h-12">
                 {product.isVegan && (
-                  <Badge variant="outline" className="text-[11px] font-normal px-2 py-0.5">
-                    <Vegan className="mr-1 h-2.5 w-2.5" /> Vegan
+                  <Badge variant="outline" className="text-xs font-normal">
+                    <Vegan className="mr-1 h-3 w-3" /> Vegan
                   </Badge>
                 )}
                 {product.isVegetarian && !product.isVegan && (
-                  <Badge variant="outline" className="text-[11px] font-normal px-2 py-0.5">
-                    <Leaf className="mr-1 h-2.5 w-2.5" /> Vegetarian
+                  <Badge variant="outline" className="text-xs font-normal">
+                    <Leaf className="mr-1 h-3 w-3" /> Vegetarian
                   </Badge>
                 )}
                 {product.harvestOnDemand && (
-                  <Badge variant="outline" className="text-[11px] font-normal px-2 py-0.5">
-                    <Sprout className="mr-1 h-2.5 w-2.5" /> Harvest on Demand
+                  <Badge variant="outline" className="text-xs font-normal">
+                    <Sprout className="mr-1 h-3 w-3" /> Harvest on Demand
                   </Badge>
                 )}
               </div>
