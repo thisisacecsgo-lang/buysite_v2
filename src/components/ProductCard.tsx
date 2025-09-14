@@ -58,8 +58,8 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
           </DialogTrigger>
         </CardHeader>
         <CardContent className="p-4 flex-grow flex flex-col">
-          <div>
-            <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+          <div className="flex-grow">
+            <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <div className="flex items-center gap-2 min-w-0">
                 <User className="h-3 w-3 flex-shrink-0" />
                 <Link to={`/seller/${seller?.id}`} className="hover:underline truncate">
@@ -72,24 +72,24 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 </Badge>
               )}
             </div>
-            <CardTitle className="text-lg font-bold leading-tight">
+            <CardTitle className="text-lg font-bold leading-tight h-14">
               <Link to={`/product/${product.id}`} className="hover:text-primary transition-colors flex items-start gap-2">
                 <CategoryIcon category={product.category} className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                <span>{product.name}</span>
+                <span className="line-clamp-2">{product.name}</span>
               </Link>
             </CardTitle>
             <p className="text-xs text-muted-foreground font-mono mt-1 mb-2"># {product.sku}</p>
             
-            <div className="mt-2 space-y-2">
+            <div className="mt-2 space-y-1">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 flex-shrink-0" />
-                <span>{product.region}</span>
+                <span className="truncate">{product.region}</span>
               </div>
                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Truck className="h-4 w-4 flex-shrink-0" />
-                <span>Ready to ship: {product.deliveryTimeInDays} day(s)</span>
+                <span className="truncate">Ships in {product.deliveryTimeInDays} day(s)</span>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1 pt-1">
                 {product.isVegan && (
                   <Badge variant="outline" className="text-xs font-normal">
                     <Vegan className="mr-1 h-3 w-3" /> Vegan
@@ -108,8 +108,6 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
               </div>
             </div>
           </div>
-
-          <div className="flex-grow" />
 
           <div className="flex items-center gap-2 pt-3">
             <Tag className="h-4 w-4 text-primary" />
