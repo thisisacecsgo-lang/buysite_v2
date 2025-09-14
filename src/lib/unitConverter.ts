@@ -91,3 +91,63 @@ export const getPricePerKg = (product: Product): number => {
   // Fallback if we can't determine weight, assume price is per kg.
   return product.price;
 };
+
+// New functions for display unit conversion
+export type DisplayUnit = "kg" | "L" | "piece";
+
+export const getDisplayUnit = (productName: string, category: string): DisplayUnit => {
+  if (!productName || !category) return "kg";
+  const lowerName = productName.toLowerCase();
+  if (category === "Dairy products" && lowerName.includes('milk')) {
+    return 'L';
+  }
+  if (category === "Animal products" && lowerName.includes('egg')) {
+    return 'piece';
+  }
+  return 'kg';
+};
+
+export const convertKgToDisplayUnit = (kg: number, productName: string, category: string): number => {
+  const unit = getDisplayUnit(productName, category);
+  if (unit === 'piece') {
+    return kg / UNIT_TO_KG_MAP.EGG_PIECE;
+  }
+  if (unit === 'L') {
+    return kg; // Assuming 1L ~ 1kg for milk
+  }
+  return kg;
+};
+
+export const convertDisplayUnitToKg = (displayValue: number, productName: string, category: string): number => {
+  const unit = getDisplayUnit(productName, category);
+  if (unit === 'piece') {
+    return displayValue * UNIT_TO_KG_MAP.EGG_PIECE;
+  }
+  if (unit === 'L') {
+    return displayValue;
+  }
+  return displayValue;
+};
+
+export const getPricePerDisplayUnit = (product: Product): number => {
+  const pricePerKg = getPricePerKg(product);
+  const unit = getDisplayUnit(product.name, product.category);
+  if (unit === 'piece') {
+    return pricePerKg * UNIT_TO_KG_MAP.EGG_PIECE;
+  }
+  if (unit === 'L') {
+    return pricePerKg; // Since 1L ~ 1kg
+  }
+  return pricePerKg;
+};
+
+export const getMaxQuantityInDisplayUnit = (batchQuantity: string, productName: string, category: string): number => {
+  const maxKg = parseQuantityToKg(batchQuantity, productName, category);
+  return convertKgToDisplayUnit(maxKg, productName, category);
+};
+
+export const getStepForDisplayUnit = (displayUnit: DisplayUnit): number => {
+  if (displayUnit === 'piece') return 1;
+  if (displayUnit === 'L') return 0.1; // 100ml increments
+  return 0.05; // 50g increments
+};

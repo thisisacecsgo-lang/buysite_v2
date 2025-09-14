@@ -3,7 +3,15 @@ import type { CartItem as CartItemType } from "@/types";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { X, Plus, Minus } from "lucide-react";
-import { parseQuantityToKg, getPricePerKg } from "@/lib/unitConverter";
+import {
+  getDisplayUnit,
+  getStepForDisplayUnit,
+  getMaxQuantityInDisplayUnit,
+  getPricePerDisplayUnit,
+  convertKgToDisplayUnit,
+  convertDisplayUnitToKg,
+  getPricePerKg,
+} from "@/lib/unitConverter";
 
 interface CartItemProps {
   item: CartItemType;
@@ -11,21 +19,35 @@ interface CartItemProps {
 
 const CartItem = ({ item }: CartItemProps) => {
   const { updateQuantity, removeFromCart } = useCart();
-  const maxWeight = parseQuantityToKg(item.batch.quantity, item.name, item.category);
-  const pricePerKg = getPricePerKg(item);
-  const totalItemPrice = pricePerKg * item.quantity;
 
-  const handleWeightChange = (newWeight: number) => {
-    if (isNaN(newWeight)) return;
+  const displayUnit = getDisplayUnit(item.name, item.category);
+  const step = getStepForDisplayUnit(displayUnit);
+  const minQuantity = displayUnit === 'piece' ? 1 : step;
 
-    // Clamp and snap to grid
-    let clampedWeight = Math.max(0.05, newWeight);
-    clampedWeight = Math.min(clampedWeight, maxWeight);
-    const snappedWeight = Math.round(clampedWeight / 0.05) * 0.05;
-    updateQuantity(item.id, parseFloat(snappedWeight.toFixed(2)));
+  const maxQuantity = getMaxQuantityInDisplayUnit(item.batch.quantity, item.name, item.category);
+  const pricePerUnit = getPricePerDisplayUnit(item);
+  const displayQuantity = convertKgToDisplayUnit(item.quantity, item.name, item.category);
+  const totalItemPrice = getPricePerKg(item) * item.quantity;
+
+  const handleQuantityChange = (newDisplayQuantity: number) => {
+    if (isNaN(newDisplayQuantity)) return;
+
+    let clampedQuantity = Math.max(minQuantity, newDisplayQuantity);
+    clampedQuantity = Math.min(clampedQuantity, maxQuantity);
+
+    let snappedQuantity: number;
+    if (displayUnit === 'piece') {
+      snappedQuantity = Math.round(clampedQuantity);
+    } else {
+      snappedQuantity = Math.round(clampedQuantity / step) * step;
+    }
+
+    const newKgQuantity = convertDisplayUnitToKg(snappedQuantity, item.name, item.category);
+    updateQuantity(item.id, newKgQuantity);
   };
 
   const imageUrl = item.imageUrls && item.imageUrls.length > 0 ? item.imageUrls[0] : "/placeholder.svg";
+  const displayUnitString = displayUnit === 'piece' ? 'pc' : displayUnit;
 
   return (
     <div className="flex items-start gap-4 py-4">
@@ -48,15 +70,15 @@ const CartItem = ({ item }: CartItemProps) => {
         </div>
         <p className="text-xs text-muted-foreground font-mono"># {item.sku}</p>
         <p className="text-sm text-muted-foreground">
-          €{pricePerKg.toFixed(2)} / kg
+          €{pricePerUnit.toFixed(2)} / {displayUnitString}
         </p>
         <div className="flex items-center gap-2 mt-2">
           <Button
             variant="outline"
             size="icon"
             className="h-9 w-9"
-            onClick={() => handleWeightChange(item.quantity - 0.05)}
-            disabled={item.quantity <= 0.05}
+            onClick={() => handleQuantityChange(displayQuantity - step)}
+            disabled={displayQuantity <= minQuantity}
           >
             <Minus className="h-4 w-4" />
           </Button>
@@ -64,23 +86,23 @@ const CartItem = ({ item }: CartItemProps) => {
             <Input
               type="number"
               className="h-9 w-24 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              value={item.quantity.toFixed(2)}
-              onChange={(e) => handleWeightChange(parseFloat(e.target.value))}
-              onBlur={(e) => handleWeightChange(parseFloat(e.target.value))} // Snap back on blur
-              step="0.05"
-              min="0.05"
-              max={maxWeight.toFixed(2)}
+              value={displayUnit === 'piece' ? displayQuantity : displayQuantity.toFixed(displayUnit === 'L' ? 1 : 2)}
+              onChange={(e) => handleQuantityChange(parseFloat(e.target.value))}
+              onBlur={(e) => handleQuantityChange(parseFloat(e.target.value))}
+              step={step}
+              min={minQuantity}
+              max={maxQuantity}
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground pointer-events-none">
-              kg
+              {displayUnitString}
             </span>
           </div>
           <Button
             variant="outline"
             size="icon"
             className="h-9 w-9"
-            onClick={() => handleWeightChange(item.quantity + 0.05)}
-            disabled={item.quantity >= maxWeight}
+            onClick={() => handleQuantityChange(displayQuantity + step)}
+            disabled={displayQuantity >= maxQuantity}
           >
             <Plus className="h-4 w-4" />
           </Button>
