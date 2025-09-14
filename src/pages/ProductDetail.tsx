@@ -138,7 +138,7 @@ const ProductDetail = () => {
               {isAvailableInFuture && (
                 <TooltipProvider>
                   <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger onFocus={(e) => e.preventDefault()}>
                       <Badge variant="outline" className="text-primary border-primary cursor-default">
                         <Calendar className="mr-1.5 h-3 w-3" /> Preorder
                       </Badge>
