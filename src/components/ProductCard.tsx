@@ -42,7 +42,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
               <img
                 src={imageUrl}
                 alt={product.name}
-                className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-40 object-cover transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <div className="bg-secondary text-secondary-foreground p-3 rounded-full">
@@ -58,56 +58,60 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
           </DialogTrigger>
         </CardHeader>
         <CardContent className="p-4 flex-grow flex flex-col">
-          <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
-            <div className="flex items-center gap-2 min-w-0">
-              <User className="h-3 w-3 flex-shrink-0" />
-              <Link to={`/seller/${seller?.id}`} className="hover:underline truncate">
-                {seller?.name || "Unknown Seller"}
+          <div>
+            <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <User className="h-3 w-3 flex-shrink-0" />
+                <Link to={`/seller/${seller?.id}`} className="hover:underline truncate">
+                  {seller?.name || "Unknown Seller"}
+                </Link>
+              </div>
+              {seller && (
+                <Badge variant={seller.sellerType === 'commercial' ? 'default' : 'secondary'} className="capitalize text-xs flex-shrink-0">
+                  {seller.sellerType}
+                </Badge>
+              )}
+            </div>
+            <CardTitle className="text-lg font-bold leading-tight">
+              <Link to={`/product/${product.id}`} className="hover:text-primary transition-colors flex items-start gap-2">
+                <CategoryIcon category={product.category} className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                <span>{product.name}</span>
               </Link>
-            </div>
-            {seller && (
-              <Badge variant={seller.sellerType === 'commercial' ? 'default' : 'secondary'} className="capitalize text-xs flex-shrink-0">
-                {seller.sellerType}
-              </Badge>
-            )}
-          </div>
-          <CardTitle className="text-lg font-bold leading-tight">
-            <Link to={`/product/${product.id}`} className="hover:text-primary transition-colors flex items-start gap-2">
-              <CategoryIcon category={product.category} className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-              <span>{product.name}</span>
-            </Link>
-          </CardTitle>
-          <p className="text-xs text-muted-foreground font-mono mt-1 mb-2"># {product.sku}</p>
-          
-          <div className="flex-grow mt-2 space-y-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <MapPin className="h-4 w-4 flex-shrink-0" />
-              <span>{product.region}</span>
-            </div>
-             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Truck className="h-4 w-4 flex-shrink-0" />
-              <span>Ready to ship: {product.deliveryTimeInDays} day(s)</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {product.isVegan && (
-                <Badge variant="outline" className="text-xs font-normal">
-                  <Vegan className="mr-1 h-3 w-3" /> Vegan
-                </Badge>
-              )}
-              {product.isVegetarian && !product.isVegan && (
-                <Badge variant="outline" className="text-xs font-normal">
-                  <Leaf className="mr-1 h-3 w-3" /> Vegetarian
-                </Badge>
-              )}
-              {product.harvestOnDemand && (
-                <Badge variant="outline" className="text-xs font-normal">
-                  <Sprout className="mr-1 h-3 w-3" /> Harvest on Demand
-                </Badge>
-              )}
+            </CardTitle>
+            <p className="text-xs text-muted-foreground font-mono mt-1 mb-2"># {product.sku}</p>
+            
+            <div className="mt-2 space-y-2">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <MapPin className="h-4 w-4 flex-shrink-0" />
+                <span>{product.region}</span>
+              </div>
+               <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Truck className="h-4 w-4 flex-shrink-0" />
+                <span>Ready to ship: {product.deliveryTimeInDays} day(s)</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {product.isVegan && (
+                  <Badge variant="outline" className="text-xs font-normal">
+                    <Vegan className="mr-1 h-3 w-3" /> Vegan
+                  </Badge>
+                )}
+                {product.isVegetarian && !product.isVegan && (
+                  <Badge variant="outline" className="text-xs font-normal">
+                    <Leaf className="mr-1 h-3 w-3" /> Vegetarian
+                  </Badge>
+                )}
+                {product.harvestOnDemand && (
+                  <Badge variant="outline" className="text-xs font-normal">
+                    <Sprout className="mr-1 h-3 w-3" /> Harvest on Demand
+                  </Badge>
+                )}
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 mt-4">
+          <div className="flex-grow" />
+
+          <div className="flex items-center gap-2 pt-3">
             <Tag className="h-4 w-4 text-primary" />
             <p className="text-lg font-semibold text-primary">
               {formatPrice(product)}
