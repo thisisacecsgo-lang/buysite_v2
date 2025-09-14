@@ -12,6 +12,9 @@ import type { Batch, Product } from "@/types";
 import { format, differenceInDays } from "date-fns";
 import { useCart } from "@/context/CartContext";
 import { cn, formatBatchQuantity } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 interface BatchesTableProps {
   product: Product;
@@ -19,6 +22,7 @@ interface BatchesTableProps {
 
 const BatchesTable = ({ product }: BatchesTableProps) => {
   const { addToCart } = useCart();
+  const isMobile = useIsMobile();
 
   const handleAddToCart = (batch: Batch) => {
     addToCart(product, batch);
@@ -31,10 +35,59 @@ const BatchesTable = ({ product }: BatchesTableProps) => {
   const soonestToExpireBatchId =
     sortedBatches.length > 0 ? sortedBatches[0].id : null;
 
+  if (isMobile) {
+    return (
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Available Batches</h2>
+        <div className="space-y-4">
+          {sortedBatches.map((batch) => {
+            const daysLeft = differenceInDays(
+              new Date(batch.expiryDate),
+              new Date()
+            );
+            const isSoonestToExpire = batch.id === soonestToExpireBatchId;
+
+            return (
+              <Card
+                key={batch.id}
+                className={cn(isSoonestToExpire && "border-primary bg-muted/40")}
+              >
+                <CardContent className="p-4 space-y-3">
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="space-y-1">
+                      <p className="font-semibold">{formatBatchQuantity(product, batch)} available</p>
+                      <Badge className="bg-secondary text-secondary-foreground hover:bg-secondary/80">
+                        {daysLeft} days left
+                      </Badge>
+                    </div>
+                    <Button onClick={() => handleAddToCart(batch)} className="flex-shrink-0">
+                      Add to Cart
+                    </Button>
+                  </div>
+                  <Separator />
+                  <div className="text-sm text-muted-foreground space-y-1">
+                    <p>
+                      <span className="font-medium text-foreground/80">Production:</span>{" "}
+                      {format(new Date(batch.productionDate), "MMM d, yyyy")}
+                    </p>
+                    <p>
+                      <span className="font-medium text-foreground/80">Best Before:</span>{" "}
+                      {format(new Date(batch.expiryDate), "MMM d, yyyy")}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-8">
       <h2 className="text-2xl font-bold mb-4">Available Batches</h2>
-      <div className="border rounded-lg overflow-hidden bg-card">
+      <div className="border rounded-lg overflow-x-auto bg-card">
         <Table>
           <TableHeader>
             <TableRow className="border-b-2 border-secondary hover:bg-transparent">
