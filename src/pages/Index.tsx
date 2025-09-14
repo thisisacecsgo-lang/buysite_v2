@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -26,6 +27,7 @@ import { Separator } from "@/components/ui/separator";
 import { isAfter } from "date-fns";
 
 const Index = () => {
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
@@ -35,6 +37,13 @@ const Index = () => {
   const [deliverySpeed, setDeliverySpeed] = useState("any");
   const [showPreorder, setShowPreorder] = useState(false);
   const [sellerType, setSellerType] = useState("all");
+
+  useEffect(() => {
+    if (location.state?.category) {
+      setCategory(location.state.category);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [location.state]);
 
   const maxPrice = useMemo(
     () =>

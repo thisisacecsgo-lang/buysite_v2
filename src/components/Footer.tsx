@@ -21,10 +21,10 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Shop</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/" className="text-muted-foreground hover:text-primary">All Products</Link></li>
-              <li><Link to="/" className="text-muted-foreground hover:text-primary">Fruits</Link></li>
-              <li><Link to="/" className="text-muted-foreground hover:text-primary">Vegetables</Link></li>
-              <li><Link to="/" className="text-muted-foreground hover:text-primary">Pantry</Link></li>
+              <li><Link to="/" state={{ category: "all" }} className="text-muted-foreground hover:text-primary">All Products</Link></li>
+              <li><Link to="/" state={{ category: "Fruits and berries" }} className="text-muted-foreground hover:text-primary">Fruits & Berries</Link></li>
+              <li><Link to="/" state={{ category: "Vegetables" }} className="text-muted-foreground hover:text-primary">Vegetables</Link></li>
+              <li><Link to="/" state={{ category: "Bakery" }} className="text-muted-foreground hover:text-primary">Bakery</Link></li>
             </ul>
           </div>
           <div>
