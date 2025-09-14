@@ -42,6 +42,7 @@ const CartItem = ({ item }: CartItemProps) => {
             <X className="h-4 w-4" />
           </Button>
         </div>
+        <p className="text-xs text-muted-foreground font-mono">SKU: {item.sku}</p>
         <p className="text-sm text-muted-foreground">{formatPrice(item)}</p>
         <div className="flex items-center gap-2 mt-2">
           <Button

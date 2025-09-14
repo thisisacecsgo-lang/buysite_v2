@@ -287,9 +287,14 @@ const Checkout = () => {
                     const price = typeof item.price === 'number' ? item.price : 0;
                     const quantity = typeof item.quantity === 'number' ? item.quantity : 1;
                     return (
-                      <div key={item.id} className="flex justify-between items-center text-sm">
-                        <span>{item.name} x {quantity}</span>
-                        <span>€{(price * quantity).toFixed(2)}</span>
+                      <div key={item.id} className="text-sm">
+                        <div className="flex justify-between items-start">
+                          <div className="pr-2">
+                            <span>{item.name} x {quantity}</span>
+                            <p className="text-xs text-muted-foreground font-mono">SKU: {item.sku}</p>
+                          </div>
+                          <span className="text-right">€{(price * quantity).toFixed(2)}</span>
+                        </div>
                       </div>
                     );
                   })}

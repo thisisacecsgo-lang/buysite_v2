@@ -24,6 +24,7 @@ const OrderSummaryItem = ({ item }: OrderSummaryItemProps) => {
       </Avatar>
       <div className="flex-grow">
         <p className="font-semibold">{item.name}</p>
+        <p className="text-xs text-muted-foreground font-mono">SKU: {item.sku}</p>
         <p className="text-sm text-muted-foreground">
           Quantity: {quantity}
         </p>
