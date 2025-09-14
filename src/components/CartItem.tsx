@@ -102,29 +102,36 @@ const CartItem = ({ item }: CartItemProps) => {
   const displayUnitString = displayUnit === 'piece' ? 'pc' : displayUnit;
 
   return (
-    <div className="flex items-start gap-4 py-4">
-      <img
-        src={imageUrl}
-        alt={item.name}
-        className="h-24 w-24 rounded-md object-cover border"
-      />
-      <div className="flex-grow grid gap-1">
-        <div className="flex items-center justify-between">
-          <h4 className="font-semibold text-base">{item.name}</h4>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-muted-foreground hover:text-destructive h-8 w-8"
-            onClick={() => removeFromCart(item.id)}
-          >
-            <X className="h-4 w-4" />
-          </Button>
+    <div className="py-4">
+      {/* Top section: Image, Title, SKU, Price/unit, Remove button */}
+      <div className="flex items-start gap-4">
+        <img
+          src={imageUrl}
+          alt={item.name}
+          className="h-24 w-24 rounded-md object-cover border flex-shrink-0"
+        />
+        <div className="flex-grow grid gap-1 min-w-0">
+          <div className="flex items-start justify-between">
+            <h4 className="font-semibold text-base pr-2">{item.name}</h4>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-muted-foreground hover:text-destructive h-8 w-8 flex-shrink-0 -mr-2"
+              onClick={() => removeFromCart(item.id)}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground font-mono truncate"># {item.sku}</p>
+          <p className="text-sm text-muted-foreground">
+            €{pricePerUnit.toFixed(2)} / {displayUnitString}
+          </p>
         </div>
-        <p className="text-xs text-muted-foreground font-mono"># {item.sku}</p>
-        <p className="text-sm text-muted-foreground">
-          €{pricePerUnit.toFixed(2)} / {displayUnitString}
-        </p>
-        <div className="flex items-center gap-2 mt-2">
+      </div>
+
+      {/* Bottom section: Quantity controls and Total Price */}
+      <div className="flex items-center justify-between mt-4 sm:pl-28">
+        <div className="flex items-center gap-2">
           <Button
             variant="outline"
             size="icon"
@@ -138,7 +145,7 @@ const CartItem = ({ item }: CartItemProps) => {
             <Input
               type="text"
               inputMode={displayUnit === 'piece' ? 'numeric' : 'decimal'}
-              className="h-9 w-24 text-center"
+              className="h-9 w-20 sm:w-24 text-center"
               value={inputValue}
               onChange={handleInputChange}
               onBlur={handleBlur}
@@ -158,8 +165,6 @@ const CartItem = ({ item }: CartItemProps) => {
             <Plus className="h-4 w-4" />
           </Button>
         </div>
-      </div>
-      <div className="text-right">
         <p className="font-semibold text-lg">€{totalItemPrice.toFixed(2)}</p>
       </div>
     </div>
