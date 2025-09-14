@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import type { Batch, Product } from "@/types";
 import { format, differenceInDays } from "date-fns";
 import { useCart } from "@/context/CartContext";
-import { cn, formatBatchQuantity } from "@/lib/utils";
+import { formatBatchQuantity } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -32,9 +32,6 @@ const BatchesTable = ({ product }: BatchesTableProps) => {
     (a, b) => new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime()
   );
 
-  const soonestToExpireBatchId =
-    sortedBatches.length > 0 ? sortedBatches[0].id : null;
-
   if (isMobile) {
     return (
       <div className="mt-8">
@@ -45,12 +42,11 @@ const BatchesTable = ({ product }: BatchesTableProps) => {
               new Date(batch.expiryDate),
               new Date()
             );
-            const isSoonestToExpire = batch.id === soonestToExpireBatchId;
 
             return (
               <Card
                 key={batch.id}
-                className={cn(isSoonestToExpire && "border-primary bg-muted/40")}
+                className="transition-colors hover:border-primary hover:bg-muted/40"
               >
                 <CardContent className="p-4 space-y-3">
                   <div className="flex justify-between items-start gap-4">
@@ -104,15 +100,11 @@ const BatchesTable = ({ product }: BatchesTableProps) => {
                 new Date(batch.expiryDate),
                 new Date()
               );
-              const isSoonestToExpire = batch.id === soonestToExpireBatchId;
 
               return (
                 <TableRow
                   key={batch.id}
-                  className={cn(
-                    "border-b border-secondary last:border-b-0",
-                    isSoonestToExpire && "bg-muted/40"
-                  )}
+                  className="border-b border-secondary last:border-b-0 transition-colors hover:bg-muted/40"
                 >
                   <TableCell className="py-4">
                     {format(new Date(batch.productionDate), "MMMM do, yyyy")}
