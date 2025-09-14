@@ -54,10 +54,10 @@ export interface Product {
   batches: Batch[];
 }
 
-export type CartItem = Omit<Product, "batches" | "status" | "createdAt"> & {
+export type CartItem = Omit<Product, "status" | "createdAt"> & {
   id: string; // composite key
   batch: Batch;
-  quantity: number;
+  quantity: number; // Weight in KG
 };
 
 export interface Customer {

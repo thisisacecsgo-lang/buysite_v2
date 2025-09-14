@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import type { Product, CartItem, Batch } from "@/types";
 import { toast } from "sonner";
+import { parseQuantityToKg, getPricePerKg } from "@/lib/unitConverter";
 
 interface CartContextType {
   cartItems: CartItem[];
@@ -44,23 +45,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === cartItemId);
       if (existingItem) {
-        return prevItems.map((item) =>
-          item.id === cartItemId
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
+        toast.info(`${product.name} is already in your cart. You can adjust the weight there.`);
+        return prevItems;
       }
+
+      const maxWeight = parseQuantityToKg(batch.quantity, product.name, product.category);
+      if (maxWeight < 0.05) {
+        toast.error(`This batch of ${product.name} is too small to be added.`);
+        return prevItems;
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { batches, status, createdAt, ...productData } = product;
+      const { status, createdAt, ...productData } = product;
       const newItem: CartItem = {
         ...productData,
         id: cartItemId,
         batch: batch,
-        quantity: 1,
+        quantity: 0.05, // Start with the minimum increment
       };
+      toast.success(`${product.name} added to cart!`);
       return [...prevItems, newItem];
     });
-    toast.success(`${product.name} added to cart!`);
   };
 
   const removeFromCart = (cartItemId: string) => {
@@ -76,9 +81,18 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
     setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === cartItemId ? { ...item, quantity } : item
-      )
+      prevItems.map((item) => {
+        if (item.id !== cartItemId) return item;
+
+        const maxWeight = parseQuantityToKg(item.batch.quantity, item.name, item.category);
+        let newQuantity = quantity;
+        if (newQuantity > maxWeight) {
+            newQuantity = maxWeight;
+            toast.warning(`Maximum weight for this batch is ${maxWeight.toFixed(2)} kg.`);
+        }
+        
+        return { ...item, quantity: newQuantity };
+      })
     );
   };
 
@@ -88,15 +102,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const cartTotal = cartItems.reduce((total, item) => {
-    const price = typeof item.price === 'number' ? item.price : 0;
+    const pricePerKg = getPricePerKg(item);
     const quantity = typeof item.quantity === 'number' ? item.quantity : 0;
-    return total + price * quantity;
+    return total + pricePerKg * quantity;
   }, 0);
 
-  const itemCount = cartItems.reduce((count, item) => {
-    const quantity = typeof item.quantity === 'number' ? item.quantity : 0;
-    return count + quantity;
-  }, 0);
+  const itemCount = cartItems.length;
 
   return (
     <CartContext.Provider
