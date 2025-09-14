@@ -118,7 +118,7 @@ const ProductDetail = () => {
           <div className="lg:col-span-3 space-y-4">
             <div className="flex items-center gap-3">
               <CategoryIcon category={product.category} className="h-7 w-7 text-muted-foreground" />
-              <h1 className="text-3xl font-bold">{product.name}</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold">{product.name}</h1>
             </div>
             
             <div className="flex items-center gap-2">
