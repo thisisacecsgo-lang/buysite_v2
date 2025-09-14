@@ -99,7 +99,7 @@ const ProductDetail = () => {
         <AppBreadcrumb />
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2">
-            <Carousel className="w-full">
+            <Carousel className="w-full max-w-md mx-auto lg:max-w-none lg:mx-0">
               <CarouselContent>
                 {product.imageUrls.map((img, index) => (
                   <CarouselItem key={index}>
