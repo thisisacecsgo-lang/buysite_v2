@@ -147,22 +147,28 @@ const ProductDetail = () => {
                 </ResponsiveTooltip>
               )}
               {product.isVegan && (
-                <Badge variant="outline">
-                  <Vegan className="mr-2 h-4 w-4" />
-                  Vegan
-                </Badge>
+                <ResponsiveTooltip content={<p>Vegan</p>}>
+                  <Badge variant="outline" className="cursor-default">
+                    <Vegan className="mr-2 h-4 w-4" />
+                    Vegan
+                  </Badge>
+                </ResponsiveTooltip>
               )}
               {product.isVegetarian && !product.isVegan && (
-                <Badge variant="outline">
-                  <Leaf className="mr-2 h-4 w-4" />
-                  Vegetarian
-                </Badge>
+                <ResponsiveTooltip content={<p>Vegetarian</p>}>
+                  <Badge variant="outline" className="cursor-default">
+                    <Leaf className="mr-2 h-4 w-4" />
+                    Vegetarian
+                  </Badge>
+                </ResponsiveTooltip>
               )}
               {product.harvestOnDemand && (
-                <Badge variant="outline">
-                  <Sprout className="mr-2 h-4 w-4" />
-                  Harvest on Demand
-                </Badge>
+                <ResponsiveTooltip content={<p>Harvest on Demand</p>}>
+                  <Badge variant="outline" className="cursor-default">
+                    <Sprout className="mr-2 h-4 w-4" />
+                    Harvest on Demand
+                  </Badge>
+                </ResponsiveTooltip>
               )}
             </div>
 
