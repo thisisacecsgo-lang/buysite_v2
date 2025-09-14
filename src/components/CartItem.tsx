@@ -131,7 +131,7 @@ const CartItem = ({ item }: CartItemProps) => {
 
       {/* Bottom section: Quantity controls and Total Price */}
       <div className="flex items-center justify-between mt-4 sm:pl-28">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-shrink-0">
           <Button
             variant="outline"
             size="icon"
@@ -165,7 +165,7 @@ const CartItem = ({ item }: CartItemProps) => {
             <Plus className="h-4 w-4" />
           </Button>
         </div>
-        <p className="font-semibold text-lg">€{totalItemPrice.toFixed(2)}</p>
+        <p className="font-semibold text-lg text-right">€{totalItemPrice.toFixed(2)}</p>
       </div>
     </div>
   );

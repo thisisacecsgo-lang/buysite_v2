@@ -12,6 +12,7 @@ import CartItem from "./CartItem";
 import { Separator } from "./ui/separator";
 import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface CartSheetProps {
   open: boolean;
@@ -31,13 +32,13 @@ const CartSheet = ({ open, onOpenChange }: CartSheetProps) => {
         </SheetHeader>
         {cartItems.length > 0 ? (
           <>
-            <div className="flex-1 overflow-y-auto px-6 py-4 custom-scrollbar">
-              <div className="divide-y divide-border -my-4">
+            <ScrollArea className="flex-1 px-6">
+              <div className="divide-y divide-border -my-4 py-4">
                 {cartItems.map((item) => (
                   <CartItem key={item.id} item={item} />
                 ))}
               </div>
-            </div>
+            </ScrollArea>
             <SheetFooter className="border-t bg-background p-6">
               {/* This single div wrapper prevents SheetFooter's flex-col-reverse from reordering the totals and buttons */}
               <div className="w-full space-y-4">
