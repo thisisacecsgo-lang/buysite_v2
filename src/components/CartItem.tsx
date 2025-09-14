@@ -86,7 +86,7 @@ const CartItem = ({ item }: CartItemProps) => {
             <Input
               type="number"
               className="h-9 w-24 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              value={displayUnit === 'piece' ? displayQuantity : displayQuantity.toFixed(displayUnit === 'L' ? 1 : 2)}
+              value={displayUnit === 'piece' ? Math.round(displayQuantity) : displayQuantity.toFixed(displayUnit === 'L' ? 1 : 2)}
               onChange={(e) => handleQuantityChange(parseFloat(e.target.value))}
               onBlur={(e) => handleQuantityChange(parseFloat(e.target.value))}
               step={step}

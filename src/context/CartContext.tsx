@@ -1,7 +1,13 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import type { Product, CartItem, Batch } from "@/types";
 import { toast } from "sonner";
-import { parseQuantityToKg, getPricePerKg } from "@/lib/unitConverter";
+import {
+  parseQuantityToKg,
+  getPricePerKg,
+  getDisplayUnit,
+  getStepForDisplayUnit,
+  convertDisplayUnitToKg,
+} from "@/lib/unitConverter";
 
 interface CartContextType {
   cartItems: CartItem[];
@@ -45,7 +51,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === cartItemId);
       if (existingItem) {
-        toast.info(`${product.name} is already in your cart. You can adjust the weight there.`);
+        toast.info(`${product.name} is already in your cart. You can adjust the quantity there.`);
         return prevItems;
       }
 
@@ -55,13 +61,18 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return prevItems;
       }
 
+      const displayUnit = getDisplayUnit(product.name, product.category);
+      const step = getStepForDisplayUnit(displayUnit);
+      const minQuantityInDisplayUnit = displayUnit === 'piece' ? 1 : step;
+      const initialQuantityInKg = convertDisplayUnitToKg(minQuantityInDisplayUnit, product.name, product.category);
+
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { status, createdAt, ...productData } = product;
       const newItem: CartItem = {
         ...productData,
         id: cartItemId,
         batch: batch,
-        quantity: 0.05, // Start with the minimum increment
+        quantity: initialQuantityInKg,
       };
       toast.success(`${product.name} added to cart!`);
       return [...prevItems, newItem];
