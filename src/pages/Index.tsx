@@ -10,7 +10,7 @@ import {
 import Header from "@/components/Header";
 import ProductList from "@/components/ProductList";
 import { Filter } from "lucide-react";
-import { mockProducts } from "@/data/mockData";
+import { mockProducts, mockSellers } from "@/data/mockData";
 import {
   Sheet,
   SheetContent,
@@ -34,6 +34,7 @@ const Index = () => {
   const [showHarvestOnDemand, setShowHarvestOnDemand] = useState(false);
   const [deliverySpeed, setDeliverySpeed] = useState("any");
   const [showPreorder, setShowPreorder] = useState(false);
+  const [sellerType, setSellerType] = useState("all");
 
   const maxPrice = useMemo(
     () =>
@@ -84,6 +85,9 @@ const Index = () => {
       const isFutureProduct = firstBatchProductionDate ? isAfter(new Date(firstBatchProductionDate), new Date()) : false;
       const preorderMatch = showPreorder ? isFutureProduct : !isFutureProduct;
 
+      const seller = mockSellers.find(s => s.id === product.sellerId);
+      const sellerTypeMatch = sellerType === 'all' || (seller && seller.sellerType === sellerType);
+
       return (
         searchMatch &&
         categoryMatch &&
@@ -92,7 +96,8 @@ const Index = () => {
         vegetarianMatch &&
         harvestOnDemandMatch &&
         deliveryMatch &&
-        preorderMatch
+        preorderMatch &&
+        sellerTypeMatch
       );
     });
 
@@ -127,6 +132,7 @@ const Index = () => {
     showHarvestOnDemand,
     deliverySpeed,
     showPreorder,
+    sellerType,
   ]);
 
   const sidebarProps = {
@@ -147,6 +153,8 @@ const Index = () => {
     onDeliverySpeedChange: setDeliverySpeed,
     showPreorder,
     onShowPreorderChange: setShowPreorder,
+    sellerType,
+    onSellerTypeChange: setSellerType,
   };
 
   return (

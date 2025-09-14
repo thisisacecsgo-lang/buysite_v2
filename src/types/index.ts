@@ -16,6 +16,7 @@ export interface Seller {
   totalSold: number;
   profileViews?: number;
   verified: boolean;
+  sellerType: "commercial" | "private";
   location: {
     lat: number;
     lon: number;

@@ -19,6 +19,8 @@ interface ProductFiltersProps {
   onDeliverySpeedChange: (value: string) => void;
   showPreorder: boolean;
   onShowPreorderChange: (checked: boolean) => void;
+  sellerType: string;
+  onSellerTypeChange: (value: string) => void;
 }
 
 const ProductFilters = ({
@@ -35,6 +37,8 @@ const ProductFilters = ({
   onDeliverySpeedChange,
   showPreorder,
   onShowPreorderChange,
+  sellerType,
+  onSellerTypeChange,
 }: ProductFiltersProps) => {
   return (
     <Card>
@@ -57,6 +61,24 @@ const ProductFilters = ({
             value={priceRange}
             onValueChange={(value) => onPriceRangeChange(value as [number, number])}
           />
+        </div>
+        <Separator />
+        <div className="space-y-4">
+          <Label>Seller Type</Label>
+          <RadioGroup value={sellerType} onValueChange={onSellerTypeChange}>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="all" id="st-all" />
+              <Label htmlFor="st-all" className="font-normal">All</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="commercial" id="st-commercial" />
+              <Label htmlFor="st-commercial" className="font-normal">Commercial</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="private" id="st-private" />
+              <Label htmlFor="st-private" className="font-normal">Private</Label>
+            </div>
+          </RadioGroup>
         </div>
         <Separator />
         <div className="space-y-4">

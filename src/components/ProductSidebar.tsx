@@ -20,6 +20,8 @@ interface ProductSidebarProps {
   onDeliverySpeedChange: (value: string) => void;
   showPreorder: boolean;
   onShowPreorderChange: (checked: boolean) => void;
+  sellerType: string;
+  onSellerTypeChange: (value: string) => void;
 }
 
 const ProductSidebar = ({
