@@ -2,6 +2,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Tooltip,
   TooltipContent,
+  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import {
@@ -31,9 +32,11 @@ export const ResponsiveTooltip = ({ children, content }: ResponsiveTooltipProps)
   }
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>{children}</TooltipTrigger>
-      <TooltipContent>{content}</TooltipContent>
-    </Tooltip>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        <TooltipContent>{content}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
