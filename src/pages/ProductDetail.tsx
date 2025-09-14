@@ -134,9 +134,9 @@ const ProductDetail = () => {
               <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> Ships in {product.deliveryTimeInDays} day(s)</Badge>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2">
-              {isAvailableInFuture && (
-                <TooltipProvider>
+            <div className="flex flex-wrap items-center gap-3">
+              <TooltipProvider>
+                {isAvailableInFuture && (
                   <Tooltip>
                     <TooltipTrigger onFocus={(e) => e.preventDefault()}>
                       <Badge variant="outline" className="text-primary border-primary cursor-default">
@@ -150,23 +150,38 @@ const ProductDetail = () => {
                       )}
                     </TooltipContent>
                   </Tooltip>
-                </TooltipProvider>
-              )}
-              {product.isVegan && (
-                <Badge variant="outline">
-                  <Vegan className="mr-1.5 h-3 w-3" /> Vegan
-                </Badge>
-              )}
-              {product.isVegetarian && !product.isVegan && (
-                <Badge variant="outline">
-                  <Leaf className="mr-1.5 h-3 w-3" /> Vegetarian
-                </Badge>
-              )}
-              {product.harvestOnDemand && (
-                <Badge variant="outline">
-                  <Sprout className="mr-1.5 h-3 w-3" /> Harvest on Demand
-                </Badge>
-              )}
+                )}
+                {product.isVegan && (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Vegan className="h-5 w-5 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Vegan</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                {product.isVegetarian && !product.isVegan && (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Leaf className="h-5 w-5 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Vegetarian</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                {product.harvestOnDemand && (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Sprout className="h-5 w-5 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Harvest on Demand</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+              </TooltipProvider>
             </div>
 
             {product.description && (

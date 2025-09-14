@@ -16,6 +16,12 @@ import { ProductQuickView } from "./ProductQuickView";
 import { cn, formatPrice } from "@/lib/utils";
 import CategoryIcon from "./CategoryIcon";
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ProductCardProps {
   product: Product;
@@ -89,22 +95,39 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 <Truck className="h-4 w-4 flex-shrink-0" />
                 <span className="truncate">Ships in {product.deliveryTimeInDays} day(s)</span>
               </div>
-              <div className="flex flex-wrap content-start gap-1 pt-1 h-12">
-                {product.isVegan && (
-                  <Badge variant="outline" className="text-xs font-normal">
-                    <Vegan className="mr-1 h-3 w-3" /> Vegan
-                  </Badge>
-                )}
-                {product.isVegetarian && !product.isVegan && (
-                  <Badge variant="outline" className="text-xs font-normal">
-                    <Leaf className="mr-1 h-3 w-3" /> Vegetarian
-                  </Badge>
-                )}
-                {product.harvestOnDemand && (
-                  <Badge variant="outline" className="text-xs font-normal">
-                    <Sprout className="mr-1 h-3 w-3" /> Harvest on Demand
-                  </Badge>
-                )}
+              <div className="flex items-center gap-3 pt-1 min-h-[28px]">
+                <TooltipProvider delayDuration={100}>
+                  {product.isVegan && (
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Vegan className="h-4 w-4 text-muted-foreground" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Vegan</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
+                  {product.isVegetarian && !product.isVegan && (
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Leaf className="h-4 w-4 text-muted-foreground" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Vegetarian</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
+                  {product.harvestOnDemand && (
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Sprout className="h-4 w-4 text-muted-foreground" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Harvest on Demand</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
+                </TooltipProvider>
               </div>
             </div>
           </div>

@@ -73,41 +73,58 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
               {formatPrice(product)}
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-3">
             <CopyableBadge textToCopy={product.sku} />
             <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> Ships in {product.deliveryTimeInDays} day(s)</Badge>
-            {isAvailableInFuture && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger onFocus={(e) => e.preventDefault()}>
-                    <Badge variant="outline" className="text-primary border-primary cursor-default">
-                      <Calendar className="mr-1.5 h-3 w-3" /> Preorder
-                    </Badge>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>This item is available for preorder.</p>
-                    {earliestProductionDate && (
-                      <p>Expected to be ready on: {format(earliestProductionDate, "PPP")}</p>
-                    )}
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            )}
-            {product.isVegan && (
-              <Badge variant="outline">
-                <Vegan className="mr-1.5 h-3 w-3" /> Vegan
-              </Badge>
-            )}
-            {product.isVegetarian && !product.isVegan && (
-              <Badge variant="outline">
-                <Leaf className="mr-1.5 h-3 w-3" /> Vegetarian
-              </Badge>
-            )}
-            {product.harvestOnDemand && (
-              <Badge variant="outline">
-                <Sprout className="mr-1.5 h-3 w-3" /> Harvest on Demand
-              </Badge>
-            )}
+            <TooltipProvider>
+              <div className="flex items-center gap-3">
+                {isAvailableInFuture && (
+                  <Tooltip>
+                    <TooltipTrigger onFocus={(e) => e.preventDefault()}>
+                      <Badge variant="outline" className="text-primary border-primary cursor-default">
+                        <Calendar className="mr-1.5 h-3 w-3" /> Preorder
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>This item is available for preorder.</p>
+                      {earliestProductionDate && (
+                        <p>Expected to be ready on: {format(earliestProductionDate, "PPP")}</p>
+                      )}
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                {product.isVegan && (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Vegan className="h-5 w-5 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Vegan</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                {product.isVegetarian && !product.isVegan && (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Leaf className="h-5 w-5 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Vegetarian</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                {product.harvestOnDemand && (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Sprout className="h-5 w-5 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Harvest on Demand</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+              </div>
+            </TooltipProvider>
           </div>
           {product.description && (
             <div className="flex items-start gap-3 text-sm">
