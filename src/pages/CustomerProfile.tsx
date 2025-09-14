@@ -8,6 +8,8 @@ import { Mail, Phone, Home, Edit } from "lucide-react";
 import { mockCustomer as initialCustomer } from "@/data/mockData";
 import type { Customer } from "@/types";
 import EditProfileDialog from "@/components/EditProfileDialog";
+import { AppBreadcrumb } from "@/components/AppBreadcrumb";
+import BackButton from "@/components/BackButton";
 
 const CustomerProfile = () => {
   const [customer, setCustomer] = useState<Customer>(initialCustomer);
@@ -22,6 +24,8 @@ const CustomerProfile = () => {
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow container mx-auto p-4 md:p-8">
+          <BackButton />
+          <AppBreadcrumb />
           <div className="max-w-2xl mx-auto">
             <Card>
               <CardHeader className="flex flex-col items-center text-center p-6 bg-secondary/50">
