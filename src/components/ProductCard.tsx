@@ -16,7 +16,11 @@ import { ProductQuickView } from "./ProductQuickView";
 import { cn, formatPrice } from "@/lib/utils";
 import CategoryIcon from "./CategoryIcon";
 import { Badge } from "@/components/ui/badge";
-import { ResponsiveTooltip } from "./ResponsiveTooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ProductCardProps {
   product: Product;
@@ -92,19 +96,34 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
               </div>
               <div className="flex items-center gap-3 pt-1 min-h-[28px]">
                 {product.isVegan && (
-                  <ResponsiveTooltip content={<p>Vegan</p>}>
-                    <Vegan className="h-4 w-4 text-muted-foreground" />
-                  </ResponsiveTooltip>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Vegan className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Vegan</p>
+                    </TooltipContent>
+                  </Tooltip>
                 )}
                 {product.isVegetarian && !product.isVegan && (
-                  <ResponsiveTooltip content={<p>Vegetarian</p>}>
-                    <Leaf className="h-4 w-4 text-muted-foreground" />
-                  </ResponsiveTooltip>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Leaf className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Vegetarian</p>
+                    </TooltipContent>
+                  </Tooltip>
                 )}
                 {product.harvestOnDemand && (
-                  <ResponsiveTooltip content={<p>Harvest on Demand</p>}>
-                    <Sprout className="h-4 w-4 text-muted-foreground" />
-                  </ResponsiveTooltip>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Sprout className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Harvest on Demand</p>
+                    </TooltipContent>
+                  </Tooltip>
                 )}
               </div>
             </div>

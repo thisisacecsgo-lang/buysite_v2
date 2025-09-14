@@ -27,8 +27,13 @@ import { formatPrice } from "@/lib/utils";
 import StarRating from "@/components/StarRating";
 import CopyableBadge from "@/components/CopyableBadge";
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { format } from "date-fns";
-import { ResponsiveTooltip } from "@/components/ResponsiveTooltip";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -131,20 +136,21 @@ const ProductDetail = () => {
 
             <div className="flex flex-wrap items-center gap-2">
               {isAvailableInFuture && (
-                <ResponsiveTooltip
-                  content={
-                    <>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger onFocus={(e) => e.preventDefault()}>
+                      <Badge variant="outline" className="text-primary border-primary cursor-default">
+                        <Calendar className="mr-1.5 h-3 w-3" /> Preorder
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent>
                       <p>This item is available for preorder.</p>
                       {earliestProductionDate && (
                         <p>Expected to be ready on: {format(earliestProductionDate, "PPP")}</p>
                       )}
-                    </>
-                  }
-                >
-                  <Badge variant="outline" className="text-primary border-primary cursor-default">
-                    <Calendar className="mr-1.5 h-3 w-3" /> Preorder
-                  </Badge>
-                </ResponsiveTooltip>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
               {product.isVegan && (
                 <Badge variant="outline">
