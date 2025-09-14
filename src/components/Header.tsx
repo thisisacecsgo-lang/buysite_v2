@@ -9,7 +9,7 @@ const Header = () => {
 
   const Logo = () => (
       <div className="flex items-center gap-2">
-          <img src="/images/logo2.png" alt="Hiesige Höfe Logo" className="h-10 w-12"/>
+          <img src="/images/logo2.png" alt="Hiesige Höfe Logo" className="h-12 w-14"/>
       </div>
   );
 
