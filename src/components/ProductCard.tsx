@@ -15,7 +15,6 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ProductQuickView } from "./ProductQuickView";
 import { cn, formatPrice } from "@/lib/utils";
 import CategoryIcon from "./CategoryIcon";
-import { formatDistanceToNowStrict } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 
 interface ProductCardProps {
@@ -72,12 +71,13 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
               </Badge>
             )}
           </div>
-          <CardTitle className="text-lg font-bold mb-2 leading-tight">
+          <CardTitle className="text-lg font-bold leading-tight">
             <Link to={`/product/${product.id}`} className="hover:text-primary transition-colors flex items-start gap-2">
               <CategoryIcon category={product.category} className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
               <span>{product.name}</span>
             </Link>
           </CardTitle>
+          <p className="text-xs text-muted-foreground font-mono mt-1 mb-2"># {product.sku}</p>
           
           <div className="flex-grow mt-2 space-y-3">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">

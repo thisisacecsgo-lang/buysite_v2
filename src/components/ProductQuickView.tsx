@@ -15,6 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { format } from "date-fns";
+import CopyableBadge from "./CopyableBadge";
 
 interface ProductQuickViewProps {
   product: Product;
@@ -73,6 +74,7 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
+            <CopyableBadge textToCopy={product.sku} />
             <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> Ships in {product.deliveryTimeInDays} day(s)</Badge>
             {isAvailableInFuture && (
               <TooltipProvider>
@@ -107,9 +109,6 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
               </Badge>
             )}
           </div>
-          <div>
-            <Badge variant="secondary" className="font-mono"># {product.sku}</Badge>
-          </div>
           {product.description && (
             <div className="flex items-start gap-3 text-sm">
               <Info className="h-4 w-4 text-muted-foreground mt-1 flex-shrink-0" />
@@ -117,7 +116,7 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
             </div>
           )}
           {seller && (
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-3">
               <Avatar className="h-10 w-10">
                 <AvatarImage src={seller.logoUrl} />
                 <AvatarFallback><User /></AvatarFallback>
@@ -128,7 +127,7 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
               </div>
             </div>
           )}
-          <div className="space-y-2 pt-4">
+          <div className="pt-4">
             <Button size="lg" className="w-full" asChild>
               <Link to={`/product/${product.id}`}>View Full Details</Link>
             </Button>
