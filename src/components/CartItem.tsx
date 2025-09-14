@@ -145,7 +145,7 @@ const CartItem = ({ item }: CartItemProps) => {
             <Input
               type="text"
               inputMode={displayUnit === 'piece' ? 'numeric' : 'decimal'}
-              className="h-9 w-20 sm:w-24 text-center"
+              className="h-9 w-20 sm:w-24 text-center pr-8"
               value={inputValue}
               onChange={handleInputChange}
               onBlur={handleBlur}
