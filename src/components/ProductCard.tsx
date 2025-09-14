@@ -17,6 +17,7 @@ import { cn, formatPrice } from "@/lib/utils";
 import CategoryIcon from "./CategoryIcon";
 import { Badge } from "@/components/ui/badge";
 import { ResponsiveTooltip } from "./ResponsiveTooltip";
+import { format } from "date-fns";
 
 interface ProductCardProps {
   product: Product;
@@ -51,9 +52,20 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 </div>
               </div>
                {isAvailableInFuture && (
-                <Badge variant="default" className="absolute top-2 left-2">
-                  <Calendar className="mr-1.5 h-3 w-3" /> Preorder
-                </Badge>
+                <ResponsiveTooltip
+                  content={
+                    <>
+                      <p>This item is available for preorder.</p>
+                      {productionDate && (
+                        <p>Expected to be ready on: {format(new Date(productionDate), "PPP")}</p>
+                      )}
+                    </>
+                  }
+                >
+                  <Badge variant="default" className="absolute top-2 left-2 cursor-default">
+                    <Calendar className="mr-1.5 h-3 w-3" /> Preorder
+                  </Badge>
+                </ResponsiveTooltip>
               )}
             </div>
           </DialogTrigger>
