@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
 import type { CartItem as CartItemType } from "@/types";
 import { Button } from "./ui/button";
@@ -23,13 +24,25 @@ const CartItem = ({ item }: CartItemProps) => {
   const displayUnit = getDisplayUnit(item.name, item.category);
   const step = getStepForDisplayUnit(displayUnit);
   const minQuantity = displayUnit === 'piece' ? 1 : step;
-
   const maxQuantity = getMaxQuantityInDisplayUnit(item.batch.quantity, item.name, item.category);
   const pricePerUnit = getPricePerDisplayUnit(item);
-  const displayQuantity = convertKgToDisplayUnit(item.quantity, item.name, item.category);
   const totalItemPrice = getPricePerKg(item) * item.quantity;
 
-  const handleQuantityChange = (newDisplayQuantity: number) => {
+  const formatDisplayValue = (num: number) => {
+    if (displayUnit === 'piece') {
+      return String(Math.round(num));
+    }
+    return num.toFixed(displayUnit === 'L' ? 1 : 2);
+  };
+
+  const [inputValue, setInputValue] = useState(formatDisplayValue(convertKgToDisplayUnit(item.quantity, item.name, item.category)));
+
+  useEffect(() => {
+    const newDisplayQuantity = convertKgToDisplayUnit(item.quantity, item.name, item.category);
+    setInputValue(formatDisplayValue(newDisplayQuantity));
+  }, [item.quantity, item.name, item.category, displayUnit]);
+
+  const updateCartQuantity = (newDisplayQuantity: number) => {
     if (isNaN(newDisplayQuantity)) return;
 
     let clampedQuantity = Math.max(minQuantity, newDisplayQuantity);
@@ -43,7 +56,46 @@ const CartItem = ({ item }: CartItemProps) => {
     }
 
     const newKgQuantity = convertDisplayUnitToKg(snappedQuantity, item.name, item.category);
-    updateQuantity(item.id, newKgQuantity);
+    
+    if (newKgQuantity !== item.quantity) {
+      updateQuantity(item.id, newKgQuantity);
+    } else {
+      setInputValue(formatDisplayValue(snappedQuantity));
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === '' || /^[0-9]*\.?[0-9]*$/.test(value)) {
+      setInputValue(value);
+    }
+  };
+
+  const handleBlur = () => {
+    const parsedValue = parseFloat(inputValue);
+    if (inputValue === '' || isNaN(parsedValue)) {
+      const originalDisplayQuantity = convertKgToDisplayUnit(item.quantity, item.name, item.category);
+      setInputValue(formatDisplayValue(originalDisplayQuantity));
+    } else {
+      updateCartQuantity(parsedValue);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleBlur();
+      (e.target as HTMLInputElement).blur();
+    }
+  };
+
+  const handleIncrement = () => {
+    const currentVal = parseFloat(inputValue) || 0;
+    updateCartQuantity(currentVal + step);
+  };
+
+  const handleDecrement = () => {
+    const currentVal = parseFloat(inputValue) || 0;
+    updateCartQuantity(currentVal - step);
   };
 
   const imageUrl = item.imageUrls && item.imageUrls.length > 0 ? item.imageUrls[0] : "/placeholder.svg";
@@ -77,21 +129,20 @@ const CartItem = ({ item }: CartItemProps) => {
             variant="outline"
             size="icon"
             className="h-9 w-9"
-            onClick={() => handleQuantityChange(displayQuantity - step)}
-            disabled={displayQuantity <= minQuantity}
+            onClick={handleDecrement}
+            disabled={(parseFloat(inputValue) || 0) <= minQuantity}
           >
             <Minus className="h-4 w-4" />
           </Button>
           <div className="relative h-9">
             <Input
-              type="number"
-              className="h-9 w-24 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              value={displayUnit === 'piece' ? Math.round(displayQuantity) : displayQuantity.toFixed(displayUnit === 'L' ? 1 : 2)}
-              onChange={(e) => handleQuantityChange(parseFloat(e.target.value))}
-              onBlur={(e) => handleQuantityChange(parseFloat(e.target.value))}
-              step={step}
-              min={minQuantity}
-              max={maxQuantity}
+              type="text"
+              inputMode={displayUnit === 'piece' ? 'numeric' : 'decimal'}
+              className="h-9 w-24 text-center"
+              value={inputValue}
+              onChange={handleInputChange}
+              onBlur={handleBlur}
+              onKeyDown={handleKeyDown}
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground pointer-events-none">
               {displayUnitString}
@@ -101,8 +152,8 @@ const CartItem = ({ item }: CartItemProps) => {
             variant="outline"
             size="icon"
             className="h-9 w-9"
-            onClick={() => handleQuantityChange(displayQuantity + step)}
-            disabled={displayQuantity >= maxQuantity}
+            onClick={handleIncrement}
+            disabled={(parseFloat(inputValue) || 0) >= maxQuantity}
           >
             <Plus className="h-4 w-4" />
           </Button>
