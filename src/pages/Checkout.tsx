@@ -31,6 +31,11 @@ import { Footer } from "@/components/Footer";
 import { useState } from "react";
 import { Upload, File } from "lucide-react";
 import { Label } from "@/components/ui/label";
+import {
+  getDisplayUnit,
+  convertKgToDisplayUnit,
+  getPricePerKg,
+} from "@/lib/unitConverter";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -284,16 +289,29 @@ const Checkout = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {cartItems.map(item => {
-                    const price = typeof item.price === 'number' ? item.price : 0;
-                    const quantity = typeof item.quantity === 'number' ? item.quantity : 1;
+                    const quantityInKg = typeof item.quantity === 'number' ? item.quantity : 0;
+                    const pricePerKg = getPricePerKg(item);
+                    const totalItemPrice = pricePerKg * quantityInKg;
+
+                    const displayUnit = getDisplayUnit(item.name, item.category);
+                    const displayQuantity = convertKgToDisplayUnit(quantityInKg, item.name, item.category);
+                    const displayUnitString = displayUnit === 'piece' ? 'pc' : displayUnit;
+
+                    let formattedQuantity: string;
+                    if (displayUnit === 'piece') {
+                      formattedQuantity = `${Math.round(displayQuantity)}`;
+                    } else {
+                      formattedQuantity = `${displayQuantity.toFixed(2)}`;
+                    }
+
                     return (
                       <div key={item.id} className="text-sm">
                         <div className="flex justify-between items-start">
                           <div className="pr-2">
-                            <span>{item.name} x {quantity}</span>
+                            <span>{item.name} x {formattedQuantity} {displayUnitString}</span>
                             <p className="text-xs text-muted-foreground font-mono"># {item.sku}</p>
                           </div>
-                          <span className="text-right">€{(price * quantity).toFixed(2)}</span>
+                          <span className="text-right">€{totalItemPrice.toFixed(2)}</span>
                         </div>
                       </div>
                     );
