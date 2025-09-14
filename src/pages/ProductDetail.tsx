@@ -98,7 +98,7 @@ const ProductDetail = () => {
         <BackButton />
         <AppBreadcrumb />
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-2">
             <Carousel className="w-full">
               <CarouselContent>
                 {product.imageUrls.map((img, index) => (
@@ -115,7 +115,7 @@ const ProductDetail = () => {
               <CarouselNext className="mr-16" />
             </Carousel>
           </div>
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-3 space-y-4">
             <div className="flex items-center gap-3">
               <CategoryIcon category={product.category} className="h-7 w-7 text-muted-foreground" />
               <h1 className="text-3xl font-bold">{product.name}</h1>
