@@ -25,6 +25,7 @@ import type { Product } from "@/types";
 import CategoryCarousel from "@/components/CategoryCarousel";
 import { Separator } from "@/components/ui/separator";
 import { isAfter } from "date-fns";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Index = () => {
   const location = useLocation();
@@ -199,15 +200,17 @@ const Index = () => {
                   </SheetTrigger>
                   <SheetContent
                     side="left"
-                    className="overflow-y-auto w-full max-w-sm custom-scrollbar"
+                    className="w-full max-w-sm p-0"
                     onOpenAutoFocus={(e) => e.preventDefault()}
                   >
-                    <SheetHeader>
-                      <SheetTitle>Filters & Search</SheetTitle>
-                    </SheetHeader>
-                    <div className="py-4">
-                      <ProductSidebar {...sidebarProps} />
-                    </div>
+                    <ScrollArea className="h-full">
+                      <div className="p-6">
+                        <SheetHeader className="text-left p-0 mb-6">
+                          <SheetTitle>Filters & Search</SheetTitle>
+                        </SheetHeader>
+                        <ProductSidebar {...sidebarProps} />
+                      </div>
+                    </ScrollArea>
                   </SheetContent>
                 </Sheet>
                 <Select value={sortBy} onValueChange={setSortBy}>
