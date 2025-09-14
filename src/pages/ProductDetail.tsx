@@ -248,8 +248,20 @@ const ProductDetail = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="ml-16" />
-              <CarouselNext className="mr-16" />
+              {/* Buttons for screens smaller than lg (1024px), where 2 items are visible */}
+              {relatedProducts.length > 2 && (
+                <>
+                  <CarouselPrevious className="ml-16 lg:hidden" />
+                  <CarouselNext className="mr-16 lg:hidden" />
+                </>
+              )}
+              {/* Buttons for lg screens and larger, where 3 items are visible */}
+              {relatedProducts.length > 3 && (
+                <>
+                  <CarouselPrevious className="ml-16 hidden lg:flex" />
+                  <CarouselNext className="mr-16 hidden lg:flex" />
+                </>
+              )}
             </Carousel>
           </section>
         )}
