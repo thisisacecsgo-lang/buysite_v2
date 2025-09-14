@@ -196,6 +196,7 @@ const ProductDetail = () => {
                       <div className="flex items-center gap-2">
                         <Link
                           to={`/seller/${seller.id}`}
+                          state={{ fromProduct: { id: product.id, name: product.name } }}
                           className="font-semibold text-lg hover:underline"
                         >
                           {seller.name}
@@ -214,7 +215,7 @@ const ProductDetail = () => {
                       )}
                     </div>
                     <Button variant="secondary" asChild>
-                      <Link to={`/seller/${seller.id}`}>View Profile</Link>
+                      <Link to={`/seller/${seller.id}`} state={{ fromProduct: { id: product.id, name: product.name } }}>View Profile</Link>
                     </Button>
                   </div>
                 </CardContent>

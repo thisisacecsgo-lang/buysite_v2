@@ -14,13 +14,17 @@ export const AppBreadcrumb = () => {
   const params = useParams<{ id?: string }>();
 
   const buildBreadcrumbs = () => {
-    const { pathname } = location;
+    const { pathname, state } = location;
+    const fromProduct = state?.fromProduct as { id: string; name: string } | undefined;
     const crumbs: { name: string; path: string }[] = [];
 
     if (pathname.startsWith("/product/") && params.id) {
       const product = mockProducts.find((p) => p.id === params.id);
       crumbs.push({ name: product ? product.name : "Product Not Found", path: pathname });
     } else if (pathname.startsWith("/seller/") && params.id) {
+      if (fromProduct) {
+        crumbs.push({ name: fromProduct.name, path: `/product/${fromProduct.id}` });
+      }
       const seller = mockSellers.find((s) => s.id === params.id);
       crumbs.push({ name: seller ? seller.name : "Seller Not Found", path: pathname });
     } else if (pathname === "/checkout") {
@@ -31,7 +35,6 @@ export const AppBreadcrumb = () => {
       crumbs.push({ name: "Checkout", path: "/checkout" });
       crumbs.push({ name: "Order Confirmation", path: "/order-confirmation" });
     } else {
-      // This is a catch-all for any other path, which will be the NotFound page.
       crumbs.push({ name: "Page Not Found", path: pathname });
     }
     return crumbs;

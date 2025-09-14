@@ -67,7 +67,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
               <div className="flex items-center gap-2 min-w-0">
                 <User className="h-3 w-3 flex-shrink-0" />
-                <Link to={`/seller/${seller?.id}`} className="hover:underline truncate">
+                <Link to={`/seller/${seller?.id}`} state={{ fromProduct: { id: product.id, name: product.name } }} className="hover:underline truncate">
                   {seller?.name || "Unknown Seller"}
                 </Link>
               </div>

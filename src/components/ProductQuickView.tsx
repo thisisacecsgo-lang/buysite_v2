@@ -140,7 +140,7 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
               </Avatar>
               <div>
                 <p className="text-xs text-muted-foreground">Sold by</p>
-                <Link to={`/seller/${seller.id}`} className="font-semibold hover:underline">{seller.name}</Link>
+                <Link to={`/seller/${seller.id}`} state={{ fromProduct: { id: product.id, name: product.name } }} className="font-semibold hover:underline">{seller.name}</Link>
               </div>
             </div>
           )}
