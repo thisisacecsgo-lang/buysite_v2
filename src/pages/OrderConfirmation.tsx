@@ -46,7 +46,7 @@ const OrderConfirmation = () => {
               <div className="mx-auto bg-primary text-primary-foreground rounded-full h-16 w-16 flex items-center justify-center mb-4">
                 <CheckCircle2 className="h-10 w-10" />
               </div>
-              <CardTitle className="text-2xl sm:text-3xl">Thank you for your order!</CardTitle>
+              <CardTitle className="text-3xl">Thank you for your order!</CardTitle>
               <p className="text-muted-foreground pt-2">
                 Your order has been placed successfully. We'll notify you once it's on its way.
               </p>

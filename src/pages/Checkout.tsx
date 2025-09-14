@@ -114,7 +114,7 @@ const Checkout = () => {
       <main className="flex-grow container mx-auto p-4 md:p-8">
         <BackButton />
         <AppBreadcrumb />
-        <h1 className="text-2xl sm:text-3xl font-bold mb-6">Checkout</h1>
+        <h1 className="text-3xl font-bold mb-6">Checkout</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2 space-y-6">

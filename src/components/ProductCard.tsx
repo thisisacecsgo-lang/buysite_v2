@@ -77,7 +77,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 </Badge>
               )}
             </div>
-            <CardTitle className="text-lg font-bold leading-tight min-h-[3.5rem]">
+            <CardTitle className="text-lg font-bold leading-tight h-14">
               <Link to={`/product/${product.id}`} className="hover:text-primary transition-colors flex items-start gap-2">
                 <CategoryIcon category={product.category} className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
                 <span className="line-clamp-2">{product.name}</span>
