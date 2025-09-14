@@ -11,6 +11,7 @@ import {
   Leaf,
   Truck,
   Sprout,
+  Calendar,
 } from "lucide-react";
 import { mockProducts, mockSellers } from "@/data/mockData";
 import { Card, CardContent } from "@/components/ui/card";
@@ -34,6 +35,10 @@ const ProductDetail = () => {
   const seller = product
     ? mockSellers.find((s) => s.id === product.sellerId)
     : undefined;
+
+  const firstBatch = product?.batches?.[0];
+  const productionDate = firstBatch?.productionDate;
+  const isAvailableInFuture = productionDate && new Date(productionDate) > new Date();
 
   const averageRating = useMemo(() => {
     if (!seller || seller.reviews.length === 0) {
@@ -95,51 +100,52 @@ const ProductDetail = () => {
               <CategoryIcon category={product.category} className="h-8 w-8 text-muted-foreground" />
               <h1 className="text-4xl font-bold">{product.name}</h1>
             </div>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Tag className="h-6 w-6 text-primary" />
-                <p className="text-3xl font-semibold text-primary">
-                  {formatPrice(product)}
-                </p>
-              </div>
-              <CopyableBadge textToCopy={product.sku} />
+            
+            <div className="flex items-center gap-2">
+              <Tag className="h-6 w-6 text-primary" />
+              <p className="text-3xl font-semibold text-primary">
+                {formatPrice(product)}
+              </p>
             </div>
-            <div className="space-y-4 text-lg">
-              <div className="flex items-center gap-3">
-                <MapPin className="h-5 w-5 text-muted-foreground" />
-                <span>{product.region}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Truck className="h-5 w-5 text-muted-foreground" />
-                <span>Ready to ship: {product.deliveryTimeInDays} day(s)</span>
-              </div>
-              {product.description && (
-                <div className="flex items-start gap-3">
-                  <Info className="h-5 w-5 text-muted-foreground mt-1" />
-                  <p className="text-muted-foreground text-base">
-                    {product.description}
-                  </p>
-                </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <CopyableBadge textToCopy={product.sku} />
+              <Badge variant="secondary"><MapPin className="mr-1.5 h-3 w-3" /> {product.region}</Badge>
+              <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> Ships in {product.deliveryTimeInDays} day(s)</Badge>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {isAvailableInFuture && (
+                <Badge variant="outline" className="text-primary border-primary">
+                  <Calendar className="mr-1.5 h-3 w-3" /> Preorder
+                </Badge>
               )}
               {product.isVegan && (
-                 <div className="flex items-start gap-3">
-                  <Vegan className="h-5 w-5 text-muted-foreground mt-1" />
-                  <span className="text-base">Vegan</span>
-                </div>
+                <Badge variant="outline">
+                  <Vegan className="mr-1.5 h-3 w-3" /> Vegan
+                </Badge>
               )}
               {product.isVegetarian && !product.isVegan && (
-                 <div className="flex items-start gap-3">
-                  <Leaf className="h-5 w-5 text-muted-foreground mt-1" />
-                  <span className="text-base">Vegetarian</span>
-                </div>
+                <Badge variant="outline">
+                  <Leaf className="mr-1.5 h-3 w-3" /> Vegetarian
+                </Badge>
               )}
               {product.harvestOnDemand && (
-                 <div className="flex items-start gap-3">
-                  <Sprout className="h-5 w-5 text-muted-foreground mt-1" />
-                  <span className="text-base">Harvested on demand</span>
-                </div>
+                <Badge variant="outline">
+                  <Sprout className="mr-1.5 h-3 w-3" /> Harvest on Demand
+                </Badge>
               )}
             </div>
+
+            {product.description && (
+              <div className="flex items-start gap-3 pt-2">
+                <Info className="h-5 w-5 text-muted-foreground mt-1 flex-shrink-0" />
+                <p className="text-muted-foreground text-base">
+                  {product.description}
+                </p>
+              </div>
+            )}
+            
             {seller && (
               <Card>
                 <CardContent className="p-4">

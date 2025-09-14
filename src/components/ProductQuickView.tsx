@@ -1,6 +1,6 @@
 import type { Product, Seller } from "@/types";
 import { Button } from "@/components/ui/button";
-import { Tag, MapPin, User, Info, Truck } from "lucide-react";
+import { Tag, MapPin, User, Info, Truck, Calendar, Vegan, Leaf, Sprout } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -15,6 +15,9 @@ interface ProductQuickViewProps {
 
 export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => {
   const imageUrl = product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls[0] : "/placeholder.svg";
+  const firstBatch = product.batches?.[0];
+  const productionDate = firstBatch?.productionDate;
+  const isAvailableInFuture = productionDate && new Date(productionDate) > new Date();
 
   return (
     <>
@@ -47,9 +50,28 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
               {formatPrice(product)}
             </p>
           </div>
-          <div className="flex items-start gap-3 text-sm">
-            <Truck className="h-4 w-4 text-muted-foreground mt-1 flex-shrink-0" />
-            <p className="text-muted-foreground">Ready to ship: {product.deliveryTimeInDays} day(s)</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> Ships in {product.deliveryTimeInDays} day(s)</Badge>
+            {isAvailableInFuture && (
+              <Badge variant="outline" className="text-primary border-primary">
+                <Calendar className="mr-1.5 h-3 w-3" /> Preorder
+              </Badge>
+            )}
+            {product.isVegan && (
+              <Badge variant="outline">
+                <Vegan className="mr-1.5 h-3 w-3" /> Vegan
+              </Badge>
+            )}
+            {product.isVegetarian && !product.isVegan && (
+              <Badge variant="outline">
+                <Leaf className="mr-1.5 h-3 w-3" /> Vegetarian
+              </Badge>
+            )}
+            {product.harvestOnDemand && (
+              <Badge variant="outline">
+                <Sprout className="mr-1.5 h-3 w-3" /> Harvest on Demand
+              </Badge>
+            )}
           </div>
           <div>
             <Badge variant="secondary" className="font-mono"># {product.sku}</Badge>

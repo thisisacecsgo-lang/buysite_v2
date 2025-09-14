@@ -15,14 +15,8 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ProductQuickView } from "./ProductQuickView";
 import { cn, formatPrice } from "@/lib/utils";
 import CategoryIcon from "./CategoryIcon";
-import { format, formatDistanceToNowStrict } from "date-fns";
+import { formatDistanceToNowStrict } from "date-fns";
 import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 interface ProductCardProps {
   product: Product;
@@ -40,13 +34,6 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
 
   const isAvailableInFuture = productionDate && new Date(productionDate) > new Date();
 
-  const availabilityText = () => {
-    if (!isAvailableInFuture || !productionDate) return null;
-    const date = new Date(productionDate);
-    const distance = formatDistanceToNowStrict(date, { addSuffix: true });
-    return `Available ${distance} (${format(date, "MMM d")})`;
-  };
-
   return (
     <Dialog open={isQuickViewOpen} onOpenChange={setIsQuickViewOpen}>
       <Card className={cn("w-full overflow-hidden flex flex-col group transition-all duration-300 hover:shadow-xl hover:-translate-y-1", className)}>
@@ -63,10 +50,15 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                   <Eye className="h-5 w-5" />
                 </div>
               </div>
+               {isAvailableInFuture && (
+                <Badge variant="default" className="absolute top-2 left-2">
+                  <Calendar className="mr-1.5 h-3 w-3" /> Preorder
+                </Badge>
+              )}
             </div>
           </DialogTrigger>
         </CardHeader>
-        <CardContent className="p-4 flex-grow">
+        <CardContent className="p-4 flex-grow flex flex-col">
           <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
             <div className="flex items-center gap-2 min-w-0">
               <User className="h-3 w-3 flex-shrink-0" />
@@ -86,54 +78,36 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
               <span>{product.name}</span>
             </Link>
           </CardTitle>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-            <MapPin className="h-4 w-4" />
-            <span>{product.region}</span>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-            <Truck className="h-4 w-4" />
-            <span>Ready to ship: {product.deliveryTimeInDays} day(s)</span>
-          </div>
-          <div className="mb-2">
-            <Badge variant="secondary" className="font-mono">
-              # {product.sku}
-            </Badge>
-          </div>
-          {isAvailableInFuture && (
-            <div className="flex items-center gap-2 text-sm text-primary font-medium mb-2">
-              <Calendar className="h-4 w-4" />
-              <span>{availabilityText()}</span>
+          
+          <div className="flex-grow mt-2 space-y-3">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <MapPin className="h-4 w-4 flex-shrink-0" />
+              <span>{product.region}</span>
             </div>
-          )}
-          <div className="flex items-center gap-3 text-muted-foreground my-2">
-            <TooltipProvider delayDuration={100}>
+             <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Truck className="h-4 w-4 flex-shrink-0" />
+              <span>Ready to ship: {product.deliveryTimeInDays} day(s)</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
               {product.isVegan && (
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Vegan className="h-4 w-4" />
-                  </TooltipTrigger>
-                  <TooltipContent>Vegan</TooltipContent>
-                </Tooltip>
+                <Badge variant="outline" className="text-xs font-normal">
+                  <Vegan className="mr-1 h-3 w-3" /> Vegan
+                </Badge>
               )}
               {product.isVegetarian && !product.isVegan && (
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Leaf className="h-4 w-4" />
-                  </TooltipTrigger>
-                  <TooltipContent>Vegetarian</TooltipContent>
-                </Tooltip>
+                <Badge variant="outline" className="text-xs font-normal">
+                  <Leaf className="mr-1 h-3 w-3" /> Vegetarian
+                </Badge>
               )}
               {product.harvestOnDemand && (
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Sprout className="h-4 w-4" />
-                  </TooltipTrigger>
-                  <TooltipContent>Harvest on Demand</TooltipContent>
-                </Tooltip>
+                <Badge variant="outline" className="text-xs font-normal">
+                  <Sprout className="mr-1 h-3 w-3" /> Harvest on Demand
+                </Badge>
               )}
-            </TooltipProvider>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
+
+          <div className="flex items-center gap-2 mt-4">
             <Tag className="h-4 w-4 text-primary" />
             <p className="text-lg font-semibold text-primary">
               {formatPrice(product)}
