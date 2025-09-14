@@ -19,7 +19,6 @@ import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
@@ -41,7 +40,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
 
   return (
     <Dialog open={isQuickViewOpen} onOpenChange={setIsQuickViewOpen}>
-      <Card className={cn("w-full overflow-hidden flex flex-col group transition-all duration-300 hover:shadow-xl hover:-translate-y-1", className)}>
+      <Card className={cn("w-full flex flex-col group transition-all duration-300 hover:shadow-xl hover:-translate-y-1", className)}>
         <CardHeader className="p-0">
           <DialogTrigger asChild>
             <div className="overflow-hidden relative cursor-pointer">
@@ -96,38 +95,36 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 <span className="truncate">Ships in {product.deliveryTimeInDays} day(s)</span>
               </div>
               <div className="flex items-center gap-3 pt-1 min-h-[28px]">
-                <TooltipProvider delayDuration={100}>
-                  {product.isVegan && (
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Vegan className="h-4 w-4 text-muted-foreground" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Vegan</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  )}
-                  {product.isVegetarian && !product.isVegan && (
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Leaf className="h-4 w-4 text-muted-foreground" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Vegetarian</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  )}
-                  {product.harvestOnDemand && (
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Sprout className="h-4 w-4 text-muted-foreground" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Harvest on Demand</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  )}
-                </TooltipProvider>
+                {product.isVegan && (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Vegan className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Vegan</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                {product.isVegetarian && !product.isVegan && (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Leaf className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Vegetarian</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                {product.harvestOnDemand && (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Sprout className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Harvest on Demand</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
               </div>
             </div>
           </div>
