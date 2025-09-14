@@ -10,6 +10,7 @@ import {
   Vegan,
   Leaf,
   Truck,
+  Sprout,
 } from "lucide-react";
 import { mockProducts, mockSellers } from "@/data/mockData";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,6 +25,7 @@ import BatchesTable from "@/components/BatchesTable";
 import { formatPrice } from "@/lib/utils";
 import StarRating from "@/components/StarRating";
 import CopyableBadge from "@/components/CopyableBadge";
+import { Badge } from "@/components/ui/badge";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -131,6 +133,12 @@ const ProductDetail = () => {
                   <span className="text-base">Vegetarian</span>
                 </div>
               )}
+              {product.harvestOnDemand && (
+                 <div className="flex items-start gap-3">
+                  <Sprout className="h-5 w-5 text-muted-foreground mt-1" />
+                  <span className="text-base">Harvested on demand</span>
+                </div>
+              )}
             </div>
             {seller && (
               <Card>
@@ -144,12 +152,17 @@ const ProductDetail = () => {
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-grow">
-                      <Link
-                        to={`/seller/${seller.id}`}
-                        className="font-semibold text-lg hover:underline"
-                      >
-                        {seller.name}
-                      </Link>
+                      <div className="flex items-center gap-2">
+                        <Link
+                          to={`/seller/${seller.id}`}
+                          className="font-semibold text-lg hover:underline"
+                        >
+                          {seller.name}
+                        </Link>
+                        <Badge variant={seller.sellerType === 'commercial' ? 'default' : 'secondary'} className="capitalize text-xs">
+                          {seller.sellerType}
+                        </Badge>
+                      </div>
                       {seller.reviews.length > 0 && (
                         <div className="flex items-center gap-2 mt-1">
                           <StarRating rating={averageRating} />

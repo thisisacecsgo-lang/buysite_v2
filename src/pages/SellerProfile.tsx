@@ -21,6 +21,7 @@ import { AppBreadcrumb } from "@/components/AppBreadcrumb";
 import BackButton from "@/components/BackButton";
 import { Footer } from "@/components/Footer";
 import StarRating from "@/components/StarRating";
+import { Badge } from "@/components/ui/badge";
 
 const ReviewCard = ({ review }: { review: Review }) => (
   <Card>
@@ -121,7 +122,12 @@ const SellerProfile = () => {
               <AvatarFallback>{seller.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <div className="flex-grow space-y-2">
-              <h1 className="text-3xl font-bold">{seller.name}</h1>
+              <div className="flex items-center gap-4">
+                <h1 className="text-3xl font-bold">{seller.name}</h1>
+                <Badge variant={seller.sellerType === 'commercial' ? 'default' : 'secondary'} className="capitalize">
+                  {seller.sellerType}
+                </Badge>
+              </div>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <MapPin className="h-4 w-4" />
                 <span>{seller.region}</span>

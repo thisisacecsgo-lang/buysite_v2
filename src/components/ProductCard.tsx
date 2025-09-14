@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/types";
-import { Tag, MapPin, Eye, User, Calendar, Truck } from "lucide-react";
+import { Tag, MapPin, Eye, User, Calendar, Truck, Vegan, Leaf, Sprout } from "lucide-react";
 import { Link } from "react-router-dom";
 import { mockSellers } from "@/data/mockData";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -17,6 +17,12 @@ import { cn, formatPrice } from "@/lib/utils";
 import CategoryIcon from "./CategoryIcon";
 import { format, formatDistanceToNowStrict } from "date-fns";
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ProductCardProps {
   product: Product;
@@ -61,11 +67,18 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
           </DialogTrigger>
         </CardHeader>
         <CardContent className="p-4 flex-grow">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-            <User className="h-3 w-3" />
-            <Link to={`/seller/${seller?.id}`} className="hover:underline">
-              {seller?.name || "Unknown Seller"}
-            </Link>
+          <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <User className="h-3 w-3 flex-shrink-0" />
+              <Link to={`/seller/${seller?.id}`} className="hover:underline truncate">
+                {seller?.name || "Unknown Seller"}
+              </Link>
+            </div>
+            {seller && (
+              <Badge variant={seller.sellerType === 'commercial' ? 'default' : 'secondary'} className="capitalize text-xs flex-shrink-0">
+                {seller.sellerType}
+              </Badge>
+            )}
           </div>
           <CardTitle className="text-lg font-bold mb-2 leading-tight">
             <Link to={`/product/${product.id}`} className="hover:text-primary transition-colors flex items-start gap-2">
@@ -92,6 +105,34 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
               <span>{availabilityText()}</span>
             </div>
           )}
+          <div className="flex items-center gap-3 text-muted-foreground my-2">
+            <TooltipProvider delayDuration={100}>
+              {product.isVegan && (
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Vegan className="h-4 w-4" />
+                  </TooltipTrigger>
+                  <TooltipContent>Vegan</TooltipContent>
+                </Tooltip>
+              )}
+              {product.isVegetarian && !product.isVegan && (
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Leaf className="h-4 w-4" />
+                  </TooltipTrigger>
+                  <TooltipContent>Vegetarian</TooltipContent>
+                </Tooltip>
+              )}
+              {product.harvestOnDemand && (
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Sprout className="h-4 w-4" />
+                  </TooltipTrigger>
+                  <TooltipContent>Harvest on Demand</TooltipContent>
+                </Tooltip>
+              )}
+            </TooltipProvider>
+          </div>
           <div className="flex items-center gap-2">
             <Tag className="h-4 w-4 text-primary" />
             <p className="text-lg font-semibold text-primary">
