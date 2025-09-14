@@ -26,7 +26,7 @@ const CopyableBadge = ({ textToCopy, className }: CopyableBadgeProps) => {
           <Badge
             variant="secondary"
             className={cn(
-              "cursor-pointer font-mono text-sm py-1.5 px-4 text-secondary-foreground hover:bg-secondary/80",
+              "cursor-pointer font-mono",
               className
             )}
             onClick={handleCopy}
