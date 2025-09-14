@@ -6,38 +6,42 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { mockProducts, mockSellers } from "@/data/mockData";
-
-const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).replace(/-/g, ' ');
 
 export const AppBreadcrumb = () => {
   const location = useLocation();
-  const pathnames = location.pathname.split("/").filter((x) => x);
+  const params = useParams<{ id?: string }>();
 
-  if (pathnames.length === 0) {
+  const buildBreadcrumbs = () => {
+    const { pathname } = location;
+    const crumbs: { name: string; path: string }[] = [];
+
+    if (pathname.startsWith("/product/") && params.id) {
+      const product = mockProducts.find((p) => p.id === params.id);
+      crumbs.push({ name: product ? product.name : "Product Not Found", path: pathname });
+    } else if (pathname.startsWith("/seller/") && params.id) {
+      const seller = mockSellers.find((s) => s.id === params.id);
+      crumbs.push({ name: seller ? seller.name : "Seller Not Found", path: pathname });
+    } else if (pathname === "/checkout") {
+      crumbs.push({ name: "Checkout", path: "/checkout" });
+    } else if (pathname === "/profile") {
+      crumbs.push({ name: "My Profile", path: "/profile" });
+    } else if (pathname === "/order-confirmation") {
+      crumbs.push({ name: "Checkout", path: "/checkout" });
+      crumbs.push({ name: "Order Confirmation", path: "/order-confirmation" });
+    } else {
+      // This is a catch-all for any other path, which will be the NotFound page.
+      crumbs.push({ name: "Page Not Found", path: pathname });
+    }
+    return crumbs;
+  };
+
+  const breadcrumbs = buildBreadcrumbs();
+
+  if (location.pathname === "/") {
     return null;
   }
-
-  const getBreadcrumbName = (segment: string, index: number, pathArr: string[]) => {
-    if (pathArr[0] === "product") {
-      if (index === 0) return "Products";
-      if (index === 1) {
-        const product = mockProducts.find((p) => p.id === segment);
-        return product ? product.name : segment;
-      }
-    }
-    if (pathArr[0] === "seller") {
-      if (index === 0) return "Sellers";
-      if (index === 1) {
-        const seller = mockSellers.find((s) => s.id === segment);
-        return seller ? seller.name : segment;
-      }
-    }
-    if (segment === 'order-confirmation') return "Order Confirmation";
-    
-    return capitalize(segment);
-  };
 
   return (
     <Breadcrumb className="mb-6">
@@ -47,23 +51,16 @@ export const AppBreadcrumb = () => {
             <Link to="/">Home</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
-        {pathnames.map((value, index) => {
-          const to = `/${pathnames.slice(0, index + 1).join("/")}`;
-          const isLast = index === pathnames.length - 1;
-
-          const isAbstractGrouping =
-            index === 0 && (value === "product" || value === "seller");
-
+        {breadcrumbs.map((crumb, index) => {
+          const isLast = index === breadcrumbs.length - 1;
           return (
-            <BreadcrumbItem key={to}>
+            <BreadcrumbItem key={crumb.path + index}>
               <BreadcrumbSeparator />
-              {isLast || isAbstractGrouping ? (
-                <BreadcrumbPage>
-                  {getBreadcrumbName(value, index, pathnames)}
-                </BreadcrumbPage>
+              {isLast ? (
+                <BreadcrumbPage>{crumb.name}</BreadcrumbPage>
               ) : (
                 <BreadcrumbLink asChild>
-                  <Link to={to}>{getBreadcrumbName(value, index, pathnames)}</Link>
+                  <Link to={crumb.path}>{crumb.name}</Link>
                 </BreadcrumbLink>
               )}
             </BreadcrumbItem>
