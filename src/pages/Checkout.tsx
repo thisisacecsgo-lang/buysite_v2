@@ -291,7 +291,7 @@ const Checkout = () => {
                         <div className="flex justify-between items-start">
                           <div className="pr-2">
                             <span>{item.name} x {quantity}</span>
-                            <p className="text-xs text-muted-foreground font-mono">SKU: {item.sku}</p>
+                            <p className="text-xs text-muted-foreground font-mono"># {item.sku}</p>
                           </div>
                           <span className="text-right">€{(price * quantity).toFixed(2)}</span>
                         </div>
