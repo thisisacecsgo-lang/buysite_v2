@@ -38,10 +38,12 @@ import {
 } from "@/lib/unitConverter";
 
 const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters."),
-  address: z.string().min(5, "Address is required."),
-  city: z.string().min(2, "City is required."),
+  firstName: z.string().min(2, "First name must be at least 2 characters."),
+  lastName: z.string().min(2, "Last name must be at least 2 characters."),
+  street: z.string().min(3, "Street is required."),
+  streetNumber: z.string().min(1, "Street number is required."),
   zip: z.string().min(4, "A valid ZIP code is required."),
+  city: z.string().min(2, "City is required."),
   paymentMethod: z.enum(["card", "paypal", "bank"], {
     required_error: "You need to select a payment method.",
   }),
@@ -61,8 +63,10 @@ const Checkout = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      address: "",
+      firstName: "",
+      lastName: "",
+      street: "",
+      streetNumber: "",
       city: "",
       zip: "",
       paymentMethod: "card",
@@ -125,38 +129,51 @@ const Checkout = () => {
                 <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-2">
-                        <FormLabel>Full Name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="John Doe" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="address"
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-2">
-                        <FormLabel>Address</FormLabel>
-                        <FormControl>
-                          <Input placeholder="123 Main St" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="city"
+                    name="firstName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>City</FormLabel>
+                        <FormLabel>First Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="Sunnyvale" {...field} />
+                          <Input placeholder="John" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Last Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Doe" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="street"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Street</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Main St" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="streetNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Street Number</FormLabel>
+                        <FormControl>
+                          <Input placeholder="123" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -170,6 +187,19 @@ const Checkout = () => {
                         <FormLabel>ZIP Code</FormLabel>
                         <FormControl>
                           <Input placeholder="94086" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="city"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>City</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Sunnyvale" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
