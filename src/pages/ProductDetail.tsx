@@ -13,6 +13,8 @@ import {
   Sprout,
   Calendar,
   ShoppingCart,
+  Package,
+  CalendarClock,
 } from "lucide-react";
 import { mockProducts, mockSellers } from "@/data/mockData";
 import { Card, CardContent } from "@/components/ui/card";
@@ -215,6 +217,27 @@ const ProductDetail = () => {
                 </CardContent>
               </Card>
             )}
+
+            <div className="pt-4">
+              <h3 className="text-lg font-semibold mb-2">Details</h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center gap-3">
+                  <Package className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <span className="text-muted-foreground">Available:</span>
+                  <span className="font-medium">{product.availableQuantity}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Calendar className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <span className="text-muted-foreground">Produced on:</span>
+                  <span className="font-medium">{format(new Date(product.productionDate), "PPP")}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CalendarClock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <span className="text-muted-foreground">Best before:</span>
+                  <span className="font-medium">{format(new Date(product.expiryDate), "PPP")}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
