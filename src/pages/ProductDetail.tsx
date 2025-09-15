@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/tooltip";
 import { format } from "date-fns";
 import { useCart } from "@/context/CartContext";
+import { Separator } from "@/components/ui/separator";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -94,8 +95,9 @@ const ProductDetail = () => {
         <BackButton />
         <AppBreadcrumb />
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          {/* Image Carousel */}
           <div className="lg:col-span-2">
-            <Carousel className="w-full max-w-md mx-auto lg:max-w-none lg:mx-0">
+            <Carousel className="w-full max-w-md mx-auto lg:max-w-none lg:mx-0 sticky top-24">
               <CarouselContent>
                 {product.imageUrls.map((img, index) => (
                   <CarouselItem key={index}>
@@ -111,26 +113,61 @@ const ProductDetail = () => {
               <CarouselNext className="mr-16" />
             </Carousel>
           </div>
-          <div className="lg:col-span-3 space-y-4">
-            <div className="flex items-center gap-3">
-              <CategoryIcon category={product.category} className="h-7 w-7 text-muted-foreground" />
-              <h1 className="text-3xl font-bold">{product.name}</h1>
+
+          {/* Product Information & Actions */}
+          <div className="lg:col-span-3 space-y-6">
+            {/* Header */}
+            <div>
+              <div className="flex items-center gap-3">
+                <CategoryIcon category={product.category} className="h-7 w-7 text-muted-foreground" />
+                <h1 className="text-3xl font-bold">{product.name}</h1>
+              </div>
+              {seller && (
+                <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
+                  <span>Sold by</span>
+                  <Link
+                    to={`/seller/${seller.id}`}
+                    state={{ fromProduct: { id: product.id, name: product.name } }}
+                    className="font-semibold text-primary hover:underline"
+                  >
+                    {seller.name}
+                  </Link>
+                  {seller.reviews.length > 0 && (
+                    <>
+                      <Separator orientation="vertical" className="h-4" />
+                      <div className="flex items-center gap-1">
+                        <StarRating rating={averageRating} />
+                        <span>({seller.reviews.length})</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
-            
+
+            {/* Price */}
             <div className="flex items-center gap-2">
               <Tag className="h-5 w-5 text-primary" />
-              <p className="text-2xl font-semibold text-primary">
+              <p className="text-3xl font-bold text-primary">
                 {formatPrice(product)}
               </p>
             </div>
 
+            {/* Description */}
+            {product.description && (
+              <div className="flex items-start gap-3 pt-1">
+                <Info className="h-5 w-5 text-muted-foreground mt-1 flex-shrink-0" />
+                <p className="text-muted-foreground">
+                  {product.description}
+                </p>
+              </div>
+            )}
+
+            {/* Badges */}
             <div className="flex flex-wrap items-center gap-2">
               <CopyableBadge textToCopy={product.sku} />
               <Badge variant="secondary"><MapPin className="mr-1.5 h-3 w-3" /> {product.region}</Badge>
               <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> Ships in {product.deliveryTimeInDays} day(s)</Badge>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2">
               {isAvailableInFuture && (
                 <TooltipProvider>
                   <Tooltip>
@@ -167,96 +204,42 @@ const ProductDetail = () => {
                 </Badge>
               )}
             </div>
-
-            {product.description && (
-              <div className="flex items-start gap-3 pt-1">
-                <Info className="h-5 w-5 text-muted-foreground mt-1 flex-shrink-0" />
-                <p className="text-muted-foreground">
-                  {product.description}
-                </p>
-              </div>
-            )}
             
-            {seller && (
-              <Card>
-                <CardContent className="p-4">
-                  <p className="text-sm text-muted-foreground mb-2">Sold by</p>
-                  <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarImage src={seller.logoUrl} />
-                      <AvatarFallback>
-                        <User />
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-grow">
-                      <div className="flex items-center gap-2">
-                        <Link
-                          to={`/seller/${seller.id}`}
-                          state={{ fromProduct: { id: product.id, name: product.name } }}
-                          className="font-semibold text-lg hover:underline"
-                        >
-                          {seller.name}
-                        </Link>
-                        <Badge variant={seller.sellerType === 'commercial' ? 'default' : 'secondary'} className="capitalize text-xs">
-                          {seller.sellerType}
-                        </Badge>
-                      </div>
-                      {seller.reviews.length > 0 && (
-                        <div className="flex items-center gap-2 mt-1">
-                          <StarRating rating={averageRating} />
-                          <span className="text-xs text-muted-foreground">
-                            ({seller.reviews.length} reviews)
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <Button variant="secondary" asChild>
-                      <Link to={`/seller/${seller.id}`} state={{ fromProduct: { id: product.id, name: product.name } }}>View Profile</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+            <Separator />
 
-            <div className="pt-4">
-              <h3 className="text-lg font-semibold mb-2">Details</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center gap-3">
-                  <Package className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                  <span className="text-muted-foreground">Available:</span>
-                  <span className="font-medium">{product.availableQuantity}</span>
+            {/* Details & Purchase */}
+            <Card>
+              <CardContent className="p-6 space-y-6">
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Details</h3>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-3">
+                      <Package className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <span className="text-muted-foreground">Available:</span>
+                      <span className="font-medium">{product.availableQuantity}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Calendar className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <span className="text-muted-foreground">Produced on:</span>
+                      <span className="font-medium">{format(new Date(product.productionDate), "PPP")}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CalendarClock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <span className="text-muted-foreground">Best before:</span>
+                      <span className="font-medium">{format(new Date(product.expiryDate), "PPP")}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Calendar className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                  <span className="text-muted-foreground">Produced on:</span>
-                  <span className="font-medium">{format(new Date(product.productionDate), "PPP")}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CalendarClock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                  <span className="text-muted-foreground">Best before:</span>
-                  <span className="font-medium">{format(new Date(product.expiryDate), "PPP")}</span>
-                </div>
-              </div>
-            </div>
+                <Button size="lg" onClick={() => addToCart(product)} className="w-full">
+                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  Add to Cart
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
-        <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Purchase</h2>
-          <Card>
-            <CardContent className="p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div>
-                <p className="text-lg font-semibold">Ready to buy?</p>
-                <p className="text-muted-foreground">Add this product to your cart to proceed.</p>
-              </div>
-              <Button size="lg" onClick={() => addToCart(product)} className="w-full sm:w-auto">
-                <ShoppingCart className="mr-2 h-5 w-5" />
-                Add to Cart
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-
+        {/* Related Products */}
         {relatedProducts.length > 0 && (
           <section className="mt-16">
             <h2 className="text-3xl font-bold mb-6">More from {seller.name}</h2>
@@ -273,14 +256,12 @@ const ProductDetail = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              {/* Buttons for screens smaller than lg (1024px), where 2 items are visible */}
               {relatedProducts.length > 2 && (
                 <>
                   <CarouselPrevious className="ml-16 lg:hidden" />
                   <CarouselNext className="mr-16 lg:hidden" />
                 </>
               )}
-              {/* Buttons for lg screens and larger, where 3 items are visible */}
               {relatedProducts.length > 3 && (
                 <>
                   <CarouselPrevious className="ml-16 hidden lg:flex" />
