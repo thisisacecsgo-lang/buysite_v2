@@ -22,7 +22,7 @@ import BackButton from "@/components/BackButton";
 import { Footer } from "@/components/Footer";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import ProductCard from "@/components/ProductCard";
-import CategoryIcon from "./CategoryIcon";
+import CategoryIcon from "@/components/CategoryIcon";
 import { formatPrice } from "@/lib/utils";
 import StarRating from "@/components/StarRating";
 import CopyableBadge from "@/components/CopyableBadge";
