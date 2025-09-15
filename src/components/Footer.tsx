@@ -9,9 +9,9 @@ export const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
               <img
-                  src="/images/logo2.png"
+                  src="/images/logo.png"
                   alt="Hiesige Höfe Logo"
-                  className="h-24 w-28"
+                  className="h-20"
               />
             </Link>
             <p className="text-muted-foreground text-sm">
