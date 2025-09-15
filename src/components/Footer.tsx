@@ -1,6 +1,6 @@
 import { Github, Twitter, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
-import logoSrc from "@/assets/images/logo.png";
+import logoSrc from "@/assets/images/output-2.png";
 
 export const Footer = () => {
   return (
