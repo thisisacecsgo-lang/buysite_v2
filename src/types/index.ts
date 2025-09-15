@@ -1,6 +1,8 @@
 export interface Review {
   id: string;
   buyerName: string;
+  customerId: string; // Added to link review to a customer
+  productId: string; // Added to link review to a product
   rating: 1 | 2 | 3 | 4 | 5;
   comment: string;
   date: string; // ISO date string

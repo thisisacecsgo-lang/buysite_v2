@@ -30,7 +30,9 @@ export const mockSellers: Seller[] = [
     reviews: [
       {
         id: "review-1",
-        buyerName: "Alice",
+        buyerName: "Maria Schmidt", // Updated name to match customer
+        customerId: "customer-1", // Linked to mock customer
+        productId: "1", // Linked to Apples
         rating: 5,
         comment:
           "Incredibly fresh apples, will definitely buy again! The seller was very friendly.",
@@ -39,6 +41,8 @@ export const mockSellers: Seller[] = [
       {
         id: "review-2",
         buyerName: "Bob",
+        customerId: "customer-2",
+        productId: "4",
         rating: 4,
         comment: "The eggs were great, but one was cracked. Still good value.",
         date: "2025-10-24T15:30:00Z",
@@ -64,7 +68,9 @@ export const mockSellers: Seller[] = [
     reviews: [
       {
         id: "review-3",
-        buyerName: "Charlie",
+        buyerName: "Maria Schmidt", // Updated name to match customer
+        customerId: "customer-1", // Linked to mock customer
+        productId: "12", // Linked to Sourdough Bread
         rating: 5,
         comment:
           "The sourdough was absolutely perfect. Best bread I have had in a long time.",
@@ -110,6 +116,8 @@ export const mockSellers: Seller[] = [
       {
         id: "review-4",
         buyerName: "Diana",
+        customerId: "customer-3",
+        productId: "26",
         rating: 5,
         comment: "The best quinoa I've ever had. So clean and cooks perfectly.",
         date: "2024-10-28T11:00:00Z",
@@ -136,6 +144,8 @@ export const mockSellers: Seller[] = [
         {
             id: "review-5",
             buyerName: "Ethan",
+            customerId: "customer-4",
+            productId: "28",
             rating: 5,
             comment: "The oysters were incredibly fresh, like they were just pulled from the water. Amazing!",
             date: "2024-10-29T18:00:00Z",
@@ -143,6 +153,8 @@ export const mockSellers: Seller[] = [
         {
             id: "review-6",
             buyerName: "Fiona",
+            customerId: "customer-5",
+            productId: "29",
             rating: 4,
             comment: "Smoked salmon was delicious, though a bit saltier than I prefer. Would still order again.",
             date: "2024-10-27T12:30:00Z",
