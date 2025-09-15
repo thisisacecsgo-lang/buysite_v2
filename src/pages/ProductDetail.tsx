@@ -25,7 +25,7 @@ import { Footer } from "@/components/Footer";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import ProductCard from "@/components/ProductCard";
 import CategoryIcon from "@/components/CategoryIcon";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, formatShippingTime } from "@/lib/utils";
 import StarRating from "@/components/StarRating";
 import CopyableBadge from "@/components/CopyableBadge";
 import { Badge } from "@/components/ui/badge";
@@ -140,7 +140,7 @@ const ProductDetail = () => {
             <div className="flex flex-wrap items-center gap-2">
               <CopyableBadge textToCopy={product.sku} />
               <Badge variant="secondary"><MapPin className="mr-1.5 h-3 w-3" /> {product.region}</Badge>
-              <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> Ships in {product.deliveryTimeInDays} day(s)</Badge>
+              <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> {formatShippingTime(product.deliveryTimeInDays)}</Badge>
               {isAvailableInFuture && (
                 <Badge variant="outline" className="text-primary border-primary">
                   <Calendar className="mr-1.5 h-3 w-3" /> Preorder

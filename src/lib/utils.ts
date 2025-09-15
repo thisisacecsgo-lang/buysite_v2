@@ -25,3 +25,13 @@ export function formatPrice(product: Pick<Product | CartItem, 'price' | 'name' |
 
   return `${priceString} / kg`;
 }
+
+export function formatShippingTime(days: number): string {
+  if (days <= 1) {
+    return "Today";
+  }
+  if (days === 2) {
+    return "Tomorrow";
+  }
+  return `in ${days} days`;
+}

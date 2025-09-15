@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { mockSellers } from "@/data/mockData";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ProductQuickView } from "./ProductQuickView";
-import { cn, formatPrice } from "@/lib/utils";
+import { cn, formatPrice, formatShippingTime } from "@/lib/utils";
 import CategoryIcon from "./CategoryIcon";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/context/CartContext";
@@ -81,7 +81,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
               </div>
                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Truck className="h-4 w-4 flex-shrink-0" />
-                <span className="truncate">Ships in {product.deliveryTimeInDays} day(s)</span>
+                <span className="truncate">Earliest shipping: {formatShippingTime(product.deliveryTimeInDays)}</span>
               </div>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground pt-1 min-h-[28px]">
                 {isAvailableInFuture && (

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CategoryIcon from "./CategoryIcon";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, formatShippingTime } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
@@ -66,7 +66,7 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <CopyableBadge textToCopy={product.sku} />
-            <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> Ships in {product.deliveryTimeInDays} day(s)</Badge>
+            <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> {formatShippingTime(product.deliveryTimeInDays)}</Badge>
             <TooltipProvider>
               <div className="flex items-center gap-3">
                 {isAvailableInFuture && (
