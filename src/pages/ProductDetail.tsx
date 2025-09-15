@@ -29,12 +29,6 @@ import { formatPrice } from "@/lib/utils";
 import StarRating from "@/components/StarRating";
 import CopyableBadge from "@/components/CopyableBadge";
 import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { format } from "date-fns";
 import { useCart } from "@/context/CartContext";
 import { Separator } from "@/components/ui/separator";
@@ -148,21 +142,9 @@ const ProductDetail = () => {
               <Badge variant="secondary"><MapPin className="mr-1.5 h-3 w-3" /> {product.region}</Badge>
               <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> Ships in {product.deliveryTimeInDays} day(s)</Badge>
               {isAvailableInFuture && (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger onFocus={(e) => e.preventDefault()}>
-                      <Badge variant="outline" className="text-primary border-primary cursor-default">
-                        <Calendar className="mr-1.5 h-3 w-3" /> Preorder
-                      </Badge>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>This item is available for preorder.</p>
-                      {productionDate && (
-                        <p>Expected to be ready on: {format(productionDate, "PPP")}</p>
-                      )}
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <Badge variant="outline" className="text-primary border-primary">
+                  <Calendar className="mr-1.5 h-3 w-3" /> Preorder
+                </Badge>
               )}
               {product.isVegan && (
                 <Badge variant="outline">
@@ -221,6 +203,21 @@ const ProductDetail = () => {
                     <Button variant="secondary" asChild>
                       <Link to={`/seller/${seller.id}`} state={{ fromProduct: { id: product.id, name: product.name } }}>View Profile</Link>
                     </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {isAvailableInFuture && productionDate && (
+              <Card className="bg-secondary/50 border-primary/50">
+                <CardContent className="p-4 flex items-center gap-3">
+                  <Calendar className="h-6 w-6 text-primary flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold">Available for Preorder</h4>
+                    <p className="text-sm text-muted-foreground">
+                      This item will be ready for shipping on{" "}
+                      <span className="font-medium text-foreground">{format(productionDate, "PPP")}</span>.
+                    </p>
                   </div>
                 </CardContent>
               </Card>
