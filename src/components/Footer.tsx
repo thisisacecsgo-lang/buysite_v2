@@ -1,5 +1,6 @@
 import { Github, Twitter, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
+import logoSrc from "@/assets/images/logo.png";
 
 export const Footer = () => {
   return (
@@ -9,7 +10,7 @@ export const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
               <img
-                  src="/images/logo.png"
+                  src={logoSrc}
                   alt="Hiesige Höfe Logo"
                   className="h-20"
               />
