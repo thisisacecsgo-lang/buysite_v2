@@ -205,7 +205,7 @@ const ProductDetail = () => {
                         >
                           {seller.name}
                         </Link>
-                        <Badge variant={seller.sellerType === 'commercial' ? 'default' : 'secondary'} className="capitalize text-xs">
+                        <Badge variant="secondary" className="capitalize text-xs">
                           {seller.sellerType}
                         </Badge>
                       </div>

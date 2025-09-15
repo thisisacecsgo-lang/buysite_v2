@@ -124,7 +124,7 @@ const SellerProfile = () => {
             <div className="flex-grow space-y-2">
               <div className="flex items-center gap-4">
                 <h1 className="text-3xl font-bold">{seller.name}</h1>
-                <Badge variant={seller.sellerType === 'commercial' ? 'default' : 'secondary'} className="capitalize">
+                <Badge variant="secondary" className="capitalize">
                   {seller.sellerType}
                 </Badge>
               </div>

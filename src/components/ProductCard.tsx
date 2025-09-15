@@ -59,7 +59,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 </Link>
               </div>
               {seller && (
-                <Badge variant={seller.sellerType === 'commercial' ? 'default' : 'secondary'} className="capitalize text-xs flex-shrink-0">
+                <Badge variant="secondary" className="capitalize text-xs flex-shrink-0">
                   {seller.sellerType}
                 </Badge>
               )}
