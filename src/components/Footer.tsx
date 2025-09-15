@@ -11,7 +11,7 @@ export const Footer = () => {
               <img
                   src="/images/logo2.png"
                   alt="Hiesige Höfe Logo"
-                  className="h-12 w-14"
+                  className="h-24 w-28"
               />
             </Link>
             <p className="text-muted-foreground text-sm">
