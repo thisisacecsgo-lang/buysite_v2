@@ -16,11 +16,6 @@ import { ProductQuickView } from "./ProductQuickView";
 import { cn, formatPrice } from "@/lib/utils";
 import CategoryIcon from "./CategoryIcon";
 import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 interface ProductCardProps {
   product: Product;
@@ -51,11 +46,6 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                   <Eye className="h-5 w-5" />
                 </div>
               </div>
-               {isAvailableInFuture && (
-                <Badge variant="default" className="absolute top-2 left-2">
-                  <Calendar className="mr-1.5 h-3 w-3" /> Preorder
-                </Badge>
-              )}
             </div>
           </DialogTrigger>
         </CardHeader>
@@ -91,36 +81,30 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 <Truck className="h-4 w-4 flex-shrink-0" />
                 <span className="truncate">Ships in {product.deliveryTimeInDays} day(s)</span>
               </div>
-              <div className="flex items-center gap-3 pt-1 min-h-[28px]">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground pt-1 min-h-[28px]">
+                {isAvailableInFuture && (
+                  <div className="flex items-center gap-1.5">
+                    <Calendar className="h-3 w-3 text-primary" />
+                    <span className="font-medium text-primary">Preorder</span>
+                  </div>
+                )}
                 {product.isVegan && (
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Vegan className="h-4 w-4 text-muted-foreground" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Vegan</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <div className="flex items-center gap-1.5">
+                    <Vegan className="h-3 w-3" />
+                    <span>Vegan</span>
+                  </div>
                 )}
                 {product.isVegetarian && !product.isVegan && (
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Leaf className="h-4 w-4 text-muted-foreground" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Vegetarian</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <div className="flex items-center gap-1.5">
+                    <Leaf className="h-3 w-3" />
+                    <span>Vegetarian</span>
+                  </div>
                 )}
                 {product.harvestOnDemand && (
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Sprout className="h-4 w-4 text-muted-foreground" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Harvest on Demand</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <div className="flex items-center gap-1.5">
+                    <Sprout className="h-3 w-3" />
+                    <span>Harvest on Demand</span>
+                  </div>
                 )}
               </div>
             </div>
