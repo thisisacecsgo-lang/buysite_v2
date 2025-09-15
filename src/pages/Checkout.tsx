@@ -209,7 +209,7 @@ const Checkout = () => {
                               <FormControl>
                                 <RadioGroupItem value="bank" />
                               </FormControl>
-                              <FormLabel className="font-normal">Bank Deduction</FormLabel>
+                              <FormLabel className="font-normal">Pre-paid Deposit</FormLabel>
                             </FormItem>
                           </RadioGroup>
                         </FormControl>
