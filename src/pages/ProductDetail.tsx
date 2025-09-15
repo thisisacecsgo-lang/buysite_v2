@@ -122,27 +122,6 @@ const ProductDetail = () => {
                 <CategoryIcon category={product.category} className="h-7 w-7 text-muted-foreground" />
                 <h1 className="text-3xl font-bold">{product.name}</h1>
               </div>
-              {seller && (
-                <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
-                  <span>Sold by</span>
-                  <Link
-                    to={`/seller/${seller.id}`}
-                    state={{ fromProduct: { id: product.id, name: product.name } }}
-                    className="font-semibold text-primary hover:underline"
-                  >
-                    {seller.name}
-                  </Link>
-                  {seller.reviews.length > 0 && (
-                    <>
-                      <Separator orientation="vertical" className="h-4" />
-                      <div className="flex items-center gap-1">
-                        <StarRating rating={averageRating} />
-                        <span>({seller.reviews.length})</span>
-                      </div>
-                    </>
-                  )}
-                </div>
-              )}
             </div>
 
             {/* Price */}
@@ -205,6 +184,48 @@ const ProductDetail = () => {
               )}
             </div>
             
+            {/* Seller Info */}
+            {seller && (
+              <Card>
+                <CardContent className="p-4">
+                  <p className="text-sm text-muted-foreground mb-2">Sold by</p>
+                  <div className="flex items-center gap-3">
+                    <Avatar>
+                      <AvatarImage src={seller.logoUrl} />
+                      <AvatarFallback>
+                        <User />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-grow">
+                      <div className="flex items-center gap-2">
+                        <Link
+                          to={`/seller/${seller.id}`}
+                          state={{ fromProduct: { id: product.id, name: product.name } }}
+                          className="font-semibold text-lg hover:underline"
+                        >
+                          {seller.name}
+                        </Link>
+                        <Badge variant={seller.sellerType === 'commercial' ? 'default' : 'secondary'} className="capitalize text-xs">
+                          {seller.sellerType}
+                        </Badge>
+                      </div>
+                      {seller.reviews.length > 0 && (
+                        <div className="flex items-center gap-2 mt-1">
+                          <StarRating rating={averageRating} />
+                          <span className="text-xs text-muted-foreground">
+                            ({seller.reviews.length} reviews)
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <Button variant="secondary" asChild>
+                      <Link to={`/seller/${seller.id}`} state={{ fromProduct: { id: product.id, name: product.name } }}>View Profile</Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
             <Separator />
 
             {/* Details & Purchase */}
