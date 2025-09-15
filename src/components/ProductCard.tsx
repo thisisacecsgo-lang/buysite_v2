@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/types";
-import { Tag, MapPin, Eye, User, Calendar, Truck, Vegan, Leaf, Sprout } from "lucide-react";
+import { Tag, MapPin, Eye, User, Calendar, Truck, Vegan, Leaf, Sprout, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { mockSellers } from "@/data/mockData";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -16,6 +16,7 @@ import { ProductQuickView } from "./ProductQuickView";
 import { cn, formatPrice } from "@/lib/utils";
 import CategoryIcon from "./CategoryIcon";
 import { Badge } from "@/components/ui/badge";
+import { useCart } from "@/context/CartContext";
 
 interface ProductCardProps {
   product: Product;
@@ -24,6 +25,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, className }: ProductCardProps) => {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
+  const { addToCart } = useCart();
 
   const seller = mockSellers.find((s) => s.id === product.sellerId);
   const imageUrl = product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls[0] : "/placeholder.svg";
@@ -117,12 +119,16 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
             </p>
           </div>
         </CardContent>
-        <CardFooter className="p-4 pt-0">
-          <Button asChild className="w-full">
+        <CardFooter className="p-4 pt-0 grid grid-cols-2 gap-2">
+          <Button variant="outline" asChild>
             <Link to={`/product/${product.id}`}>
               <Eye className="mr-2 h-4 w-4" />
-              View Options
+              View
             </Link>
+          </Button>
+          <Button onClick={() => addToCart(product)}>
+            <ShoppingCart className="mr-2 h-4 w-4" />
+            Add
           </Button>
         </CardFooter>
       </Card>

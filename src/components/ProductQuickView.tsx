@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import type { Product, Seller } from "@/types";
 import { Button } from "@/components/ui/button";
-import { Tag, MapPin, User, Info, Truck, Calendar, Vegan, Leaf, Sprout } from "lucide-react";
+import { Tag, MapPin, User, Info, Truck, Calendar, Vegan, Leaf, Sprout, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
-import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CategoryIcon from "./CategoryIcon";
 import { formatPrice } from "@/lib/utils";
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import { format } from "date-fns";
 import CopyableBadge from "./CopyableBadge";
+import { useCart } from "@/context/CartContext";
 
 interface ProductQuickViewProps {
   product: Product;
@@ -24,6 +25,7 @@ interface ProductQuickViewProps {
 
 export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => {
   const imageUrl = product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls[0] : "/placeholder.svg";
+  const { addToCart } = useCart();
   
   const isAvailableInFuture = useMemo(() => {
     return product.productionDate && new Date(product.productionDate) > new Date();
@@ -133,13 +135,21 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
               </div>
             </div>
           )}
-          <div className="pt-4">
-            <Button size="lg" className="w-full" asChild>
-              <Link to={`/product/${product.id}`}>View Full Details</Link>
+          <div className="pt-4 grid grid-cols-2 gap-2">
+            <Button size="lg" variant="outline" className="w-full" asChild>
+              <Link to={`/product/${product.id}`}>View Details</Link>
             </Button>
+            <DialogClose asChild>
+              <Button size="lg" className="w-full" onClick={() => addToCart(product)}>
+                <ShoppingCart className="mr-2 h-4 w-4" />
+                Add to Cart
+              </Button>
+            </DialogClose>
           </div>
         </div>
       </div>
     </>
   );
 };
+
+export default ProductQuickView;
