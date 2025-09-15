@@ -2,7 +2,6 @@ import CartIcon from "./CartIcon";
 import { Link, useLocation } from "react-router-dom";
 import { User } from "lucide-react";
 import { Button } from "./ui/button";
-import logoSrc from "@/assets/images/logo.png";
 
 const Header = () => {
   const location = useLocation();
@@ -10,7 +9,7 @@ const Header = () => {
 
   const Logo = () => (
       <div className="flex items-center gap-2">
-          <img src={logoSrc} alt="Hiesige Höfe Logo" className="h-20"/>
+          <img src="/images/logo2.png" alt="Hiesige Höfe Logo" className="h-24 w-28"/>
       </div>
   );
 
