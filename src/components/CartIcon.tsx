@@ -13,12 +13,12 @@ const CartIcon = () => {
       <Button
         variant="ghost"
         size="icon"
-        className="relative h-12 w-12"
+        className="relative h-14 w-14"
         onClick={() => setIsCartOpen(true)}
       >
-        <ShoppingCart className="h-6 w-6" />
+        <ShoppingCart className="h-7 w-7" />
         {itemCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs font-bold rounded-full h-6 min-w-[1.5rem] px-1 flex items-center justify-center">
+          <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs font-bold rounded-full h-7 min-w-[1.75rem] px-1 flex items-center justify-center">
             {itemCount}
           </span>
         )}
