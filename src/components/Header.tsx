@@ -27,9 +27,9 @@ const Header = () => {
           </Link>
         )}
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="h-14 w-14" asChild>
+          <Button variant="ghost" size="icon" className="h-16 w-16" asChild>
             <Link to="/profile">
-              <User className="h-8 w-8" />
+              <User className="h-10 w-10" />
             </Link>
           </Button>
           <CartIcon />
