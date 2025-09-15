@@ -33,10 +33,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
   const seller = mockSellers.find((s) => s.id === product.sellerId);
   const imageUrl = product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls[0] : "/placeholder.svg";
   
-  const firstBatch = product.batches?.[0];
-  const productionDate = firstBatch?.productionDate;
-
-  const isAvailableInFuture = productionDate && new Date(productionDate) > new Date();
+  const isAvailableInFuture = product.productionDate && new Date(product.productionDate) > new Date();
 
   return (
     <Dialog open={isQuickViewOpen} onOpenChange={setIsQuickViewOpen}>

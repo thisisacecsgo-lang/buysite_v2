@@ -70,22 +70,20 @@ export const parseQuantityToKg = (
 export const getPricePerKg = (product: Product): number => {
   if (typeof product.price !== "number") return 0;
 
-  // Guard against missing or empty batches array, which can happen with stale localStorage data
-  if (!product.batches || product.batches.length === 0) {
-    // Assume price is per kg if no batches are defined
+  // Guard against missing or empty quantity, which can happen with stale localStorage data
+  if (!product.availableQuantity) {
+    // Assume price is per kg if no quantity is defined
     return product.price;
   }
 
-  const representativeBatch = product.batches[0];
-
-  const batchWeightInKg = parseQuantityToKg(
-    representativeBatch.quantity,
+  const weightInKg = parseQuantityToKg(
+    product.availableQuantity,
     product.name,
     product.category,
   );
 
-  if (batchWeightInKg > 0) {
-    return product.price / batchWeightInKg;
+  if (weightInKg > 0) {
+    return product.price / weightInKg;
   }
 
   // Fallback if we can't determine weight, assume price is per kg.
@@ -141,8 +139,8 @@ export const getPricePerDisplayUnit = (product: Product): number => {
   return pricePerKg;
 };
 
-export const getMaxQuantityInDisplayUnit = (batchQuantity: string, productName: string, category: string): number => {
-  const maxKg = parseQuantityToKg(batchQuantity, productName, category);
+export const getMaxQuantityInDisplayUnit = (quantityStr: string, productName: string, category: string): number => {
+  const maxKg = parseQuantityToKg(quantityStr, productName, category);
   return convertKgToDisplayUnit(maxKg, productName, category);
 };
 

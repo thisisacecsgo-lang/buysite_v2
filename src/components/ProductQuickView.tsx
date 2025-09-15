@@ -25,22 +25,11 @@ interface ProductQuickViewProps {
 export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => {
   const imageUrl = product.imageUrls && product.imageUrls.length > 0 ? product.imageUrls[0] : "/placeholder.svg";
   
-  const earliestProductionDate = useMemo(() => {
-    if (!product || !product.batches || product.batches.length === 0) {
-      return null;
-    }
-    const futureBatches = product.batches
-      .map((b) => new Date(b.productionDate))
-      .filter((d) => d > new Date());
-
-    if (futureBatches.length === 0) {
-      return null;
-    }
-
-    return new Date(Math.min(...futureBatches.map((d) => d.getTime())));
+  const isAvailableInFuture = useMemo(() => {
+    return product.productionDate && new Date(product.productionDate) > new Date();
   }, [product]);
 
-  const isAvailableInFuture = !!earliestProductionDate;
+  const productionDate = isAvailableInFuture ? new Date(product.productionDate) : null;
 
   return (
     <>
@@ -87,8 +76,8 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>This item is available for preorder.</p>
-                      {earliestProductionDate && (
-                        <p>Expected to be ready on: {format(earliestProductionDate, "PPP")}</p>
+                      {productionDate && (
+                        <p>Expected to be ready on: {format(productionDate, "PPP")}</p>
                       )}
                     </TooltipContent>
                   </Tooltip>

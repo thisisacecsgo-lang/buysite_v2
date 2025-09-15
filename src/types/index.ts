@@ -28,13 +28,6 @@ export interface Seller {
   background?: string;
 }
 
-export interface Batch {
-  id: string;
-  productionDate: string;
-  expiryDate: string;
-  quantity: string;
-}
-
 export interface Product {
   id:string;
   sku: string;
@@ -52,12 +45,13 @@ export interface Product {
   harvestOnDemand: boolean;
   deliveryTimeInDays: number;
   freshness: "fresh" | "frozen" | "canned";
-  batches: Batch[];
+  productionDate: string;
+  expiryDate: string;
+  availableQuantity: string;
 }
 
 export type CartItem = Omit<Product, "status" | "createdAt"> & {
-  id: string; // composite key
-  batch: Batch;
+  id: string; // product id
   quantity: number; // Weight in KG
 };
 

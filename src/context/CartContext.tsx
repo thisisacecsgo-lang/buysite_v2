@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import type { Product, CartItem, Batch } from "@/types";
+import type { Product, CartItem } from "@/types";
 import { toast } from "sonner";
 import {
   parseQuantityToKg,
@@ -11,7 +11,7 @@ import {
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (product: Product, batch: Batch) => void;
+  addToCart: (product: Product) => void;
   removeFromCart: (cartItemId: string) => void;
   updateQuantity: (cartItemId: string, quantity: number) => void;
   clearCart: () => void;
@@ -46,8 +46,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [cartItems]);
 
-  const addToCart = (product: Product, batch: Batch) => {
-    const cartItemId = `${product.id}-${batch.id}`;
+  const addToCart = (product: Product) => {
+    const cartItemId = product.id;
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === cartItemId);
       if (existingItem) {
@@ -55,9 +55,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return prevItems;
       }
 
-      const maxWeight = parseQuantityToKg(batch.quantity, product.name, product.category);
+      const maxWeight = parseQuantityToKg(product.availableQuantity, product.name, product.category);
       if (maxWeight < 0.05) {
-        toast.error(`This batch of ${product.name} is too small to be added.`);
+        toast.error(`This product ${product.name} is too small to be added.`);
         return prevItems;
       }
 
@@ -71,7 +71,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       const newItem: CartItem = {
         ...productData,
         id: cartItemId,
-        batch: batch,
         quantity: initialQuantityInKg,
       };
       toast.success(`${product.name} added to cart!`);
@@ -95,11 +94,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       prevItems.map((item) => {
         if (item.id !== cartItemId) return item;
 
-        const maxWeight = parseQuantityToKg(item.batch.quantity, item.name, item.category);
+        const maxWeight = parseQuantityToKg(item.availableQuantity, item.name, item.category);
         let newQuantity = quantity;
         if (newQuantity > maxWeight) {
             newQuantity = maxWeight;
-            toast.warning(`Maximum weight for this batch is ${maxWeight.toFixed(2)} kg.`);
+            toast.warning(`Maximum available quantity is ${maxWeight.toFixed(2)} kg.`);
         }
         
         return { ...item, quantity: newQuantity };

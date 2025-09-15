@@ -91,8 +91,7 @@ const Index = () => {
         return true;
       })();
 
-      const firstBatchProductionDate = product.batches?.[0]?.productionDate;
-      const isFutureProduct = firstBatchProductionDate ? isAfter(new Date(firstBatchProductionDate), new Date()) : false;
+      const isFutureProduct = product.productionDate ? isAfter(new Date(product.productionDate), new Date()) : false;
       const preorderMatch = !showPreorder || isFutureProduct;
 
       const seller = mockSellers.find(s => s.id === product.sellerId);

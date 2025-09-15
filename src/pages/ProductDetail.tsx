@@ -12,6 +12,7 @@ import {
   Truck,
   Sprout,
   Calendar,
+  ShoppingCart,
 } from "lucide-react";
 import { mockProducts, mockSellers } from "@/data/mockData";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,8 +22,7 @@ import BackButton from "@/components/BackButton";
 import { Footer } from "@/components/Footer";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import ProductCard from "@/components/ProductCard";
-import CategoryIcon from "@/components/CategoryIcon";
-import BatchesTable from "@/components/BatchesTable";
+import CategoryIcon from "./CategoryIcon";
 import { formatPrice } from "@/lib/utils";
 import StarRating from "@/components/StarRating";
 import CopyableBadge from "@/components/CopyableBadge";
@@ -34,31 +34,25 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { format } from "date-fns";
+import { useCart } from "@/context/CartContext";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const { addToCart } = useCart();
 
   const product = mockProducts.find((p) => p.id === id);
   const seller = product
     ? mockSellers.find((s) => s.id === product.sellerId)
     : undefined;
 
-  const earliestProductionDate = useMemo(() => {
-    if (!product || !product.batches || product.batches.length === 0) {
-      return null;
+  const isAvailableInFuture = useMemo(() => {
+    if (!product || !product.productionDate) {
+      return false;
     }
-    const futureBatches = product.batches
-      .map((b) => new Date(b.productionDate))
-      .filter((d) => d > new Date());
-
-    if (futureBatches.length === 0) {
-      return null;
-    }
-
-    return new Date(Math.min(...futureBatches.map((d) => d.getTime())));
+    return new Date(product.productionDate) > new Date();
   }, [product]);
 
-  const isAvailableInFuture = !!earliestProductionDate;
+  const productionDate = isAvailableInFuture ? new Date(product.productionDate) : null;
 
   const averageRating = useMemo(() => {
     if (!seller || seller.reviews.length === 0) {
@@ -145,8 +139,8 @@ const ProductDetail = () => {
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>This item is available for preorder.</p>
-                      {earliestProductionDate && (
-                        <p>Expected to be ready on: {format(earliestProductionDate, "PPP")}</p>
+                      {productionDate && (
+                        <p>Expected to be ready on: {format(productionDate, "PPP")}</p>
                       )}
                     </TooltipContent>
                   </Tooltip>
@@ -224,13 +218,21 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {product.batches && product.batches.length > 0 ? (
-          <BatchesTable product={product} />
-        ) : (
-          <p className="mt-8 text-center text-muted-foreground">
-            No available batches for this product.
-          </p>
-        )}
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold mb-4">Purchase</h2>
+          <Card>
+            <CardContent className="p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <p className="text-lg font-semibold">Ready to buy?</p>
+                <p className="text-muted-foreground">Add this product to your cart to proceed.</p>
+              </div>
+              <Button size="lg" onClick={() => addToCart(product)} className="w-full sm:w-auto">
+                <ShoppingCart className="mr-2 h-5 w-5" />
+                Add to Cart
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
 
         {relatedProducts.length > 0 && (
           <section className="mt-16">

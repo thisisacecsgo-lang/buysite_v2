@@ -24,7 +24,7 @@ const CartItem = ({ item }: CartItemProps) => {
   const displayUnit = getDisplayUnit(item.name, item.category);
   const step = getStepForDisplayUnit(displayUnit);
   const minQuantity = displayUnit === 'piece' ? 1 : step;
-  const maxQuantity = getMaxQuantityInDisplayUnit(item.batch.quantity, item.name, item.category);
+  const maxQuantity = getMaxQuantityInDisplayUnit(item.availableQuantity, item.name, item.category);
   const pricePerUnit = getPricePerDisplayUnit(item);
   const totalItemPrice = getPricePerKg(item) * item.quantity;
 
