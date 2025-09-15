@@ -2,7 +2,7 @@ import CartIcon from "./CartIcon";
 import { Link, useLocation } from "react-router-dom";
 import { User } from "lucide-react";
 import { Button } from "./ui/button";
-import logoSrc from "@/assets/images/output-2.png";
+import logoSrc from "@/assets/images/logo.png";
 
 const Header = () => {
   const location = useLocation();
