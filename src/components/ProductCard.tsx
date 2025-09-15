@@ -83,30 +83,30 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 <Truck className="h-4 w-4 flex-shrink-0" />
                 <span className="truncate">Earliest shipping: {formatShippingTime(product.deliveryTimeInDays)}</span>
               </div>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground pt-1 min-h-[28px]">
+              <div className="flex flex-wrap items-center gap-2 pt-1 min-h-[28px]">
                 {isAvailableInFuture && (
-                  <div className="flex items-center gap-1.5">
-                    <Calendar className="h-3 w-3 text-primary" />
-                    <span className="font-medium text-primary">Preorder</span>
-                  </div>
+                  <Badge variant="outline" className="text-primary border-primary font-medium">
+                    <Calendar className="mr-1.5 h-3 w-3" />
+                    Preorder
+                  </Badge>
                 )}
                 {product.isVegan && (
-                  <div className="flex items-center gap-1.5">
-                    <Vegan className="h-3 w-3" />
-                    <span>Vegan</span>
-                  </div>
+                  <Badge variant="outline" className="font-normal">
+                    <Vegan className="mr-1.5 h-3 w-3" />
+                    Vegan
+                  </Badge>
                 )}
                 {product.isVegetarian && !product.isVegan && (
-                  <div className="flex items-center gap-1.5">
-                    <Leaf className="h-3 w-3" />
-                    <span>Vegetarian</span>
-                  </div>
+                  <Badge variant="outline" className="font-normal">
+                    <Leaf className="mr-1.5 h-3 w-3" />
+                    Vegetarian
+                  </Badge>
                 )}
                 {product.harvestOnDemand && (
-                  <div className="flex items-center gap-1.5">
-                    <Sprout className="h-3 w-3" />
-                    <span>Harvest on Demand</span>
-                  </div>
+                  <Badge variant="outline" className="font-normal">
+                    <Sprout className="mr-1.5 h-3 w-3" />
+                    Harvest on Demand
+                  </Badge>
                 )}
               </div>
             </div>
