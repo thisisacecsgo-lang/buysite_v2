@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import type { Product, Seller } from "@/types";
 import { Button } from "@/components/ui/button";
-import { Tag, MapPin, User, Info, Truck, Calendar, Vegan, Leaf, Sprout, ShoppingCart } from "lucide-react";
+import { Tag, MapPin, User, Info, Truck, Calendar, Vegan, Leaf, Sprout, ShoppingCart, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -69,6 +69,18 @@ export const ProductQuickView = ({ product, seller }: ProductQuickViewProps) => 
             <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> {formatShippingTime(product.deliveryTimeInDays)}</Badge>
             <TooltipProvider>
               <div className="flex items-center gap-3">
+                {product.cultivationMethod && (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Badge variant="outline" className="border-primary text-primary capitalize cursor-default">
+                        <ShieldCheck className="mr-1.5 h-3 w-3" /> {product.cultivationMethod}
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Cultivation Method: {product.cultivationMethod}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
                 {isAvailableInFuture && (
                   <Tooltip>
                     <TooltipTrigger onFocus={(e) => e.preventDefault()}>

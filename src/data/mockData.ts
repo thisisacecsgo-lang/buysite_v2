@@ -189,6 +189,7 @@ export const mockProducts: Product[] = [
     productionDate: "2025-08-14T00:00:00Z",
     expiryDate: "2025-09-14T00:00:00Z",
     availableQuantity: "18kg",
+    cultivationMethod: "eco-friendly",
   },
   {
     id: "4",
@@ -253,6 +254,7 @@ export const mockProducts: Product[] = [
     productionDate: addDays(now, -1).toISOString(),
     expiryDate: addDays(now, 20).toISOString(),
     availableQuantity: "3.5kg",
+    cultivationMethod: "eco-friendly",
   },
   // Seller 2: Coastal Gardens (4 products)
   {
@@ -361,6 +363,7 @@ export const mockProducts: Product[] = [
     productionDate: addDays(now, 10).toISOString(),
     expiryDate: addDays(now, 375).toISOString(),
     availableQuantity: "750g",
+    cultivationMethod: "preserved produce",
   },
   {
     id: "11",
@@ -403,6 +406,7 @@ export const mockProducts: Product[] = [
     productionDate: "2025-04-08T00:00:00Z",
     expiryDate: "2026-04-08T00:00:00Z",
     availableQuantity: "1.75kg",
+    cultivationMethod: "preserved produce",
   },
   {
     id: "17",
@@ -446,6 +450,7 @@ export const mockProducts: Product[] = [
     productionDate: addDays(now, 7).toISOString(),
     expiryDate: addDays(now, 372).toISOString(),
     availableQuantity: "1.5kg",
+    cultivationMethod: "BIO-certified",
   },
 
   // Seller 5: Riverbend Fishery (4 products)
@@ -532,5 +537,6 @@ export const mockProducts: Product[] = [
     productionDate: addDays(now, -50).toISOString(),
     expiryDate: addDays(now, 1045).toISOString(),
     availableQuantity: "1 can",
+    cultivationMethod: "preserved produce",
   },
 ];

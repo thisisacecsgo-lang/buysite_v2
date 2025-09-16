@@ -21,6 +21,8 @@ interface ProductFiltersProps {
   onShowPreorderChange: (checked: boolean) => void;
   sellerType: string;
   onSellerTypeChange: (value: string) => void;
+  cultivationMethod: string;
+  onCultivationMethodChange: (value: string) => void;
 }
 
 const ProductFilters = ({
@@ -39,6 +41,8 @@ const ProductFilters = ({
   onShowPreorderChange,
   sellerType,
   onSellerTypeChange,
+  cultivationMethod,
+  onCultivationMethodChange,
 }: ProductFiltersProps) => {
   return (
     <Card>
@@ -77,6 +81,28 @@ const ProductFilters = ({
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="private" id="st-private" />
               <Label htmlFor="st-private" className="font-normal">Private</Label>
+            </div>
+          </RadioGroup>
+        </div>
+        <Separator />
+        <div className="space-y-4">
+          <Label>Cultivation Method</Label>
+          <RadioGroup value={cultivationMethod} onValueChange={onCultivationMethodChange}>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="all" id="cm-all" />
+              <Label htmlFor="cm-all" className="font-normal">All</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="BIO-certified" id="cm-bio" />
+              <Label htmlFor="cm-bio" className="font-normal">BIO-certified</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="eco-friendly" id="cm-eco" />
+              <Label htmlFor="cm-eco" className="font-normal">Eco-friendly</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="preserved produce" id="cm-preserved" />
+              <Label htmlFor="cm-preserved" className="font-normal">Preserved Produce</Label>
             </div>
           </RadioGroup>
         </div>

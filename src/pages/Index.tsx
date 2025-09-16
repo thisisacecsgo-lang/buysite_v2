@@ -38,6 +38,7 @@ const Index = () => {
   const [deliverySpeed, setDeliverySpeed] = useState("any");
   const [showPreorder, setShowPreorder] = useState(false);
   const [sellerType, setSellerType] = useState("all");
+  const [cultivationMethod, setCultivationMethod] = useState("all");
 
   useEffect(() => {
     if (location.state?.category) {
@@ -97,6 +98,8 @@ const Index = () => {
       const seller = mockSellers.find(s => s.id === product.sellerId);
       const sellerTypeMatch = sellerType === 'all' || (seller && seller.sellerType === sellerType);
 
+      const cultivationMatch = cultivationMethod === "all" || product.cultivationMethod === cultivationMethod;
+
       return (
         searchMatch &&
         categoryMatch &&
@@ -106,7 +109,8 @@ const Index = () => {
         harvestOnDemandMatch &&
         deliveryMatch &&
         preorderMatch &&
-        sellerTypeMatch
+        sellerTypeMatch &&
+        cultivationMatch
       );
     });
 
@@ -142,6 +146,7 @@ const Index = () => {
     deliverySpeed,
     showPreorder,
     sellerType,
+    cultivationMethod,
   ]);
 
   const sidebarProps = {
@@ -164,6 +169,8 @@ const Index = () => {
     onShowPreorderChange: setShowPreorder,
     sellerType,
     onSellerTypeChange: setSellerType,
+    cultivationMethod,
+    onCultivationMethodChange: setCultivationMethod,
   };
 
   return (

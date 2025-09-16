@@ -22,6 +22,8 @@ interface ProductSidebarProps {
   onShowPreorderChange: (checked: boolean) => void;
   sellerType: string;
   onSellerTypeChange: (value: string) => void;
+  cultivationMethod: string;
+  onCultivationMethodChange: (value: string) => void;
 }
 
 const ProductSidebar = ({

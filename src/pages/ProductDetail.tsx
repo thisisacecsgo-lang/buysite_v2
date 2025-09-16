@@ -15,6 +15,7 @@ import {
   ShoppingCart,
   Package,
   CalendarClock,
+  ShieldCheck,
 } from "lucide-react";
 import { mockProducts, mockSellers } from "@/data/mockData";
 import { Card, CardContent } from "@/components/ui/card";
@@ -141,6 +142,12 @@ const ProductDetail = () => {
               <CopyableBadge textToCopy={product.sku} />
               <Badge variant="secondary"><MapPin className="mr-1.5 h-3 w-3" /> {product.region}</Badge>
               <Badge variant="secondary"><Truck className="mr-1.5 h-3 w-3" /> {formatShippingTime(product.deliveryTimeInDays)}</Badge>
+              {product.cultivationMethod && (
+                <Badge variant="outline" className="border-primary text-primary capitalize">
+                  <ShieldCheck className="mr-2 h-4 w-4" />
+                  {product.cultivationMethod}
+                </Badge>
+              )}
               {isAvailableInFuture && (
                 <Badge variant="outline" className="text-primary border-primary">
                   <Calendar className="mr-1.5 h-3 w-3" /> Preorder

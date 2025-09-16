@@ -50,6 +50,7 @@ export interface Product {
   productionDate: string;
   expiryDate: string;
   availableQuantity: string;
+  cultivationMethod?: "BIO-certified" | "eco-friendly" | "preserved produce";
 }
 
 export type CartItem = Omit<Product, "status" | "createdAt"> & {

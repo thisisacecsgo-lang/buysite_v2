@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/types";
-import { Tag, MapPin, Eye, User, Calendar, Truck, Vegan, Leaf, Sprout, ShoppingCart } from "lucide-react";
+import { Tag, MapPin, Eye, User, Calendar, Truck, Vegan, Leaf, Sprout, ShoppingCart, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { mockSellers } from "@/data/mockData";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -84,6 +84,12 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 <span className="truncate">Earliest shipping: {formatShippingTime(product.deliveryTimeInDays)}</span>
               </div>
               <div className="flex flex-wrap items-center gap-2 pt-1 min-h-[28px]">
+                {product.cultivationMethod && (
+                  <Badge variant="outline" className="border-primary text-primary font-medium capitalize">
+                    <ShieldCheck className="mr-1.5 h-3 w-3" />
+                    {product.cultivationMethod}
+                  </Badge>
+                )}
                 {isAvailableInFuture && (
                   <Badge variant="outline" className="text-primary border-primary font-medium">
                     <Calendar className="mr-1.5 h-3 w-3" />
