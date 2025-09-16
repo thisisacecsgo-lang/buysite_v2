@@ -11,7 +11,7 @@ export const Footer = () => {
               <img
                   src="/images/logo2.png"
                   alt="Hiesige Höfe Logo"
-                  className="h-24 w-28"
+                  className="h-20 w-27"
               />
             </Link>
             <p className="text-muted-foreground text-sm">
@@ -46,14 +46,7 @@ export const Footer = () => {
         </div>
         <div className="border-t mt-8 pt-6 text-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} Hiesige Höfe. All Rights Reserved.</p>
-          <a
-            href="https://www.dyad.sh/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-          >
-            am
-          </a>
+
         </div>
       </div>
     </footer>

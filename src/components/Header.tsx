@@ -9,14 +9,14 @@ const Header = () => {
 
   const Logo = () => (
       <div className="flex items-center gap-2">
-          <img src="/images/logo2.png" alt="Hiesige Höfe Logo" className="h-24 w-28"/>
+          <img src="/images/logo2.png" alt="Hiesige Höfe Logo" className="h-16"/>
       </div>
   );
 
     return (
         <header
             className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-28 items-center justify-between gap-2">
+      <div className="container mx-auto flex h-20 items-center justify-between gap-2">
         {isHomePage ? (
           <div className="cursor-default">
             <Logo />
@@ -27,14 +27,14 @@ const Header = () => {
           </Link>
         )}
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="h-16 w-16" asChild>
+          <Button variant="ghost" size="icon" className="h-12 w-12" asChild>
             <Link to="/recipes">
-              <ChefHat className="h-10 w-10" />
+              <ChefHat className="h-7 w-7" />
             </Link>
           </Button>
-          <Button variant="ghost" size="icon" className="h-16 w-16" asChild>
+          <Button variant="ghost" size="icon" className="h-12 w-12" asChild>
             <Link to="/profile">
-              <User className="h-10 w-10" />
+              <User className="h-7 w-7" />
             </Link>
           </Button>
           <CartIcon />

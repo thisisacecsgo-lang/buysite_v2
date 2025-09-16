@@ -38,7 +38,10 @@ const CustomerProfile = () => {
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row items-center gap-6 mb-8">
               <Avatar className="h-24 w-24 border-4 border-background">
-                <AvatarImage src={customer.avatarUrl} alt={`${customer.firstName} ${customer.lastName}`} />
+                <AvatarImage
+                  src={customer.avatarUrl || "/images/customer.png"}
+                  alt={`${customer.firstName} ${customer.lastName}`}
+                />
                 <AvatarFallback>{customer.firstName.charAt(0)}{customer.lastName.charAt(0)}</AvatarFallback>
               </Avatar>
               <div>

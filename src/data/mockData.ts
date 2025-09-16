@@ -5,12 +5,12 @@ const now = new Date();
 
 export const mockCustomer: Customer = {
   id: "customer-1",
-  firstName: "Maria",
-  lastName: "Schmidt",
-  email: "maria.schmidt@example.com",
+  firstName: "The",
+  lastName: "Beckers",
+  email: "the.beckers@example.com",
   phone: "+49 123 4567890",
-  address: "Musterstraße 1, 12345 Berlin",
-  avatarUrl: "/images/avatar.jpg",
+  address: "Bahnhofstraße 2, 24109 Melsdorf",
+  avatarUrl: "/images/customer.png",
 };
 
 export const mockSellers: Seller[] = [
