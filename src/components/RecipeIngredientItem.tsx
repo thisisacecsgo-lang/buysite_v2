@@ -1,16 +1,18 @@
 import type { Ingredient, Product, CartItem } from "@/types";
 import { useCart } from "@/context/CartContext";
 import { Button } from "./ui/button";
-import { CheckCircle2, XCircle, ShoppingCart, Circle } from "lucide-react";
+import { CheckCircle2, XCircle, ShoppingCart, Circle, Check } from "lucide-react";
 import { Badge } from "./ui/badge";
 
 interface RecipeIngredientItemProps {
   ingredient: Ingredient;
   availableProduct: Product | null;
   cartItem: CartItem | null;
+  isOwned: boolean;
+  onToggleOwned: (ingredientName: string) => void;
 }
 
-const RecipeIngredientItem = ({ ingredient, availableProduct, cartItem }: RecipeIngredientItemProps) => {
+const RecipeIngredientItem = ({ ingredient, availableProduct, cartItem, isOwned, onToggleOwned }: RecipeIngredientItemProps) => {
   const { addToCart } = useCart();
 
   const getStatus = () => {
@@ -19,6 +21,17 @@ const RecipeIngredientItem = ({ ingredient, availableProduct, cartItem }: Recipe
         icon: <CheckCircle2 className="h-5 w-5 text-green-600" />,
         badge: <Badge variant="secondary" className="bg-green-100 text-green-800">In Cart</Badge>,
         action: null,
+      };
+    }
+    if (isOwned) {
+      return {
+        icon: <CheckCircle2 className="h-5 w-5 text-green-600" />,
+        badge: <Badge variant="secondary" className="bg-blue-100 text-blue-800">Owned</Badge>,
+        action: (
+          <Button size="sm" variant="ghost" onClick={() => onToggleOwned(ingredient.name)}>
+            Undo
+          </Button>
+        ),
       };
     }
     if (availableProduct) {
@@ -36,7 +49,12 @@ const RecipeIngredientItem = ({ ingredient, availableProduct, cartItem }: Recipe
     return {
       icon: <XCircle className="h-5 w-5 text-red-500" />,
       badge: <Badge variant="destructive" className="bg-red-100 text-red-800">Unavailable</Badge>,
-      action: null,
+      action: (
+        <Button size="sm" variant="outline" onClick={() => onToggleOwned(ingredient.name)}>
+          <Check className="mr-2 h-4 w-4" />
+          I have this
+        </Button>
+      ),
     };
   };
 

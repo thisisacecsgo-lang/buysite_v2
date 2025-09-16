@@ -18,7 +18,16 @@ const RecipeDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { cartItems, addToCart } = useCart();
   const [isCookingModeOpen, setIsCookingModeOpen] = useState(false);
+  const [ownedIngredients, setOwnedIngredients] = useState<string[]>([]);
   const recipe = mockRecipes.find((r) => r.id === id);
+
+  const toggleOwnedIngredient = (ingredientName: string) => {
+    setOwnedIngredients(prev =>
+      prev.includes(ingredientName)
+        ? prev.filter(name => name !== ingredientName)
+        : [...prev, ingredientName]
+    );
+  };
 
   const ingredientsWithStatus = useMemo(() => {
     if (!recipe) return [];
@@ -33,17 +42,19 @@ const RecipeDetail = () => {
         product.name.toLowerCase().includes(lowerIngredientName)
       ) || null;
 
-      return { ingredient, availableProduct, cartItem };
+      const isOwned = ownedIngredients.includes(ingredient.name);
+
+      return { ingredient, availableProduct, cartItem, isOwned };
     });
-  }, [recipe, cartItems]);
+  }, [recipe, cartItems, ownedIngredients]);
 
   const handleAddAllMissing = () => {
     const missingProducts = ingredientsWithStatus
-      .filter(item => !item.cartItem && item.availableProduct)
+      .filter(item => !item.cartItem && !item.isOwned && item.availableProduct)
       .map(item => item.availableProduct!);
 
     if (missingProducts.length === 0) {
-      toast.info("All available ingredients are already in your cart!");
+      toast.info("All available ingredients are already in your cart or marked as owned!");
       return;
     }
 
@@ -68,7 +79,7 @@ const RecipeDetail = () => {
     );
   }
 
-  const missingIngredientsCount = ingredientsWithStatus.filter(item => !item.cartItem && item.availableProduct).length;
+  const missingIngredientsCount = ingredientsWithStatus.filter(item => !item.cartItem && !item.isOwned && item.availableProduct).length;
 
   return (
     <>
@@ -168,12 +179,14 @@ const RecipeDetail = () => {
                     </CardHeader>
                     <CardContent className="space-y-2">
                       <div className="divide-y">
-                        {ingredientsWithStatus.map(({ ingredient, availableProduct, cartItem }) => (
+                        {ingredientsWithStatus.map(({ ingredient, availableProduct, cartItem, isOwned }) => (
                           <RecipeIngredientItem
                             key={ingredient.name}
                             ingredient={ingredient}
                             availableProduct={availableProduct}
                             cartItem={cartItem}
+                            isOwned={isOwned}
+                            onToggleOwned={toggleOwnedIngredient}
                           />
                         ))}
                       </div>
