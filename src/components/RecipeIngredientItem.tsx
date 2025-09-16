@@ -61,7 +61,7 @@ const RecipeIngredientItem = ({ ingredient, availableProduct, cartItem, isOwned,
   const { icon, badge, action } = getStatus();
 
   return (
-    <li className="flex items-center justify-between py-4 border-b last:border-b-0">
+    <li className="flex items-center justify-between py-4 border-b last:border-b-0 tap-highlight-transparent">
       <div className="flex items-center gap-3">
         {icon}
         <div>
