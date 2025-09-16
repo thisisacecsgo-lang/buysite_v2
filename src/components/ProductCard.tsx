@@ -34,10 +34,10 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
 
   return (
     <Dialog open={isQuickViewOpen} onOpenChange={setIsQuickViewOpen}>
-      <Card className={cn("w-full flex flex-col group transition-all duration-300 hover:shadow-xl hover:-translate-y-1", className)}>
+      <Card className={cn("w-full flex flex-col group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 rounded-xl", className)}>
         <CardHeader className="p-0">
           <DialogTrigger asChild>
-            <div className="overflow-hidden relative cursor-pointer">
+            <div className="overflow-hidden relative cursor-pointer rounded-t-xl">
               <img
                 src={imageUrl}
                 alt={product.name}

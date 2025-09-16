@@ -269,7 +269,7 @@ const ProductDetail = () => {
             >
               <CarouselContent className="-ml-4">
                 {relatedProducts.map((p) => (
-                  <CarouselItem key={p.id} className="pl-4 basis-1/2 md:basis-1/2 lg:basis-1/3">
+                  <CarouselItem key={p.id} className="pl-4 basis-1/2 md:basis-1/2 lg:basis-1/3 flex">
                     <ProductCard product={p} />
                   </CarouselItem>
                 ))}
