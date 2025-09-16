@@ -9,9 +9,9 @@ import {
   DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight, X } from 'lucide-react';
-import { Progress } from './ui/progress';
+import { Progress } from '@/components/ui/progress';
 
 interface CookingModeProps {
   isOpen: boolean;
