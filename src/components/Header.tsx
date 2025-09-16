@@ -1,6 +1,6 @@
 import CartIcon from "./CartIcon";
 import { Link, useLocation } from "react-router-dom";
-import { User } from "lucide-react";
+import { User, ChefHat } from "lucide-react";
 import { Button } from "./ui/button";
 
 const Header = () => {
@@ -27,6 +27,11 @@ const Header = () => {
           </Link>
         )}
         <div className="flex items-center gap-2">
+          <Button variant="ghost" size="icon" className="h-16 w-16" asChild>
+            <Link to="/recipes">
+              <ChefHat className="h-10 w-10" />
+            </Link>
+          </Button>
           <Button variant="ghost" size="icon" className="h-16 w-16" asChild>
             <Link to="/profile">
               <User className="h-10 w-10" />

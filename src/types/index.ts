@@ -67,3 +67,17 @@ export interface Customer {
   address: string;
   avatarUrl: string;
 }
+
+export interface Ingredient {
+  name: string;
+  quantity: string;
+}
+
+export interface Recipe {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  ingredients: Ingredient[];
+  instructions: string[];
+}

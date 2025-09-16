@@ -1,0 +1,70 @@
+import type { Recipe } from "@/types";
+
+export const mockRecipes: Recipe[] = [
+  {
+    id: "recipe-1",
+    name: "Classic Apple Pie",
+    description: "A timeless dessert with a flaky crust and a sweet, spiced apple filling. Perfect for any occasion.",
+    imageUrl: "https://images.unsplash.com/photo-1572383672419-ab35444a6914?q=80&w=2500&auto=format&fit=crop",
+    ingredients: [
+      { name: "Apples", quantity: "1.5 kg" },
+      { name: "Flour", quantity: "300g" },
+      { name: "Butter", quantity: "150g" },
+      { name: "Sugar", quantity: "100g" },
+      { name: "Cinnamon", quantity: "1 tsp" },
+      { name: "Eggs", quantity: "1" },
+    ],
+    instructions: [
+      "Prepare the crust: Mix flour, cold butter, and a pinch of salt until crumbly. Add a little cold water to form a dough. Divide in two, wrap, and chill for 30 minutes.",
+      "Prepare the filling: Peel, core, and slice the apples. Toss with sugar, cinnamon, and a tablespoon of flour.",
+      "Assemble the pie: Roll out one half of the dough and place it in a pie dish. Fill with the apple mixture. Dot with small pieces of butter.",
+      "Roll out the second half of the dough and cover the pie. Crimp the edges, cut steam vents, and brush with a beaten egg.",
+      "Bake at 200°C (400°F) for 15 minutes, then reduce to 180°C (350°F) and bake for another 35-40 minutes, until the crust is golden and the filling is bubbly.",
+      "Let it cool before serving.",
+    ],
+  },
+  {
+    id: "recipe-2",
+    name: "Hearty Chicken and Carrot Stew",
+    description: "A warm and comforting stew, packed with tender chicken and sweet carrots. A perfect one-pot meal.",
+    imageUrl: "https://images.unsplash.com/photo-1626136435228-a0554f0989a9?q=80&w=2500&auto=format&fit=crop",
+    ingredients: [
+      { name: "Chicken Thighs", quantity: "500g" },
+      { name: "Carrots", quantity: "4 large" },
+      { name: "Onion", quantity: "1" },
+      { name: "Garlic", quantity: "2 cloves" },
+      { name: "Chicken Broth", quantity: "1L" },
+      { name: "Potatoes", quantity: "3 medium" },
+      { name: "Thyme", quantity: "1 tsp" },
+    ],
+    instructions: [
+      "Cut chicken thighs into bite-sized pieces. Season with salt and pepper.",
+      "In a large pot or Dutch oven, brown the chicken over medium-high heat. Remove and set aside.",
+      "Sauté chopped onion, carrots, and potatoes until the onion is translucent. Add minced garlic and cook for another minute.",
+      "Return the chicken to the pot. Add chicken broth and thyme. Bring to a boil.",
+      "Reduce heat, cover, and simmer for 45-60 minutes, or until the chicken is tender and the vegetables are cooked through.",
+      "Season with salt and pepper to taste before serving.",
+    ],
+  },
+  {
+    id: "recipe-3",
+    name: "Gourmet Scrambled Eggs on Sourdough",
+    description: "Elevate your breakfast with creamy scrambled eggs and tangy goat cheese, served on toasted sourdough bread.",
+    imageUrl: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=2500&auto=format&fit=crop",
+    ingredients: [
+      { name: "Eggs", quantity: "4" },
+      { name: "Sourdough Bread", quantity: "2 slices" },
+      { name: "Goat Cheese", quantity: "50g" },
+      { name: "Milk", quantity: "2 tbsp" },
+      { name: "Chives", quantity: "for garnish" },
+    ],
+    instructions: [
+      "Whisk eggs and milk together in a bowl. Season with salt and pepper.",
+      "Toast the sourdough bread slices until golden brown.",
+      "Melt a knob of butter in a non-stick pan over low heat. Pour in the egg mixture.",
+      "Cook slowly, stirring gently with a spatula, until the eggs are just set but still soft.",
+      "Remove from heat and gently fold in the crumbled goat cheese.",
+      "Serve the scrambled eggs on top of the toasted sourdough, garnished with freshly chopped chives.",
+    ],
+  },
+];
