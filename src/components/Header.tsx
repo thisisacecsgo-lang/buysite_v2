@@ -29,12 +29,12 @@ const Header = () => {
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" className="h-12 w-12" asChild>
             <Link to="/recipes">
-              <ChefHat className="h-7 w-7" />
+              <ChefHat className="h-12 w-12" />
             </Link>
           </Button>
           <Button variant="ghost" size="icon" className="h-12 w-12" asChild>
             <Link to="/profile">
-              <User className="h-7 w-7" />
+              <User className="h-12 w-12" />
             </Link>
           </Button>
           <CartIcon />

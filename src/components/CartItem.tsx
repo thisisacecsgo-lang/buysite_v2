@@ -116,7 +116,7 @@ const CartItem = ({ item }: CartItemProps) => {
             <Button
               variant="ghost"
               size="icon"
-              className="text-muted-foreground hover:text-destructive h-8 w-8 flex-shrink-0 -mr-2"
+              className="text-muted-foreground hover:text-destructive h-8 w-8 flex-shrink-0"
               onClick={() => removeFromCart(item.id)}
             >
               <X className="h-4 w-4" />
