@@ -17,7 +17,6 @@ const Recipes = () => {
   const [mealType, setMealType] = useState('all');
   const [cookingTime, setCookingTime] = useState('all');
   const [difficulty, setDifficulty] = useState('all');
-  const [season, setSeason] = useState('all');
   const [isVegan, setIsVegan] = useState(false);
   const [isVegetarian, setIsVegetarian] = useState(false);
 
@@ -37,7 +36,6 @@ const Recipes = () => {
       
       const mealTypeMatch = mealType === 'all' || recipe.mealType === mealType;
       const difficultyMatch = difficulty === 'all' || recipe.difficulty === difficulty;
-      const seasonMatch = season === 'all' || recipe.season === season;
       const veganMatch = !isVegan || recipe.isVegan;
       const vegetarianMatch = !isVegetarian || recipe.isVegetarian;
 
@@ -49,7 +47,7 @@ const Recipes = () => {
         return true;
       })();
 
-      return searchMatch && mealTypeMatch && difficultyMatch && seasonMatch && veganMatch && vegetarianMatch && cookingTimeMatch;
+      return searchMatch && mealTypeMatch && difficultyMatch && veganMatch && vegetarianMatch && cookingTimeMatch;
     });
 
     if (cartItemNames.length === 0) {
@@ -71,13 +69,12 @@ const Recipes = () => {
     });
 
     return { suggestedRecipes: suggested, otherRecipes: others };
-  }, [searchTerm, cartItemNames, mealType, cookingTime, difficulty, season, isVegan, isVegetarian]);
+  }, [searchTerm, cartItemNames, mealType, cookingTime, difficulty, isVegan, isVegetarian]);
 
   const filterProps = {
     mealType, onMealTypeChange: setMealType,
     cookingTime, onCookingTimeChange: setCookingTime,
     difficulty, onDifficultyChange: setDifficulty,
-    season, onSeasonChange: setSeason,
     isVegan, onIsVeganChange: setIsVegan,
     isVegetarian, onIsVegetarianChange: setIsVegetarian,
   };

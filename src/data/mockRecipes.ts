@@ -9,7 +9,6 @@ export const mockRecipes: Recipe[] = [
     mealType: 'dessert',
     cookingTime: 90,
     difficulty: 'medium',
-    season: 'autumn',
     isVegan: false,
     isVegetarian: true,
     ingredients: [
@@ -37,7 +36,6 @@ export const mockRecipes: Recipe[] = [
     mealType: 'dinner',
     cookingTime: 75,
     difficulty: 'easy',
-    season: 'winter',
     isVegan: false,
     isVegetarian: false,
     ingredients: [
@@ -66,7 +64,6 @@ export const mockRecipes: Recipe[] = [
     mealType: 'breakfast',
     cookingTime: 15,
     difficulty: 'easy',
-    season: 'spring',
     isVegan: false,
     isVegetarian: true,
     ingredients: [
@@ -93,7 +90,6 @@ export const mockRecipes: Recipe[] = [
     mealType: 'dessert',
     cookingTime: 45,
     difficulty: 'medium',
-    season: 'summer',
     isVegan: false,
     isVegetarian: true,
     ingredients: [
@@ -121,7 +117,6 @@ export const mockRecipes: Recipe[] = [
     mealType: 'lunch',
     cookingTime: 25,
     difficulty: 'easy',
-    season: 'spring',
     isVegan: false,
     isVegetarian: false,
     ingredients: [
@@ -146,7 +141,6 @@ export const mockRecipes: Recipe[] = [
     mealType: 'breakfast',
     cookingTime: 5,
     difficulty: 'easy',
-    season: 'summer',
     isVegan: false,
     isVegetarian: true,
     ingredients: [
@@ -170,7 +164,6 @@ export const mockRecipes: Recipe[] = [
     mealType: 'snack',
     cookingTime: 5,
     difficulty: 'easy',
-    season: 'autumn',
     isVegan: true,
     isVegetarian: true,
     ingredients: [
@@ -193,7 +186,6 @@ export const mockRecipes: Recipe[] = [
     mealType: 'lunch',
     cookingTime: 10,
     difficulty: 'easy',
-    season: 'summer',
     isVegan: false,
     isVegetarian: false,
     ingredients: [
@@ -220,7 +212,6 @@ export const mockRecipes: Recipe[] = [
     mealType: 'snack',
     cookingTime: 10,
     difficulty: 'medium',
-    season: 'winter',
     isVegan: false,
     isVegetarian: false,
     ingredients: [

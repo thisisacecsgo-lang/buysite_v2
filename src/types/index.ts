@@ -83,7 +83,6 @@ export interface Recipe {
   mealType: 'breakfast' | 'lunch' | 'dinner' | 'dessert' | 'snack';
   cookingTime: number; // in minutes
   difficulty: 'easy' | 'medium' | 'hard';
-  season: 'spring' | 'summer' | 'autumn' | 'winter';
   isVegan: boolean;
   isVegetarian: boolean;
 }

@@ -15,8 +15,6 @@ interface RecipeFiltersProps {
   onCookingTimeChange: (value: string) => void;
   difficulty: string;
   onDifficultyChange: (value: string) => void;
-  season: string;
-  onSeasonChange: (value: string) => void;
   isVegan: boolean;
   onIsVeganChange: (checked: boolean) => void;
   isVegetarian: boolean;
@@ -27,12 +25,11 @@ const RecipeFilters = ({
   mealType, onMealTypeChange,
   cookingTime, onCookingTimeChange,
   difficulty, onDifficultyChange,
-  season, onSeasonChange,
   isVegan, onIsVeganChange,
   isVegetarian, onIsVegetarianChange,
 }: RecipeFiltersProps) => {
   return (
-    <Accordion type="multiple" defaultValue={["mealType", "cookingTime", "difficulty", "season", "dietary"]} className="w-full">
+    <Accordion type="multiple" defaultValue={["mealType", "cookingTime", "difficulty", "dietary"]} className="w-full">
       <AccordionItem value="mealType">
         <AccordionTrigger className="text-lg font-semibold">Meal Type</AccordionTrigger>
         <AccordionContent>
@@ -69,20 +66,6 @@ const RecipeFilters = ({
               <div key={level} className="flex items-center space-x-2">
                 <RadioGroupItem value={level} id={`d-${level}`} />
                 <Label htmlFor={`d-${level}`} className="font-normal capitalize">{level}</Label>
-              </div>
-            ))}
-          </RadioGroup>
-        </AccordionContent>
-      </AccordionItem>
-
-      <AccordionItem value="season">
-        <AccordionTrigger className="text-lg font-semibold">Season</AccordionTrigger>
-        <AccordionContent>
-          <RadioGroup value={season} onValueChange={onSeasonChange} className="space-y-2">
-            {['all', 'spring', 'summer', 'autumn', 'winter'].map(s => (
-              <div key={s} className="flex items-center space-x-2">
-                <RadioGroupItem value={s} id={`s-${s}`} />
-                <Label htmlFor={`s-${s}`} className="font-normal capitalize">{s}</Label>
               </div>
             ))}
           </RadioGroup>
