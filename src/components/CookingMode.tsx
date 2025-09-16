@@ -53,8 +53,12 @@ const CookingMode = ({ isOpen, onClose, recipe }: CookingModeProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl h-[90vh] flex flex-col p-0">
-        <DialogHeader className="p-6 pb-2">
-          <DialogTitle className="text-2xl">Cooking Mode: {recipe.name}</DialogTitle>
+        <DialogHeader className="p-6 pb-2 flex-row items-center gap-4 space-y-0">
+          <img src={recipe.imageUrl} alt={recipe.name} className="h-16 w-16 rounded-md object-cover hidden sm:block" />
+          <div>
+            <DialogTitle className="text-2xl">Cooking Mode</DialogTitle>
+            <p className="text-muted-foreground">{recipe.name}</p>
+          </div>
         </DialogHeader>
         <div className="px-6">
           <Progress value={progressValue} className="w-full" />
