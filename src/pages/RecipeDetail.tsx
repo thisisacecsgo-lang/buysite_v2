@@ -177,8 +177,8 @@ const RecipeDetail = () => {
                     <CardHeader>
                       <CardTitle>Ingredients</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-2">
-                      <div className="divide-y">
+                    <CardContent className="p-0">
+                      <ul className="px-6">
                         {ingredientsWithStatus.map(({ ingredient, availableProduct, cartItem, isOwned }) => (
                           <RecipeIngredientItem
                             key={ingredient.name}
@@ -189,18 +189,20 @@ const RecipeDetail = () => {
                             onToggleOwned={toggleOwnedIngredient}
                           />
                         ))}
+                      </ul>
+                      <div className="p-6 pt-4">
+                        {missingIngredientsCount > 0 ? (
+                          <Button className="w-full" onClick={handleAddAllMissing}>
+                            <ShoppingCart className="mr-2 h-4 w-4" />
+                            Buy missing ({missingIngredientsCount})
+                          </Button>
+                        ) : (
+                          <Button className="w-full" disabled>
+                            <Check className="mr-2 h-4 w-4" />
+                            All ingredients in cart
+                          </Button>
+                        )}
                       </div>
-                      {missingIngredientsCount > 0 ? (
-                        <Button className="w-full mt-4" onClick={handleAddAllMissing}>
-                          <ShoppingCart className="mr-2 h-4 w-4" />
-                          Buy missing ({missingIngredientsCount})
-                        </Button>
-                      ) : (
-                        <Button className="w-full mt-4" disabled>
-                          <Check className="mr-2 h-4 w-4" />
-                          All ingredients in cart
-                        </Button>
-                      )}
                     </CardContent>
                   </Card>
                 </div>
