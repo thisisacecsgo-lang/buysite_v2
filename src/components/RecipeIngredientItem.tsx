@@ -61,17 +61,22 @@ const RecipeIngredientItem = ({ ingredient, availableProduct, cartItem, isOwned,
   const { icon, badge, action } = getStatus();
 
   return (
-    <li className="flex items-center justify-between py-4 border-b last:border-b-0 tap-highlight-transparent">
-      <div className="flex items-center gap-3 flex-1 min-w-0 pr-2">
-        {icon}
-        <div className="flex-1 min-w-0">
-          <p className="font-medium truncate lg:whitespace-normal lg:overflow-visible">{ingredient.name}</p>
-          <p className="text-sm text-muted-foreground truncate lg:whitespace-normal lg:overflow-visible">{ingredient.quantity}</p>
+    <li className="py-4 border-b last:border-b-0 tap-highlight-transparent">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        {/* Ingredient Info */}
+        <div className="flex items-center gap-3 flex-1 min-w-0">
+          {icon}
+          <div className="flex-1 min-w-0">
+            <p className="font-medium">{ingredient.name}</p>
+            <p className="text-sm text-muted-foreground">{ingredient.quantity}</p>
+          </div>
         </div>
-      </div>
-      <div className="flex items-center gap-2 flex-shrink-0">
-        {badge}
-        <div className="w-32 text-right">{action}</div>
+
+        {/* Status & Action */}
+        <div className="flex items-center justify-end gap-2 self-end sm:self-center flex-shrink-0 pt-2 sm:pt-0">
+          {badge}
+          <div className="w-32 text-right">{action}</div>
+        </div>
       </div>
     </li>
   );
