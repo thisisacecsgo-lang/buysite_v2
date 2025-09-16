@@ -62,16 +62,16 @@ const RecipeIngredientItem = ({ ingredient, availableProduct, cartItem, isOwned,
 
   return (
     <li className="flex items-center justify-between py-4 border-b last:border-b-0 tap-highlight-transparent">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 flex-1 min-w-0 pr-2">
         {icon}
-        <div>
-          <p className="font-medium">{ingredient.name}</p>
-          <p className="text-sm text-muted-foreground">{ingredient.quantity}</p>
+        <div className="flex-1 min-w-0">
+          <p className="font-medium truncate">{ingredient.name}</p>
+          <p className="text-sm text-muted-foreground truncate">{ingredient.quantity}</p>
         </div>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 flex-shrink-0">
         {badge}
-        <div className="w-24 text-right">{action}</div>
+        <div className="w-32 text-right">{action}</div>
       </div>
     </li>
   );
