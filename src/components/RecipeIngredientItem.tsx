@@ -65,8 +65,8 @@ const RecipeIngredientItem = ({ ingredient, availableProduct, cartItem, isOwned,
       <div className="flex items-center gap-3 flex-1 min-w-0 pr-2">
         {icon}
         <div className="flex-1 min-w-0">
-          <p className="font-medium truncate">{ingredient.name}</p>
-          <p className="text-sm text-muted-foreground truncate">{ingredient.quantity}</p>
+          <p className="font-medium truncate lg:whitespace-normal lg:overflow-visible">{ingredient.name}</p>
+          <p className="text-sm text-muted-foreground truncate lg:whitespace-normal lg:overflow-visible">{ingredient.quantity}</p>
         </div>
       </div>
       <div className="flex items-center gap-2 flex-shrink-0">
