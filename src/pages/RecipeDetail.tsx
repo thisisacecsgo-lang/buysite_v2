@@ -9,9 +9,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import BackButton from "@/components/BackButton";
 import RecipeIngredientItem from "@/components/RecipeIngredientItem";
-import { ShoppingCart, Check, ChefHat, Clock, BarChart3, Utensils } from "lucide-react";
+import { ShoppingCart, Check, ChefHat, Clock, BarChart3, Utensils, Vegan, Leaf } from "lucide-react";
 import { toast } from "sonner";
 import CookingMode from "@/components/CookingMode";
+import { Badge } from "@/components/ui/badge";
 
 const RecipeDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -141,6 +142,22 @@ const RecipeDetail = () => {
                         <span className="font-medium">Meal Type:</span>
                         <span className="text-muted-foreground capitalize">{recipe.mealType}</span>
                       </div>
+                      {(recipe.isVegan || recipe.isVegetarian) && (
+                        <div className="flex items-center gap-2 pt-2">
+                          {recipe.isVegan && (
+                            <Badge variant="outline">
+                              <Vegan className="mr-2 h-4 w-4" />
+                              Vegan
+                            </Badge>
+                          )}
+                          {recipe.isVegetarian && !recipe.isVegan && (
+                            <Badge variant="outline">
+                              <Leaf className="mr-2 h-4 w-4" />
+                              Vegetarian
+                            </Badge>
+                          )}
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
 
