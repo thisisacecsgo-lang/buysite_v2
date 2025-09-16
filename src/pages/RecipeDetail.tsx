@@ -12,6 +12,7 @@ import RecipeIngredientItem from "@/components/RecipeIngredientItem";
 import { ShoppingCart, Check, ChefHat } from "lucide-react";
 import { toast } from "sonner";
 import CookingMode from "@/components/CookingMode";
+import { Separator } from "@/components/ui/separator";
 
 const RecipeDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -76,28 +77,34 @@ const RecipeDetail = () => {
         <main className="flex-grow container mx-auto p-4 md:p-8">
           <BackButton />
           <div className="max-w-4xl mx-auto">
-            <div className="mb-8">
-              <img src={recipe.imageUrl} alt={recipe.name} className="w-full h-64 object-cover rounded-xl" />
-              <h1 className="text-4xl font-bold mt-6">{recipe.name}</h1>
+            <div className="mb-6">
+              <img src={recipe.imageUrl} alt={recipe.name} className="w-full h-64 object-cover rounded-xl mb-6" />
+              <h1 className="text-4xl font-bold">{recipe.name}</h1>
               <p className="text-lg text-muted-foreground mt-2">{recipe.description}</p>
             </div>
+
+            <Button size="lg" className="w-full md:w-auto mb-8" onClick={() => setIsCookingModeOpen(true)}>
+              <ChefHat className="mr-2 h-5 w-5" />
+              Start Cooking
+            </Button>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between">
+                  <CardHeader>
                     <CardTitle>Instructions</CardTitle>
-                    <Button variant="outline" onClick={() => setIsCookingModeOpen(true)}>
-                      <ChefHat className="mr-2 h-4 w-4" />
-                      Start Cooking
-                    </Button>
                   </CardHeader>
-                  <CardContent>
-                    <ol className="list-decimal list-inside space-y-4">
+                  <CardContent className="p-0">
+                    <div className="divide-y">
                       {recipe.instructions.map((step, index) => (
-                        <li key={index} className="pl-2">{step}</li>
+                        <div key={index} className="flex items-start gap-4 p-4">
+                          <div className="flex-shrink-0 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg mt-1">
+                            {index + 1}
+                          </div>
+                          <p className="text-muted-foreground leading-relaxed">{step}</p>
+                        </div>
                       ))}
-                    </ol>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
