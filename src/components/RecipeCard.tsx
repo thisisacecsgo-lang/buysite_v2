@@ -1,7 +1,7 @@
 import type { Recipe } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Utensils } from "lucide-react";
+import { Utensils, Clock, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface RecipeCardProps {
@@ -29,9 +29,19 @@ const RecipeCard = ({ recipe, className }: RecipeCardProps) => {
           <p className="text-sm text-muted-foreground mt-2 line-clamp-2 flex-grow">
             {recipe.description}
           </p>
-          <div className="flex items-center gap-2 text-xs text-muted-foreground mt-3 pt-3 border-t">
-            <Utensils className="h-3 w-3" />
-            <span>{recipe.ingredients.length} Ingredients</span>
+          <div className="flex items-center gap-4 text-xs text-muted-foreground mt-3 pt-3 border-t">
+            <div className="flex items-center gap-1.5" title="Ingredients">
+              <Utensils className="h-3 w-3" />
+              <span>{recipe.ingredients.length}</span>
+            </div>
+            <div className="flex items-center gap-1.5" title="Cooking time">
+              <Clock className="h-3 w-3" />
+              <span>{recipe.cookingTime} min</span>
+            </div>
+            <div className="flex items-center gap-1.5 capitalize" title="Difficulty">
+              <BarChart3 className="h-3 w-3" />
+              <span>{recipe.difficulty}</span>
+            </div>
           </div>
         </CardContent>
       </Card>

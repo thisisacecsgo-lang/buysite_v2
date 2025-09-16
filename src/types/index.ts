@@ -80,4 +80,10 @@ export interface Recipe {
   imageUrl: string;
   ingredients: Ingredient[];
   instructions: string[];
+  mealType: 'breakfast' | 'lunch' | 'dinner' | 'dessert' | 'snack';
+  cookingTime: number; // in minutes
+  difficulty: 'easy' | 'medium' | 'hard';
+  season: 'spring' | 'summer' | 'autumn' | 'winter';
+  isVegan: boolean;
+  isVegetarian: boolean;
 }

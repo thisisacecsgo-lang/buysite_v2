@@ -18,6 +18,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { mockProducts, mockSellers } from "@/data/mockData";
+import { mockRecipes } from "@/data/mockRecipes";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AppBreadcrumb } from "@/components/AppBreadcrumb";
@@ -25,6 +26,7 @@ import BackButton from "@/components/BackButton";
 import { Footer } from "@/components/Footer";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import ProductCard from "@/components/ProductCard";
+import RecipeCard from "@/components/RecipeCard";
 import CategoryIcon from "@/components/CategoryIcon";
 import { formatPrice, formatShippingTime } from "@/lib/utils";
 import StarRating from "@/components/StarRating";
@@ -65,6 +67,16 @@ const ProductDetail = () => {
         (p) => p.sellerId === product.sellerId && p.id !== product.id && p.status === 'available'
       )
     : [];
+  
+  const relatedRecipes = useMemo(() => {
+    if (!product) return [];
+    const productNameLower = product.name.toLowerCase();
+    // Find recipes where an ingredient name is included in the product name
+    // e.g., product "Apples" matches ingredient "Apples"
+    return mockRecipes.filter(recipe => 
+        recipe.ingredients.some(ing => productNameLower.includes(ing.name.toLowerCase()))
+    );
+  }, [product]);
 
   if (!product || !seller) {
     return (
@@ -263,6 +275,24 @@ const ProductDetail = () => {
             </Card>
           </div>
         </div>
+
+        {/* Related Recipes */}
+        {relatedRecipes.length > 0 && (
+          <section className="mt-16">
+            <h2 className="text-3xl font-bold mb-6">Recipes with {product.name}</h2>
+            <Carousel opts={{ align: "start" }} className="w-full">
+              <CarouselContent className="-ml-4">
+                {relatedRecipes.map((recipe) => (
+                  <CarouselItem key={recipe.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 flex">
+                    <RecipeCard recipe={recipe} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="ml-16" />
+              <CarouselNext className="mr-16" />
+            </Carousel>
+          </section>
+        )}
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
