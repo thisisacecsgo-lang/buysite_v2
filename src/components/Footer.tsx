@@ -14,6 +14,9 @@ export const Footer = () => {
                   className="h-20 w-27"
               />
             </Link>
+            <p className="text-muted-foreground text-sm mt-2">
+              Regional Produce Delivered to You
+            </p>
           </div>
           <div>
             <h3 className="font-semibold mb-4">Shop</h3>
