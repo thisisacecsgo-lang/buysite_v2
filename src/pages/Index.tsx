@@ -182,7 +182,7 @@ const Index = () => {
             Find Fresh Local Goods
           </h2>
           <p className="text-muted-foreground text-center mb-6">
-            Discover surplus food from local gardens and farms near you.
+            Regional Produce Delivered to You
           </p>
           <CategoryCarousel selectedCategory={category} onSelectCategory={setCategory} />
         </section>
