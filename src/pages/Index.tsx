@@ -38,7 +38,18 @@ const Index = () => {
   const [deliverySpeed, setDeliverySpeed] = useState("any");
   const [showPreorder, setShowPreorder] = useState(false);
   const [sellerType, setSellerType] = useState("all");
-  const [cultivationMethod, setCultivationMethod] = useState("all");
+  const [cultivationMethods, setCultivationMethods] = useState({
+    bioCertified: false,
+    ecoFriendly: false,
+    preservedProduce: false,
+  });
+
+  const handleCultivationMethodsChange = (
+    method: keyof typeof cultivationMethods,
+    checked: boolean,
+  ) => {
+    setCultivationMethods((prev) => ({ ...prev, [method]: checked }));
+  };
 
   useEffect(() => {
     if (location.state?.category) {
@@ -98,7 +109,19 @@ const Index = () => {
       const seller = mockSellers.find(s => s.id === product.sellerId);
       const sellerTypeMatch = sellerType === 'all' || (seller && seller.sellerType === sellerType);
 
-      const cultivationMatch = cultivationMethod === "all" || product.cultivationMethod === cultivationMethod;
+      const activeCultivationFilters = Object.keys(cultivationMethods).filter(
+        (key) => cultivationMethods[key as keyof typeof cultivationMethods],
+      );
+
+      const cultivationMatch =
+        activeCultivationFilters.length === 0 ||
+        (product.cultivationMethod &&
+          activeCultivationFilters.some((filter) => {
+            if (filter === "bioCertified" && product.cultivationMethod === "BIO-certified") return true;
+            if (filter === "ecoFriendly" && product.cultivationMethod === "eco-friendly") return true;
+            if (filter === "preservedProduce" && product.cultivationMethod === "preserved produce") return true;
+            return false;
+          }));
 
       return (
         searchMatch &&
@@ -146,7 +169,7 @@ const Index = () => {
     deliverySpeed,
     showPreorder,
     sellerType,
-    cultivationMethod,
+    cultivationMethods,
   ]);
 
   const sidebarProps = {
@@ -169,8 +192,8 @@ const Index = () => {
     onShowPreorderChange: setShowPreorder,
     sellerType,
     onSellerTypeChange: setSellerType,
-    cultivationMethod,
-    onCultivationMethodChange: setCultivationMethod,
+    cultivationMethods,
+    onCultivationMethodsChange: handleCultivationMethodsChange,
   };
 
   return (

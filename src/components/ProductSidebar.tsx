@@ -22,8 +22,15 @@ interface ProductSidebarProps {
   onShowPreorderChange: (checked: boolean) => void;
   sellerType: string;
   onSellerTypeChange: (value: string) => void;
-  cultivationMethod: string;
-  onCultivationMethodChange: (value: string) => void;
+  cultivationMethods: {
+    bioCertified: boolean;
+    ecoFriendly: boolean;
+    preservedProduce: boolean;
+  };
+  onCultivationMethodsChange: (
+    method: "bioCertified" | "ecoFriendly" | "preservedProduce",
+    checked: boolean,
+  ) => void;
 }
 
 const ProductSidebar = ({

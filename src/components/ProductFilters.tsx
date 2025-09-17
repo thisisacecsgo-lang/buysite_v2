@@ -21,8 +21,15 @@ interface ProductFiltersProps {
   onShowPreorderChange: (checked: boolean) => void;
   sellerType: string;
   onSellerTypeChange: (value: string) => void;
-  cultivationMethod: string;
-  onCultivationMethodChange: (value: string) => void;
+  cultivationMethods: {
+    bioCertified: boolean;
+    ecoFriendly: boolean;
+    preservedProduce: boolean;
+  };
+  onCultivationMethodsChange: (
+    method: "bioCertified" | "ecoFriendly" | "preservedProduce",
+    checked: boolean,
+  ) => void;
 }
 
 const ProductFilters = ({
@@ -41,8 +48,8 @@ const ProductFilters = ({
   onShowPreorderChange,
   sellerType,
   onSellerTypeChange,
-  cultivationMethod,
-  onCultivationMethodChange,
+  cultivationMethods,
+  onCultivationMethodsChange,
 }: ProductFiltersProps) => {
   return (
     <Card>
@@ -87,24 +94,36 @@ const ProductFilters = ({
         <Separator />
         <div className="space-y-4">
           <Label>Cultivation Method</Label>
-          <RadioGroup value={cultivationMethod} onValueChange={onCultivationMethodChange}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="all" id="cm-all" />
-              <Label htmlFor="cm-all" className="font-normal">All</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="BIO-certified" id="cm-bio" />
-              <Label htmlFor="cm-bio" className="font-normal">BIO-certified</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="eco-friendly" id="cm-eco" />
-              <Label htmlFor="cm-eco" className="font-normal">Eco-friendly</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="preserved produce" id="cm-preserved" />
-              <Label htmlFor="cm-preserved" className="font-normal">Preserved Produce</Label>
-            </div>
-          </RadioGroup>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="bio-certified" className="font-normal">
+              BIO-certified
+            </Label>
+            <Switch
+              id="bio-certified"
+              checked={cultivationMethods.bioCertified}
+              onCheckedChange={(checked) => onCultivationMethodsChange('bioCertified', checked)}
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="eco-friendly" className="font-normal">
+              Eco-friendly
+            </Label>
+            <Switch
+              id="eco-friendly"
+              checked={cultivationMethods.ecoFriendly}
+              onCheckedChange={(checked) => onCultivationMethodsChange('ecoFriendly', checked)}
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="preserved-produce" className="font-normal">
+              Preserved Produce
+            </Label>
+            <Switch
+              id="preserved-produce"
+              checked={cultivationMethods.preservedProduce}
+              onCheckedChange={(checked) => onCultivationMethodsChange('preservedProduce', checked)}
+            />
+          </div>
         </div>
         <Separator />
         <div className="space-y-4">
