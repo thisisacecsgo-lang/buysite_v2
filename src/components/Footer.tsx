@@ -6,7 +6,7 @@ export const Footer = () => {
     <footer className="bg-secondary/50 mt-12">
       <div className="container mx-auto px-4 md:px-6 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-4">
+          <div>
             <Link to="/" className="flex items-center gap-2">
               <img
                   src="/images/logo2.png"
@@ -14,9 +14,6 @@ export const Footer = () => {
                   className="h-20 w-27"
               />
             </Link>
-            <p className="text-muted-foreground text-sm">
-              Connecting local growers with their communities to reduce food waste.
-            </p>
           </div>
           <div>
             <h3 className="font-semibold mb-4">Shop</h3>
