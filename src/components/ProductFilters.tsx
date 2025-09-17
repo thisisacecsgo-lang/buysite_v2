@@ -93,6 +93,32 @@ const ProductFilters = ({
         </div>
         <Separator />
         <div className="space-y-4">
+          <Label>Earliest shipping</Label>
+          <RadioGroup value={deliverySpeed} onValueChange={onDeliverySpeedChange}>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="any" id="ds-any" />
+              <Label htmlFor="ds-any" className="font-normal">Any</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="today" id="ds-today" />
+              <Label htmlFor="ds-today" className="font-normal">Today</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="tomorrow" id="ds-tomorrow" />
+              <Label htmlFor="ds-tomorrow" className="font-normal">Tomorrow</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="2-3" id="ds-2-3" />
+              <Label htmlFor="ds-2-3" className="font-normal">2–3 days</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="3+" id="ds-3+" />
+              <Label htmlFor="ds-3+" className="font-normal">More than 3 days</Label>
+            </div>
+          </RadioGroup>
+        </div>
+        <Separator />
+        <div className="space-y-4">
           <Label>Cultivation Method</Label>
           <div className="flex items-center justify-between">
             <Label htmlFor="bio-certified" className="font-normal">
@@ -124,32 +150,6 @@ const ProductFilters = ({
               onCheckedChange={(checked) => onCultivationMethodsChange('preservedProduce', checked)}
             />
           </div>
-        </div>
-        <Separator />
-        <div className="space-y-4">
-          <Label>Earliest shipping</Label>
-          <RadioGroup value={deliverySpeed} onValueChange={onDeliverySpeedChange}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="any" id="ds-any" />
-              <Label htmlFor="ds-any" className="font-normal">Any</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="today" id="ds-today" />
-              <Label htmlFor="ds-today" className="font-normal">Today</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="tomorrow" id="ds-tomorrow" />
-              <Label htmlFor="ds-tomorrow" className="font-normal">Tomorrow</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="2-3" id="ds-2-3" />
-              <Label htmlFor="ds-2-3" className="font-normal">2–3 days</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="3+" id="ds-3+" />
-              <Label htmlFor="ds-3+" className="font-normal">More than 3 days</Label>
-            </div>
-          </RadioGroup>
         </div>
         <Separator />
         <div className="space-y-4">
